@@ -8,8 +8,33 @@ import static spark.Spark.*;
 public class App {
 
     public static void main(String args[]){
+        options("/hello",
+                (request, response) -> {
 
-        get("/hello", (req, res) -> "Hello World");
+                    String accessControlRequestHeaders = request
+                            .headers("Access-Control-Request-Headers");
+                    if (accessControlRequestHeaders != null) {
+                        response.header("Access-Control-Allow-Headers",
+                                accessControlRequestHeaders);
+                    }
+
+                    String accessControlRequestMethod = request
+                            .headers("Access-Control-Request-Method");
+                    if (accessControlRequestMethod != null) {
+                        response.header("Access-Control-Allow-Methods",
+                                accessControlRequestMethod);
+                    }
+
+                    return "OK";
+                });
+
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+        post("/hello", (req, res) -> {
+
+            res.status(200);
+            res.type("text/plain");
+            return "Hello World";
+        });
 
     }
 }

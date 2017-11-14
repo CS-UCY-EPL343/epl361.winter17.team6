@@ -12,7 +12,7 @@ var messages = [], //array that hold the record of each string in chat
 
 $(document).ready(function () {
     $("#sendbtn").click(function () {
-        $.post("http://localhost:8080/Public/",
+        $.post("http://localhost:4567/hello",
             {
                 name: "Donald Duck",
                 city: "Duckburg"

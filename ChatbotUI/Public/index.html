@@ -2,65 +2,55 @@
 
 <head>
 
-	<link rel="stylesheet" type="text/css" href="./css/ChatbotInterface.css">
-  <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="./js/ChatbotUIcode.js"></script>
-  
-  <script>
-$(document).ready(function(){
-    $("#buttess").click(function(){
-        $("#essos").toggle(100); 
-        $("#essos").load("https://textfiles.com/food/","");
-        alert("You entered esso s!");
-        
-    });
-});
-  </script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="./css/ChatbotInterface.css">
+    <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./js/ChatbotUIcode.js"></script>
+
 </head>
 
 
-<body>       
+<body>
 
-<!--HEADER-->
-<div class="header">
-  <h1>FOODY CHATBOT</h1>
-</div>
+    <!--HEADER-->
+    <div class="header">
+        <h1>FOODY CHATBOT</h1>
+    </div>
 
-<!--Navigation pane-->
-<div class="navpane">
-  <a href="#">HOME</a>
-  <a href="https:\\www.google.com">GOOGLE</a>
-  <a href="#">REFRESH</a>
-</div>
+    <!--Navigation pane-->
+    <div class="navpane">
+        <a href="#">HOME</a>
+        <a href="https:\\www.google.com">GOOGLE</a>
+        <a href="#">REFRESH</a>
+    </div>
 
-<br>
-
-<div id='bodybox'>
-  <div id='chatborder'>
-    <p id="chatlog7" class="chatlog">&nbsp;</p>
-    <p id="chatlog6" class="chatlog">&nbsp;</p>
-    <p id="chatlog5" class="chatlog">&nbsp;</p>
-    <p id="chatlog4" class="chatlog">&nbsp;</p>
-    <p id="chatlog3" class="chatlog">&nbsp;</p>
-    <p id="chatlog2" class="chatlog">&nbsp;</p>
-    <p id="chatlog1" class="chatlog">&nbsp;</p>
-
-   	<div id="textmsg">
-    		<input type="text" name="chat" id="chatbox"
-    		placeholder="Hi there! Type here to talk to me."
-    		onfocus="placeHolder()">
-    		<button type="button" id="sendbtn" onclick=" newEntry()">SEND</button>
-		</div>
-    
     <br>
-    
-    <button id="buttess">click me you retarded shitstain</button>
-    <div id="essos"><h2>jQuery and AJAX is FUN!!!</h2></div>
-    
 
-	<button type="button" id="historybtn" onclick=" newEntry()">HISTORY</button>
-  </div>
-</div>
+    <div id='bodybox'>
+        <div id='chatborder'>
+            <p id="chatlog7" class="chatlog">&nbsp;</p>
+            <p id="chatlog6" class="chatlog">&nbsp;</p>
+            <p id="chatlog5" class="chatlog">&nbsp;</p>
+            <p id="chatlog4" class="chatlog">&nbsp;</p>
+            <p id="chatlog3" class="chatlog">&nbsp;</p>
+            <p id="chatlog2" class="chatlog">&nbsp;</p>
+            <p id="chatlog1" class="chatlog">&nbsp;</p>
+
+            <div id="textmsg">
+                <input type="text" name="chat" id="chatbox"
+                       placeholder="Hi there! Type here to talk to me."
+                       onfocus="placeHolder()">
+                <button type="button" id="sendbtn" onclick=" newEntry()">SEND</button>
+            </div>
+
+            <br>
+
+            <button id="buttess">click me</button>
+            <div id="essos"><h2>jQuery and AJAX is FUN!!!</h2></div>
+
+            <button type="button" id="historybtn" onclick=" newEntry()">HISTORY</button>
+        </div>
+    </div>
 
 
 </body>
