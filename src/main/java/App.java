@@ -4,11 +4,15 @@
  * Server initiated at
  * http://localhost:4567
  * */
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import static spark.Spark.*;
 public class App {
 
     public static void main(String args[]){
-        options("/hello",
+        options("/*",
                 (request, response) -> {
 
                     String accessControlRequestHeaders = request
@@ -29,11 +33,15 @@ public class App {
                 });
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-        post("/hello", (req, res) -> {
 
+        post("/hello", (req, res) -> {
+            String reqBody = req.body();
+            StringTokenizer st = new StringTokenizer(reqBody, "&");
+            String firstParameter = st.nextToken();
+            System.out.println("plz kill me " + firstParameter);
             res.status(200);
             res.type("text/plain");
-            return "Hello World";
+            return "Hello World " + req.body() + " " + req.params("name")  + " " + req.attribute("name") + " " + req.queryParams("name") + " " + req.queryParamsValues("name")  ;
         });
 
     }
