@@ -5,8 +5,23 @@ import org.json.JSONObject;
  */
 public class Branch extends FoodyObject {
 
+
+    JSONObject restaurantJson;
+
     Branch(JSONObject json) {
         super(json);
+        restaurantJson = json.optJSONObject("restaurant");
     }
 
+    //getters
+    public JSONObject getRestaurantJson() {return restaurantJson; }
+    //** end getters
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(super.toString());
+        sb.append("-- restaurant : " + restaurantJson.optString("name") );
+        sb.append(" ---------------**");
+        return sb.toString();
+    }
 }
