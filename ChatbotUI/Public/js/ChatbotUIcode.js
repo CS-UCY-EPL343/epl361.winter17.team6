@@ -83,7 +83,7 @@ function keyPress(e) {
 $(document).ready(function () {
     $("#sendbtn").click(function () {
         console.log(lastUserMessage);
-        $.post("http://localhost:4567/hell",
+        $.post("http://localhost:4567/hello",
             lastUserMessage,
             function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
