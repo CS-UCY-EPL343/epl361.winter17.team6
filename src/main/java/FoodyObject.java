@@ -6,31 +6,34 @@ import org.json.JSONObject;
 public class FoodyObject implements JsonObject {
     private JSONObject jo;
 
-    int id;
-    private String name;
     private String slug;
+    private int id;
 
     public FoodyObject(JSONObject json) {
 
         this.jo = json;
+        this.id = jo.getInt("id");
+        this.slug = jo.getString("slug");
 
     }
 
-    public JSONObject getJson() {
-        return jo;
+    //getters
+    public String getSlug() { return slug; }
+    public int getId() { return id; }
+    public JSONObject getJson() { return jo; }
+    //** end getters
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("-- Foody Object -- \n");
+        sb.append("-- slug : " + slug + "\n");
+        sb.append("-- id   : " + id + "\n");
+        sb.append("------------------");
+        return sb.toString();
     }
 
-    String getName() {
-        return name;
+    public static void main(String args[]) {
+
     }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
 }
