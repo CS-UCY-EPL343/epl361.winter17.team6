@@ -10,21 +10,10 @@ var messages = [], //array that hold the record of each string in chat
     talking = true; //when false the speach function doesn't work
 
 
-$(document).ready(function () {
-    $("#sendbtn").click(function () {
-        console.log(lastUserMessage);
-        $.post("http://localhost:4567/hello",
-            lastUserMessage,
-            function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-            });
-    });
-});
-
 //edit this function to change what the chatbot says
-function chatbotResponse() {
+function chatbotResponse(data) {
     talking = true;
-    botMessage = "I'm confused"; //the default message
+    botMessage = data; //the default message
 }
 
 //this runs each time enter is pressed.
@@ -39,8 +28,11 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         messages.push(lastUserMessage);
         //Speech(lastUserMessage);  //says what the user typed outloud
+        
+        
         //sets the variable botMessage in response to lastUserMessage
-        chatbotResponse();
+        chatbotResponse(botMessage);
+        
         //add the chatbot's name and message to the array messages
         messages.push("<b>" + botName + ":</b> " + botMessage);
         // says the message using the text to speech function written below
@@ -69,6 +61,7 @@ function Speech(say) {
     }
 }
 
+// WHEN KEY IS PRESSED
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
 //if the key pressed is 'enter' runs the function newEntry()
@@ -84,6 +77,23 @@ function keyPress(e) {
         //document.getElementById("chatbox").value = lastUserMessage;
     }
 }
+
+
+// WHEN SEND BTN IS PRESSED
+$(document).ready(function () {
+    $("#sendbtn").click(function () {
+        console.log(lastUserMessage);
+        $.post("http://localhost:4567/hell",
+            lastUserMessage,
+            function (data, status) {
+                alert("Data: " + data + "\nStatus: " + status);
+                botMessage = data;
+                newEntry();
+            });
+    });
+});
+
+
 
 //clears the placeholder text ion the chatbox
 //this function is set to run when the users brings focus to the chatbox, by clicking on it
