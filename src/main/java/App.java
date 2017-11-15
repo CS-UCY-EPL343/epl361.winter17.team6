@@ -35,13 +35,10 @@ public class App {
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
         post("/hello", (req, res) -> {
-            String reqBody = req.body();
-            StringTokenizer st = new StringTokenizer(reqBody, "&");
-            String firstParameter = st.nextToken();
-            System.out.println("plz kill me " + firstParameter);
+            String userMessage = req.body();
             res.status(200);
             res.type("text/plain");
-            return "Hello World " + req.body() + " " + req.params("name")  + " " + req.attribute("name") + " " + req.queryParams("name") + " " + req.queryParamsValues("name")  ;
+            return "Hello World. The message from the user is: <" + userMessage + ">";
         });
 
     }
