@@ -1,41 +1,32 @@
 //links
 //http://eloquentjavascript.net/09_regexp.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-nlp = window.nlp_compromise;
-
+var nlp = window.nlp_compromise;
 var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
-    talking = true; //when false the speach function doesn't work
-
-
-//edit this function to change what the chatbot says
-function chatbotResponse(data) {
-    talking = true;
-    botMessage = data;
-}
+    talking = true, //when false the speach function doesn't work
+    response = "";
 
 //this runs each time enter is pressed.
 //It controls the overall input and output
-function newEntry() {
+function newEntry(data) {
+    alert("I GOT IN NEW ENTRY");
     //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
         //pulls the value from the chatbox ands sets it to lastUserMessage
         lastUserMessage = document.getElementById("chatbox").value;
+        console.log("The value that the user wrote is " + lastUserMessage + " and the data is " + data );
         //sets the chat box to be clear
-        document.getElementById("chatbox").value = "";
+        document.getElementById("chatbox").value = data;
         //adds the value of the chatbox to the array messages
         messages.push(lastUserMessage);
-        //Speech(lastUserMessage);  //says what the user typed outloud
-
-
-
+        //Speech(lastUserMessage);  //says what the user typed outlou
         //sets the variable botMessage in response to lastUserMessage
-        chatbotResponse(botMessage);
-        
+        botMessage = data;
         //add the chatbot's name and message to the array messages
-        messages.push("<b>" + botName + ":</b> " + botMessage);
+        messages.push("<b>" + botName + ": " + botMessage + "</b>");
         // says the message using the text to speech function written below
         Speech(botMessage);
         //outputs the last few array elements of messages to html
@@ -61,6 +52,30 @@ function Speech(say) {
         speechSynthesis.speak(utterance);
     }
 }
+// WHEN SEND BTN IS PRESSED
+$(document).ready(function () {
+    $("#sendbtn").click(function () {
+        console.log(lastUserMessage);
+        $.post("http://localhost:4567/hello",
+            lastUserMessage,
+            function (data, status) {
+
+                response = data;
+                newEntry(response);
+                //alert("Data: " + data + "\nStatus: " + status);
+                console.log(data);
+                console.log(messages.toString());
+            });
+
+    });
+});
+
+//clears the placeholder text ion the chatbox
+//this function is set to run when the users brings focus to the chatbox, by clicking on it
+function placeHolder() {
+    document.getElementById("chatbox").placeholder = "";
+}
+
 //
 // // WHEN KEY IS PRESSED
 // //runs the keypress() function when a key is pressed
@@ -78,27 +93,3 @@ function Speech(say) {
 //         //document.getElementById("chatbox").value = lastUserMessage;
 //     }
 // }
-
-
-// WHEN SEND BTN IS PRESSED
-$(document).ready(function () {
-    $("#sendbtn").click(function () {
-        console.log(lastUserMessage);
-        $.post("http://localhost:4567/hello",
-            lastUserMessage,
-            function (data, status) {
-                alert("Data: " + data + "\nStatus: " + status);
-                console.log(data);
-                botMessage = data;
-            });
-        newEntry();
-    });
-});
-
-
-
-//clears the placeholder text ion the chatbox
-//this function is set to run when the users brings focus to the chatbox, by clicking on it
-function placeHolder() {
-    document.getElementById("chatbox").placeholder = "";
-}
