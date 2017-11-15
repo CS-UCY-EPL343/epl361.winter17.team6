@@ -38,6 +38,7 @@ public class App {
             String userMessage = req.body();
             res.status(200);
             res.type("text/plain");
+
             return "Hello World. The message from the user is: <" + userMessage + ">";
         });
 
