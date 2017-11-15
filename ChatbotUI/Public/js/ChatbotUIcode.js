@@ -6,14 +6,14 @@ nlp = window.nlp_compromise;
 var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
-    botName = 'Chatbot', //name of the chatbot
+    botName = 'FoodyBot', //name of the chatbot
     talking = true; //when false the speach function doesn't work
 
 
 //edit this function to change what the chatbot says
 function chatbotResponse(data) {
     talking = true;
-    botMessage = data; //the default message
+    botMessage = data;
 }
 
 //this runs each time enter is pressed.
@@ -28,8 +28,9 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         messages.push(lastUserMessage);
         //Speech(lastUserMessage);  //says what the user typed outloud
-        
-        
+
+
+
         //sets the variable botMessage in response to lastUserMessage
         chatbotResponse(botMessage);
         
@@ -60,23 +61,23 @@ function Speech(say) {
         speechSynthesis.speak(utterance);
     }
 }
-
-// WHEN KEY IS PRESSED
-//runs the keypress() function when a key is pressed
-document.onkeypress = keyPress;
-//if the key pressed is 'enter' runs the function newEntry()
-function keyPress(e) {
-    var x = e || window.event;
-    var key = (x.keyCode || x.which);
-    if (key == 13 || key == 3) {
-        //runs this function when enter is pressed
-        newEntry();
-    }
-    if (key == 38) {
-        console.log('hi')
-        //document.getElementById("chatbox").value = lastUserMessage;
-    }
-}
+//
+// // WHEN KEY IS PRESSED
+// //runs the keypress() function when a key is pressed
+// document.onkeypress = keyPress;
+// //if the key pressed is 'enter' runs the function newEntry()
+// function keyPress(e) {
+//     var x = e || window.event;
+//     var key = (x.keyCode || x.which);
+//     if (key == 13 || key == 3) {
+//         //runs this function when enter is pressed
+//         newEntry();
+//     }
+//     if (key == 38) {
+//         console.log('hi')
+//         //document.getElementById("chatbox").value = lastUserMessage;
+//     }
+// }
 
 
 // WHEN SEND BTN IS PRESSED
@@ -87,9 +88,10 @@ $(document).ready(function () {
             lastUserMessage,
             function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
-                botMessage = lastUserMessage;
-                newEntry();
+                console.log(data);
+                botMessage = data;
             });
+        newEntry();
     });
 });
 
