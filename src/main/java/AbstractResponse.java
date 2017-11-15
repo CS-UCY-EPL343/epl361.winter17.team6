@@ -5,11 +5,18 @@ import java.*;
 
 abstract public class AbstractResponse {
 
+    private ServiceCaller sc;
     abstract public String getResponse();
 
-    abstract public void setServiceCaller (ServiceCaller sc);
+    public void setServiceCaller (ServiceCaller sc)
+    {
+        this.sc=  sc;
+    };
 
-    abstract public ServiceCaller getServiceCaller();
+    public ServiceCaller getServiceCaller()
+    {
+        return sc;
+    };
 
 
 }

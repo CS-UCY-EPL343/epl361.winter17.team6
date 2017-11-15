@@ -64,7 +64,7 @@ public class ServiceCaller {
 
         return null;
     }
-    public  List<FoodCategories> getBranchFoodCategories(){
+    public  List<FoodCategory> getBranchFoodCategories(){
         return null;
     }
 
