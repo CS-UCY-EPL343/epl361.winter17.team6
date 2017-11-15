@@ -39,7 +39,7 @@ public class App {
             res.status(200);
             res.type("text/plain");
 
-            return "Hello World. The message from the user is: <" + userMessage + ">";
+            return "Hello World. The message from the user is: " + userMessage;
         });
 
     }
