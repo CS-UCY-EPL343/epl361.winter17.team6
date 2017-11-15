@@ -1,57 +1,3 @@
-//links
-//http://eloquentjavascript.net/09_regexp.html
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-var nlp = window.nlp_compromise;
-var messages = [], //array that hold the record of each string in chat
-    lastUserMessage = "", //keeps track of the most recent input string from the user
-    botMessage = "", //var keeps track of what the chatbot is going to say
-    botName = 'FoodyBot', //name of the chatbot
-    talking = true, //when false the speach function doesn't work
-    response = "";
-
-//this runs each time enter is pressed.
-//It controls the overall input and output
-function newEntry(data) {
-    alert("I GOT IN NEW ENTRY");
-    //if the message from the user isn't empty then run
-    if (document.getElementById("chatbox").value != "") {
-        //pulls the value from the chatbox ands sets it to lastUserMessage
-        lastUserMessage = document.getElementById("chatbox").value;
-        console.log("The value that the user wrote is " + lastUserMessage + " and the data is " + data );
-        //sets the chat box to be clear
-        document.getElementById("chatbox").value = data;
-        //adds the value of the chatbox to the array messages
-        messages.push(lastUserMessage);
-        //Speech(lastUserMessage);  //says what the user typed outlou
-        //sets the variable botMessage in response to lastUserMessage
-        botMessage = data;
-        //add the chatbot's name and message to the array messages
-        messages.push("<b>" + botName + ": " + botMessage + "</b>");
-        // says the message using the text to speech function written below
-        Speech(botMessage);
-        //outputs the last few array elements of messages to html
-        for (var i = 1; i < 8; i++) {
-            if (messages[messages.length - i])
-                document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-        }
-    }
-}
-
-//text to Speech
-//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-function Speech(say) {
-    if ('speechSynthesis' in window && talking) {
-        var utterance = new SpeechSynthesisUtterance(say);
-        //msg.voice = voices[10]; // Note: some voices don't support altering params
-        //msg.voiceURI = 'native';
-        //utterance.volume = 1; // 0 to 1
-        //utterance.rate = 0.1; // 0.1 to 10
-        //utterance.pitch = 1; //0 to 2
-        //utterance.text = 'Hello World';
-        //utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
-    }
-}
 // WHEN SEND BTN IS PRESSED
 $(document).ready(function () {
     $("#sendbtn").click(function () {
@@ -59,37 +5,435 @@ $(document).ready(function () {
         $.post("http://localhost:4567/hello",
             lastUserMessage,
             function (data, status) {
-
-                response = data;
-                newEntry(response);
-                //alert("Data: " + data + "\nStatus: " + status);
+                alert("Data: " + data + "\nStatus: " + status);
                 console.log(data);
+                botMessage = data;
+                newEntry();
+
                 console.log(messages.toString());
             });
 
     });
 });
 
-//clears the placeholder text ion the chatbox
-//this function is set to run when the users brings focus to the chatbox, by clicking on it
-function placeHolder() {
-    document.getElementById("chatbox").placeholder = "";
+var sendForm = document.querySelector('#chatform'),
+    textInput = document.querySelector('.chatbox'),
+    chatList = document.querySelector('.chatlist'),
+    userBubble = document.querySelectorAll('.userInput'),
+    botBubble = document.querySelectorAll('.bot__output'),
+    animateBotBubble = document.querySelectorAll('.bot__input--animation'),
+    overview = document.querySelector('.chatbot__overview'),
+    hasCorrectInput,
+    imgLoader = false,
+    animationCounter = 1,
+    animationBubbleDelay = 600,
+    input,
+    previousInput,
+    isReaction = false,
+    unkwnCommReaction = "I didn't quite get that.";
+let possibleInputArray = [],
+    possibleInputArrayChar = [],
+    splitInput = [],
+    wordScore,
+    inputSuggestion,
+    outputIsSuggestion = false;
+//fixed that when you scroll to end it doesnt scroll window
+chatList.addEventListener('mouseover', function(){
+    document.body.style.overflow='hidden';
+})
+
+chatList.addEventListener('mouseout', function(){
+    document.body.style.overflow='auto';
+    document.body.style.overflowX='hidden';
+})
+
+sendForm.onkeydown = function(e){
+    if(e.keyCode == 13){
+        e.preventDefault();
+
+        //No mix ups with upper and lowercases
+        var input = textInput.value.toLowerCase();
+
+        //Empty textarea fix
+        if(input.length > 0) {
+            // ga('send', 'event', 'interact', 'Navvy');
+            createBubble(input)
+        }
+    }
+};
+
+sendForm.addEventListener('submit', function(e) {
+    //so form doesnt submit page (no page refresh)
+    e.preventDefault();
+
+    //No mix ups with upper and lowercases
+    var input = textInput.value.toLowerCase();
+
+    //Empty textarea fix
+    if(input.length > 1) {
+        createBubble(input)
+        // ga('send', 'event', 'interact', 'Navvy');
+    }
+}) //end of eventlistener
+
+var createBubble = function(input) {
+    //create input bubble
+    var chatBubble = document.createElement('li');
+    chatBubble.classList.add('userInput');
+
+    //adds input of textarea to chatbubble list item
+    chatBubble.innerHTML = input;
+    console.log('input = '+input);
+
+    //adds chatBubble to chatlist
+    chatList.appendChild(chatBubble)
+
+    checkInput(input);
 }
 
-//
-// // WHEN KEY IS PRESSED
-// //runs the keypress() function when a key is pressed
-// document.onkeypress = keyPress;
-// //if the key pressed is 'enter' runs the function newEntry()
-// function keyPress(e) {
-//     var x = e || window.event;
-//     var key = (x.keyCode || x.which);
-//     if (key == 13 || key == 3) {
-//         //runs this function when enter is pressed
-//         newEntry();
-//     }
-//     if (key == 38) {
-//         console.log('hi')
-//         //document.getElementById("chatbox").value = lastUserMessage;
-//     }
-// }
+var checkInput = function(input) {
+    hasCorrectInput = false;
+    isReaction = false;
+    console.log('outputIsSuggestion: '+outputIsSuggestion)
+    //Checks all text values in possibleInput
+    for(var textVal in possibleInput){
+
+        // if(input.includes(textVal) == true){
+        //   console.log("include succes");
+        // }
+
+        //If user reacts with "yes" and the previous input was in textVal
+        if(input == "yes" || input.indexOf("yes") >= 0){
+            if(previousInput == textVal) {
+                console.log("sausigheid");
+
+                isReaction = true;
+                hasCorrectInput = true;
+                botResponse(textVal);
+            }
+            if(outputIsSuggestion) {
+                isReaction = true;
+                hasCorrectInput = true;
+                outputIsSuggestion = true;
+                botResponse(inputSuggestion);
+            }
+        }
+        if(input == "no" && previousInput == textVal){
+            unkwnCommReaction = "For a list of commands type: Commands";
+            unknownCommand("I'm sorry to hear that :(")
+            unknownCommand(unkwnCommReaction);
+            hasCorrectInput = true;
+        }
+        //Is a word of the input also in possibleInput object?
+        if(input == textVal || input.indexOf(textVal) >= 0 && isReaction == false){
+            console.log("succes");
+            hasCorrectInput = true;
+            botResponse(textVal);
+        }
+    }
+    if(input == "no" /*&& inputSuggestion.length > 0 */ && outputIsSuggestion == true){
+        unkwnCommReaction = "For a list of commands type: Commands";
+        unknownCommand("I'm sorry to hear that :(")
+        unknownCommand(unkwnCommReaction);
+        hasCorrectInput = true;
+        outputIsSuggestion = false;
+    }
+
+    //When input is not in possibleInput
+    if(hasCorrectInput == false){
+        console.log('no correct input')
+        checkSpellingError(input);
+    }
+}
+
+function checkSpellingError(input) {
+    inputSuggestion = '';
+    for(var textVal in possibleInput){
+        possibleInputArray.push(textVal);
+    }
+    possibleInputArray.forEach(function(possibleInputString, i){
+        wordScore = levenshtein(input, possibleInputString)
+        if(wordScore < 3) {
+            inputSuggestion = possibleInputString;
+        }
+    })
+    //If there is a suggestion for input
+    if(inputSuggestion.length > 0) {
+        console.log(inputSuggestion)
+        animationCounter = 1;
+        hasCorrectInput = true;
+        responseText('Did you mean: ' + inputSuggestion + '?');
+        let lastElement = document.querySelectorAll('.bot__output');
+        lastElement[lastElement.length - 1].style = "display: block !important;";
+        animationCounter = 1;
+        animateBotOutput();
+        outputIsSuggestion = true;
+    } else {
+        outputIsSuggestion = false;
+        unknownCommand(unkwnCommReaction);
+    }
+    textInput.value = "";
+}
+// debugger;
+function levenshtein(a, b){
+    if(!a || !b) return (a || b).length;
+    var m = [];
+    for(var i = 0; i <= b.length; i++){
+        m[i] = [i];
+        if(i === 0) continue;
+        for(var j = 0; j <= a.length; j++){
+            m[0][j] = j;
+            if(j === 0) continue;
+            m[i][j] = b.charAt(i - 1) == a.charAt(j - 1) ? m[i - 1][j - 1] : Math.min(
+                m[i-1][j-1] + 1,
+                m[i][j-1] + 1,
+                m[i-1][j] + 1
+            );
+        }
+    }
+    return m[b.length][a.length];
+};
+
+function botResponse(textVal) {
+    //create response bubble
+    var userBubble = document.createElement('li');
+    userBubble.classList.add('bot__output');
+
+    console.log(isReaction);
+    console.log("previnp= "+previousInput);
+    console.log("texval= "+textVal);
+    if(isReaction){
+        if(outputIsSuggestion) {
+            if (typeof possibleInput[inputSuggestion] === "function") {
+                // console.log(possibleInput[textVal] +" is a function");
+                //adds input of textarea to chatbubble list item
+                userBubble.innerHTML = possibleInput[inputSuggestion]();
+                outputIsSuggestion = true;
+            } else {
+                userBubble.innerHTML = possibleInput[inputSuggestion];
+                outputIsSuggestion = true;
+            }
+        }
+        else if (typeof reactionInput[textVal] === "function" && !outputIsSuggestion) {
+            //adds input of textarea to chatbubble list item
+            userBubble.innerHTML = reactionInput[textVal]();
+        } else {
+            userBubble.innerHTML = reactionInput[textVal];
+        }
+    }
+    else
+    {
+        //Is the command a function?
+        if (typeof possibleInput[textVal] === "function") {
+            // console.log(possibleInput[textVal] +" is a function");
+            //adds input of textarea to chatbubble list item
+            userBubble.innerHTML = possibleInput[textVal]();
+        } else {
+            userBubble.innerHTML = possibleInput[textVal];
+        }
+    }
+    //add list item to chatlist
+    chatList.appendChild(userBubble) //adds chatBubble to chatlist
+
+    // reset text area input
+    textInput.value = "";
+}
+
+function unknownCommand(unkwnCommReaction) {
+    // animationCounter = 1;
+
+    //create response bubble
+    var failedResponse = document.createElement('li');
+
+    failedResponse.classList.add('bot__output');
+    failedResponse.classList.add('bot__output--failed');
+
+    //Add text to failedResponse
+    failedResponse.innerHTML = unkwnCommReaction; //adds input of textarea to chatbubble list item
+
+    //add list item to chatlist
+    chatList.appendChild(failedResponse) //adds chatBubble to chatlist
+
+    animateBotOutput();
+
+    // reset text area input
+    textInput.value = "";
+
+    //Sets chatlist scroll to bottom
+    chatList.scrollTop = chatList.scrollHeight;
+
+    animationCounter = 1;
+}
+
+function responseText(e) {
+
+    var response = document.createElement('li');
+
+    response.classList.add('bot__output');
+
+    //Adds whatever is given to responseText() to response bubble
+    response.innerHTML = e;
+
+    chatList.appendChild(response);
+
+    animateBotOutput();
+
+    //Sets chatlist scroll to bottom
+    setTimeout(function(){
+        chatList.scrollTop = chatList.scrollHeight;
+        //   // chatList.scrollTop = chatList.scrollTop + response.clientHeight;
+        //   // console.log(chatList.scrollTop = chatList.scrollTop + response.clientHeight);
+    }, 0)
+}
+
+function responseImg(e) {
+    var image = new Image();
+
+    image.classList.add('bot__output');
+    //Custom class for styling
+    image.classList.add('bot__outputImage');
+    //Gets the image
+    image.src = "/images/"+e;
+    chatList.appendChild(image);
+
+    animateBotOutput()
+    if(image.completed) {
+        console.log(image.scrollHeight);
+        // chatList.scrollTop = chatList.scrollHeight;
+        chatList.scrollTop = chatList.scrollTop + image.scrollHeight;
+    }
+    else {
+        image.addEventListener('load', function(){
+            console.log(image.scrollHeight);
+            chatList.scrollTop = chatList.scrollTop + image.scrollHeight;
+        })
+    }
+    //Load image so height gets checked after chatlist add
+
+}
+
+//change to SCSS loop
+function animateBotOutput() {
+    // chatList.scrollTop = chatList.scrollTop + response.scrollHeight;
+    chatList.lastElementChild.style.animationDelay= (animationCounter * animationBubbleDelay)+"ms";
+    animationCounter++;
+    chatList.lastElementChild.style.animationPlayState = "running";
+}
+
+function commandReset(e){
+    animationCounter = 1;
+    previousInput = Object.keys(possibleInput)[e];
+
+    console.log(previousInput);
+}
+
+var possibleInput = {
+    "help" : function(){
+        responseText("You can type a command in the chatbox")
+        responseText("Something like &quot;Navvy, please show me Mees&rsquo; best work&quot;")
+        responseText("Did you find a bug or problem? Tweet me @MeesRttn")
+        commandReset(0);
+        return
+    },
+    "best work" : function(){
+        responseText("I will show you Mees' best work!");
+        responseText("These are his <a target='_blank' href='https://meesrutten.me/#animation'>best animations</a>")
+        responseText("These are his <a target='_blank' href='https://meesrutten.me/#projects'>best projects</a>")
+        responseText("Would you like to see how I was built? (Yes/No)")
+
+        commandReset(1);
+        return
+    },
+    "about" : function(){
+        responseText("This is me, Navvy's maker, Mees Rutten");
+        responseImg("http://meesrutten.me/images/rsz_meesface.jpg");
+        responseText("I'm a 21 year old Communication and Multimedia Design student");
+        responseText("My ambition is to become a great Creative Front-End Developer");
+        responseText("Would you like to know about Mees' vision? (Yes/No)");
+        commandReset(2);
+        return
+    },
+    "experience" : function(){
+        responseText("Mees has previously worked at:");
+        responseText("Cobra Systems as web- developer / designer");
+        responseText("BIT Students as web- developer / designer");
+        responseText("MediaMonks as Junior Front-end Developer");
+        responseText("Would you like to see Mees' CV? (Yes/No)");
+        commandReset(3);
+        return
+    },
+    "hobbies" : function(){
+        responseText("Mees loves:");
+        responseText("Coding complicated chatbots");
+        responseText("Family time");
+        responseText("Going out with friends");
+        responseText("Working out");
+        commandReset(4);
+        return
+    },
+    "interests" : function(){
+        responseText("Mees loves:");
+        responseText("Coding complicated chatbots");
+        responseText("Family time");
+        responseText("Going out with friends");
+        responseText("Working out");
+        commandReset(5);
+        return
+    },
+    "curriculum vitea" : function(){
+        responseText("I will redirect you to Mees' CV");
+        setTimeout(function(){
+            window.location.href = "http://meesrutten.me/images/CV-MeesRutten-2017-februari.png"; }, 3000);
+        commandReset(6);
+        return
+    },
+    "vision" : function(){
+        responseText("Things I want to learn or do:");
+        responseText("Get great at CSS & JS animation");
+        responseText("Create 3D browser experiences");
+        responseText("Learn Three.js and WebGL");
+        responseText("Combine Motion Design with Front-End");
+        commandReset(7);
+        return
+    },
+    "contact" : function(){
+        responseText("email: <a href='mailto:meesrutten@gmail.com?Subject=Hello%20Mees' target='_top'>send me a message</a>");
+        responseText("Twitter: <a href='https://twitter.com/meesrttn'>@MeesRttn</a>");
+        commandReset(8);
+        return
+    },
+    "commands" : function(){
+        responseText("This is a list of commands Navvy knows:")
+        responseText("help, best work, about, vision, experience, curriculum vitea, hobbies / interests, contact, rick roll");
+        commandReset(9);
+        return
+    },
+    "rick roll" : function(){
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+}
+
+var reactionInput = {
+    "best work" : function(){
+        responseText("On this GitHub page you'll find everything about Navvy");
+        responseText("<a target='_blank' href='https://github.com/meesrutten/chatbot'>Navvy on GitHub</a>")
+        animationCounter = 1;
+        return
+    },
+    "about" : function(){
+        responseText("Things I want to learn or do:");
+        responseText("Get great at CSS & JS animation");
+        responseText("Create 3D browser experiences");
+        responseText("Learn Three.js and WebGL");
+        responseText("Combine Motion Design with Front-End");
+        animationCounter = 1;
+        return
+    },
+    "experience" : function(){
+        responseText("I will redirect you to Mees' CV");
+        setTimeout(function(){
+            window.location.href = "http://meesrutten.me/images/CV-MeesRutten-2017-februari.png"; }, 3000);
+        animationCounter = 1;
+        return
+    }
+}
