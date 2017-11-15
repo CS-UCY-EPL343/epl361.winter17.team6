@@ -12,7 +12,6 @@ var messages = [], //array that hold the record of each string in chat
 
 $(document).ready(function () {
     $("#sendbtn").click(function () {
-
         console.log(lastUserMessage);
         $.post("http://localhost:4567/hello",
             lastUserMessage,
