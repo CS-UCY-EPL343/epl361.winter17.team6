@@ -87,7 +87,7 @@ $(document).ready(function () {
             lastUserMessage,
             function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
-                lastUserMessage = data;
+                botMessage = lastUserMessage;
                 newEntry();
             });
     });
