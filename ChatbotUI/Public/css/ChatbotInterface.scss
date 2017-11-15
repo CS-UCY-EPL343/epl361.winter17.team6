@@ -47,6 +47,9 @@ table {
   border-spacing: 0;
 }
 
+///////////////
+// END OF RESET
+///////////////
 $main-color-1: #2ecc71;
 $main-color-2: #27ae60;
 $second-color-1: #CC8914;
@@ -81,17 +84,17 @@ body {
   flex-flow: row nowrap;
   align-content: space-between;
 
-// max-width: 35em;
+  // max-width: 35em;
   min-height: 80vh;
   max-height: 80vh;
   margin: 0 auto;
 
-// background-color: #444;
-// border: 1px solid #fff;
+  // background-color: #444;
+  // border: 1px solid #fff;
   padding: 1em;
   padding-bottom: 0;
 
-// overflow-y: scroll;
+  // overflow-y: scroll;
 }
 
 .chatbot__overview--container {
@@ -112,82 +115,82 @@ body {
   max-height: 75vh;
   margin: 0 auto;
 
-.userInput, .bot__output {
-  padding: 0.85em;
-  margin: 0.5em;
-  max-width: 100%;
+  .userInput, .bot__output {
+    padding: 0.85em;
+    margin: 0.5em;
+    max-width: 100%;
 
-  background-color: #fff;
-  border-radius: 5px;
-  border-bottom: 1px solid #777;
+    background-color: #fff;
+    border-radius: 5px;
+    border-bottom: 1px solid #777;
 
-// transition: all 300ms ease-in;
-}
-.userInput {
-  text-transform: lowercase;
-  box-shadow: 1px 1px 2px #666;
-  border-top: 4px solid $second-color-1;
+    // transition: all 300ms ease-in;
+  }
+  .userInput {
+    text-transform: lowercase;
+    box-shadow: 1px 1px 2px #666;
+    border-top: 4px solid $second-color-1;
 
-  opacity: 0;
+    opacity: 0;
 
-  animation-name: animateBubble;
-  animation-duration: 400ms;
-  animation-iteration-count: 1;
-  animation-play-state: running;
-  animation-fill-mode: forwards;
-}
-.bot__output {
-  align-self: flex-start;
-  box-shadow: -1px 1px 2px #666;
-  border-top: 4px solid $main-color-2;
-// transform-origin: left 50%;
-  will-change: auto;
-  height: auto;
+    animation-name: animateBubble;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-fill-mode: forwards;
+  }
+  .bot__output {
+    align-self: flex-start;
+    box-shadow: -1px 1px 2px #666;
+    border-top: 4px solid $main-color-2;
+    // transform-origin: left 50%;
+    will-change: auto;
+    height: auto;
 
-  opacity: 0;
+    opacity: 0;
 
-  animation-name: animateBubble;
-  animation-duration: 400ms;
-  animation-iteration-count: 1;
-  animation-play-state: paused;
-  animation-fill-mode: forwards;
-&:last-child {
-   display: none;
- }
-}
-.bot__command {
-// border-bottom: 2px solid $main-color-1;
-  color: #f5f5f5;
-// background-color: $main-color-1;
-  color: $main-color-2;
-  font-weight: 600;
-  padding: 0.1em;
-}
-.bot__output:nth-child(1){
-  animation-delay: $bot-output-delay;
-  animation-play-state: running;
-}
-.bot__output:nth-child(2){
-  animation-delay: ($bot-output-delay * 2);
-  animation-play-state: running;
-}
-.bot__output:nth-child(3){
-  animation-delay: ($bot-output-delay * 3);
-  animation-play-state: running;
-}
-.bot__output--standard:last-child{
-  display: block;
-}
-.bot__output--failed {
-  display: block !important;
-}
-.bot__output--second-sentence {
-  display: block;
-}
-.bot__outputImage {
-  max-width: 16em;
-  height: 12em;
-}
+    animation-name: animateBubble;
+    animation-duration: 400ms;
+    animation-iteration-count: 1;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+    &:last-child {
+      display: none;
+    }
+  }
+  .bot__command {
+    // border-bottom: 2px solid $main-color-1;
+    color: #f5f5f5;
+    // background-color: $main-color-1;
+    color: $main-color-2;
+    font-weight: 600;
+    padding: 0.1em;
+  }
+  .bot__output:nth-child(1){
+    animation-delay: $bot-output-delay;
+    animation-play-state: running;
+  }
+  .bot__output:nth-child(2){
+    animation-delay: ($bot-output-delay * 2);
+    animation-play-state: running;
+  }
+  .bot__output:nth-child(3){
+    animation-delay: ($bot-output-delay * 3);
+    animation-play-state: running;
+  }
+  .bot__output--standard:last-child{
+    display: block;
+  }
+  .bot__output--failed {
+    display: block !important;
+  }
+  .bot__output--second-sentence {
+    display: block;
+  }
+  .bot__outputImage {
+    max-width: 16em;
+    height: 12em;
+  }
 }
 
 @keyframes animateBubble {
@@ -205,7 +208,7 @@ body {
 
 
 .block--background {
-// background-color: $main-color-2;
+  // background-color: $main-color-2;
   background-color: $background-color;
   width: 100vw;
   height: 100vh;
@@ -214,8 +217,8 @@ body {
 #chatform {
   display: flex;
   justify-content: center;
-// display: inline-block;
-// height: 100%;
+  // display: inline-block;
+  // height: 100%;
   width: 80%;
   max-width: 35em;
   margin: 0 auto;
@@ -223,9 +226,9 @@ body {
 
   font-size: 1em;
   font-family: Helvetica;
-@media screen and(max-width: 29em) {
-  width: 90%;
-}
+  @media screen and(max-width: 29em) {
+    width: 90%;
+  }
 }
 
 .chatbox-area {
@@ -240,22 +243,22 @@ textarea[name="chatbox"] {
   resize: none;
   border: 2px solid $main-color-2;
   border-right: 0;
-// border-bottom: 0;
+  // border-bottom: 0;
   width: 70%;
   background-color: transparent;
   color: #fff;
-// max-width: 30em;
+  // max-width: 30em;
   height: 3em;
   margin: 0;
   padding: 0.75em;
-// float: left;
+  // float: left;
   border-radius: 8px 0px 0px 8px;
   font-family: inherit;
   font-size: 1em;
-&:focus {
-   outline: none;
-   border: 2px solid lighten($main-color-2, 15%);
- }
+  &:focus {
+    outline: none;
+    border: 2px solid lighten($main-color-2, 15%);
+  }
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   color: #fff;
@@ -287,11 +290,11 @@ input[type="submit"] {
   font-size: 1em;
 
   transition: 200ms all ease-in;
-&:hover {
-   background-color: lighten($main-color-2, 15%);
-   border-color: lighten($main-color-2, 15%);
-   color: #fff;
- }
+  &:hover {
+    background-color: lighten($main-color-2, 15%);
+    border-color: lighten($main-color-2, 15%);
+    color: #fff;
+  }
 
 }
 
@@ -299,9 +302,9 @@ input[type="submit"] {
   list-style: disc;
   list-style-position: inside;
   padding: 0.5em;
-&:first-child {
-   padding-top: 1em;
- }
+  &:first-child {
+    padding-top: 1em;
+  }
 }
 
 .input__nested-link {
