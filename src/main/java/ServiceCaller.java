@@ -1,7 +1,13 @@
 
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public class ServiceCaller {
@@ -20,9 +26,9 @@ public class ServiceCaller {
     List<Integer> selectedFoodsIds;
     List<Integer> selectedIngredientsId;
 
+    List<Restaurant> matchedRestaurants;
     List<Category> selectedCategories;
     District userDistrict;
-
 
     public String getPostCode(){
         return postCode;
@@ -31,7 +37,7 @@ public class ServiceCaller {
     public List<String> getCategoriesAsString(){
         ArrayList<String> categNames = new ArrayList<>();
         for(Category c : selectedCategories ) {
-            categNames.add(c.getName());
+            categNames.add(c.getSlug());
         }
         return categNames;
     }
@@ -51,13 +57,13 @@ public class ServiceCaller {
 
     public  String getDistrictAsString(){
 
-        return userDistrict.getName() ;
+        return userDistrict.getSlug() ;
 
     }
 
     public  int getDistrictId() {
 
-        return userDistrict.id;
+        return userDistrict.getId();
 
     }
 
@@ -73,9 +79,56 @@ public class ServiceCaller {
 
     //TODO implement logic
     public  List<Restaurant> getMatchingRestaurants() {
+        StringBuilder jsonString = new StringBuilder("");
+        ArrayList<Branch> matchingBranches = new ArrayList<>();
+        List<Integer> restaurantIds = new ArrayList<>();
+        List<Restaurant> matchedRestaurants = new ArrayList<>();
 
-        return null;
+        // The name of the file to open.
+        String fileName = "sample-dataset/restaurants_by_category/burgers.json";
+        // This will reference one line at a time
+        String line = null;
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while((line = bufferedReader.readLine()) != null) {
+                jsonString.append(line);
+            }
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.err.println("Unable to open file '" + fileName + "'");
+            ex.printStackTrace();
+        }
+        catch(IOException ex) {
+             ex.printStackTrace();
+        }
 
+        //The json Array has json represantation of branches
+        JSONArray jsonArray = new JSONArray(jsonString.toString());
+
+       // System.out.println("The json array is \n" + jsonArray.toString(4));
+
+        //create Branch for each json object in jsonArray
+        System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
+        for(int i = 0; i < jsonArray.length(); i++) {
+            Branch curBranch = new Branch(jsonArray.optJSONObject(i));
+            matchingBranches.add(curBranch);
+            System.out.println("The first Branch object is \n" + curBranch);
+            Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
+
+            int restaurantId = restaurant.getId();
+            boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
+            System.out.println(restaurant);
+            if(!isRestaurantAlreadyInList) {
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaa");
+                matchedRestaurants.add(restaurant);
+                restaurantIds.add(restaurantId);
+            }
+        }
+
+        this.matchedRestaurants = matchedRestaurants;
+        return matchedRestaurants;
     }
 
     //TODO implement logic
@@ -115,4 +168,14 @@ public class ServiceCaller {
         return 0;
     }
 
+    public static void main(String args[]) throws FileNotFoundException {
+        PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
+        System.setOut(out);
+        ServiceCaller sc = new ServiceCaller();
+        List<Restaurant> restaurantList = sc.getMatchingRestaurants();
+        System.out.println("Restaurants found:");
+        for(Restaurant r : restaurantList) {
+            System.out.println(r);
+        }
+    }
 }
