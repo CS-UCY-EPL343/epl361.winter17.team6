@@ -104,8 +104,8 @@ body {
   display: flex;
   flex-flow: row nowrap;
   align-content: space-between;
-  min-height: 80vh;
-  max-height: 80vh;
+  min-height: 50vh;
+  max-height: 70vh;
   margin: 0 auto;
   padding: 1em;
   padding-bottom: 0; }
@@ -185,8 +185,8 @@ body {
     opacity: 1; } }
 .block--background {
   background-color: #363636;
-  width: 100vw;
-  height: 100vh; }
+  width: 50vw;
+  height: 80vh; }
 
 #chatform {
   display: flex;
