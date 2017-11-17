@@ -1,3 +1,9 @@
+/* https://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
 .header{
   background-color: #363636;
   text-align: center;
@@ -37,11 +43,7 @@
 
 
 
-/* https://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -186,14 +188,15 @@ body {
     opacity: 1; } }
 
 #chatform {
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  max-width: 35em;
-  margin: 0 auto;
-  padding-top: 1em;
-  font-size: 1em;
-  font-family: Helvetica; }
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	max-width: 56em;
+	margin: 0 auto;
+	padding-top: 1em;
+	font-size: 1em;
+	font-family: Helvetica;
+}
   @media screen and (max-width: 29em) {
     #chatform {
       width: 90%; } }
@@ -203,8 +206,9 @@ body {
   margin: 0 auto;
   position: relative;
   bottom: 0;
-  height: auto;
+  height: 50vh;
   width: 100%; }
+}
 
 textarea[name="chatbox"] {
   resize: none;
@@ -240,7 +244,6 @@ textarea[name="chatbox"] {
 input[type="submit"] {
   -webkit-appearance: none;
   appearance: none;
-  border: 0;
   width: 25%;
   margin: 0;
   background-color: #27ae60;
