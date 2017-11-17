@@ -51,7 +51,7 @@ public class ResponseGenerator {
 
     public String getResponce (List<String> keyWords,int expectedMsgCode,ServiceCaller sc){
 
-
+        this.sc = sc;
         setMsgCode(expectedMsgCode);
 
 
