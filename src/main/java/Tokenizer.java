@@ -35,7 +35,7 @@ public class Tokenizer {
         this.delimiter = delimiter;
     }
 
-    /*public static void main(String[] args){
+    public static void main(String[] args){
         String sentence = "Test this sentence for tokens.";
         Tokenizer tk= new Tokenizer(sentence);
 
@@ -43,6 +43,6 @@ public class Tokenizer {
         for (String token : sentence_tokens) {
             System.out.println(token);
         }
-    }*/
+    }
 
 }

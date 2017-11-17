@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,9 +8,9 @@ import java.util.List;
 public class KeyMapper {
     private HashMap<String, String> internetSlangToWordMap;
 
-    public List<String> getMainKeyWords(List <String> words){
-
-        return null;
+    public static List<String> getMainKeyWords(List<String> words){
+        List<String> mainKeyWords = new ArrayList<>();
+        return mainKeyWords;
     }
 
 }

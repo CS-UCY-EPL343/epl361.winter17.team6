@@ -1,5 +1,4 @@
 
-//import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -77,7 +76,10 @@ public class ServiceCaller {
         this.payByCredit = payByCredit;
     }
 
-    //TODO implement logic
+    /**
+     *
+     * @return
+     */
     public  List<Restaurant> getMatchingRestaurants() {
         StringBuilder jsonString = new StringBuilder("");
         ArrayList<Branch> matchingBranches = new ArrayList<>();
@@ -121,7 +123,6 @@ public class ServiceCaller {
             boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
             System.out.println(restaurant);
             if(!isRestaurantAlreadyInList) {
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaa");
                 matchedRestaurants.add(restaurant);
                 restaurantIds.add(restaurantId);
             }
