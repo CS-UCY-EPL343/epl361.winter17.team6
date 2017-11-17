@@ -55,13 +55,13 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	padding: 0;
-}
+  
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -105,8 +105,8 @@ body {
   display: flex;
   flex-flow: row nowrap;
   align-content: space-between;
-  min-height: 60vh;
-  max-height: 60vh;
+  min-height: 80vh;
+  max-height: 80vh;
   margin: 0 auto;
   padding: 1em;
   padding-bottom: 0; }
@@ -186,8 +186,8 @@ body {
     opacity: 1; } }
 .block--background {
   background-color: #363636;
-  width: 50vw;
-  height: 80vh; }
+  width: 100vw;
+  height: 100vh; }
 
 #chatform {
   display: flex;
@@ -282,5 +282,3 @@ input[type="submit"] {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3); }
-
-/*# sourceMappingURL=ChatbotInterface.css.map */
