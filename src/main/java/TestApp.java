@@ -8,7 +8,7 @@ public class TestApp {
         TextParser tp = new TextParser(usrMsg);
         List<String> parsedUserMessage = tp.getKeyWords();
 
-
+        return null;
     }
     public static void main(String args[]) {
 
