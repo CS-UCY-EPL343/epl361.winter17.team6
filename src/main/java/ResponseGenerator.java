@@ -20,7 +20,7 @@ public class ResponseGenerator {
         ArrayList<String> KeyWords = new ArrayList<>();
         String response_message= "No response";
 
-        AbstractResponse abstract_response_class;
+        AbstractResponse abstract_response_class = null;
 
         switch (msgCode) {
             case 1:
