@@ -12,7 +12,7 @@ public class TestApp {
     public String getChatbotResponse(String usrMsg) {
         TextParser tp = new TextParser(usrMsg);
         List<String> parsedUserMessage = tp.getKeyWords();
-        String responceMessage = (new ResponseGenerator()).getResponce(parsedUserMessage, 1, sc);
+        String responceMessage = (new ResponseGenerator()).getResponce(parsedUserMessage, ResponseGenerator.LIST_RESTAURANT, sc);
 
         return responceMessage;
     }
