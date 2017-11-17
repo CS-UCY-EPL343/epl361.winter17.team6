@@ -16,17 +16,25 @@ public class ResponseGenerator {
 
 
     private AbstractResponse mapKeywordsToResponse(){
+
         ArrayList<String> KeyWords = new ArrayList<>();
-        AbstractResponse ab_response = new AbstractResponse() {
-            @Override
-            public String getResponse() {
+        String response_message= "No response";
+
+        AbstractResponse abstract_response_class;
+
+        switch (msgCode) {
+            case 1:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
 
 
-                return null;
-            }
-        };
+        }
 
-        return ab_response;
+
+
+        return abstract_response_class;
     }
 
     private void setMsgCode(int MsgCode){
@@ -43,25 +51,12 @@ public class ResponseGenerator {
 
     public String getResponce (List<String> keyWords,int expectedMsgCode,ServiceCaller sc){
 
-        String response_message= "No response";
 
-        AbstractResponse abstract_response_class;
-
-        switch (expectedMsgCode) {
-            case 1:
-                abstract_response_class = new ListOfRestaurantNamesResponse();
-                abstract_response_class.setServiceCaller(sc);
-
-                response_message=abstract_response_class.getResponse();
-
-                break;
+        setMsgCode(expectedMsgCode);
 
 
-        }
+        return   mapKeywordsToResponse().getResponse();
 
-
-
-        return response_message ;
     }
 
 
