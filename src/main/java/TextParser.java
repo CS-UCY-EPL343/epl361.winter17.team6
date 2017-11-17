@@ -10,7 +10,7 @@ public class TextParser {
         this.msg = msg;
     }
 
-    List<String>[] getKeyWords( ) {
+    List<String> getKeyWords( ) {
 
         return null;
     }
