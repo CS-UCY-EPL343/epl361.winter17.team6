@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="045d47da-ba32-45ab-be24-fc9a3ab55cff" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Tokenizer.java" afterPath="$PROJECT_DIR$/src/main/java/Tokenizer.java" />
-    </list>
+    <list default="true" id="045d47da-ba32-45ab-be24-fc9a3ab55cff" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -101,6 +98,11 @@
             <path>
               <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
               <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
@@ -236,12 +238,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1510932122416</updated>
-      <workItem from="1510932123596" duration="1926000" />
+      <workItem from="1510932123596" duration="2058000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1926000" />
+    <option name="totallyTimeSpent" value="2058000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1713" y="0" width="1734" height="1407" extended-state="0" />
@@ -314,6 +316,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
