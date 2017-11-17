@@ -14,7 +14,11 @@ public class TextParser {
     public List<String> getKeyWords(){
         Tokenizer tk = new Tokenizer(this.msg);
         List<String> tokens = tk.tokenize();
-        KeyMapper.getMainKeyWords(tokens);
-        return null;
+        List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
+
+        /*Write code to isolate usable keywords
+        * for detection of response functionality.*/
+
+        return mainKeyWords;
     }
 }

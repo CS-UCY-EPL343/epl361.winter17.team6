@@ -1,3 +1,9 @@
+/* https://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
 .header{
   background-color: #363636;
   text-align: center;
@@ -8,7 +14,7 @@
 }
 
 #foodylogo{
-  width: 250px;
+  width: 50px;
   height: 60px;
 }
 
@@ -37,11 +43,7 @@
 
 
 
-/* https://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -55,13 +57,13 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	padding: 0;
-}
+  
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -101,15 +103,16 @@ body {
   background-color: #363636; }
 
 .chatbot__overview {
-  background-color: #363636;
-  display: flex;
-  flex-flow: row nowrap;
-  align-content: space-between;
-  min-height: 60vh;
-  max-height: 60vh;
-  margin: 0 auto;
-  padding: 1em;
-  padding-bottom: 0; }
+	background-color: #363636;
+	display: flex;
+	flex-flow: row nowrap;
+	align-content: space-between;
+	min-height: 70vh;
+	max-height: 70vh;
+	margin: 0 auto;
+	padding: 1em;
+	padding-bottom: 0;
+}
 
 .chatlist {
   font-family: inherit;
@@ -119,7 +122,7 @@ body {
   align-items: flex-end;
   overflow-x: hidden;
   width: 100%;
-  max-width: 35em;
+  max-width: 100%;
   max-height: 75vh;
   margin: 0 auto; }
   .chatlist .userInput, .chatlist .bot__output {
@@ -184,30 +187,32 @@ body {
   100% {
     transform: translateY(0);
     opacity: 1; } }
-.block--background {
-  background-color: #363636;
-  width: 50vw;
-  height: 80vh; }
 
 #chatform {
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  max-width: 35em;
-  margin: 0 auto;
-  padding-top: 1em;
-  font-size: 1em;
-  font-family: Helvetica; }
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	max-width: 56em;
+	margin: 0 auto;
+	/* [disabled]padding-top: 1em; */
+	font-size: 1em;
+	font-family: Helvetica;
+}
   @media screen and (max-width: 29em) {
     #chatform {
       width: 90%; } }
 
 .chatbox-area {
-  margin: 0 auto;
-  position: relative;
-  bottom: 0;
-  height: auto;
-  width: 100%; }
+	margin-top: 0;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 22px;
+	position: relative;
+	bottom: 0;
+	height: 37vh;
+	width: 100%;
+}
+}
 
 textarea[name="chatbox"] {
   resize: none;
@@ -243,7 +248,6 @@ textarea[name="chatbox"] {
 input[type="submit"] {
   -webkit-appearance: none;
   appearance: none;
-  border: 0;
   width: 25%;
   margin: 0;
   background-color: #27ae60;
@@ -282,5 +286,3 @@ input[type="submit"] {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3); }
-
-/*# sourceMappingURL=ChatbotInterface.css.map */
