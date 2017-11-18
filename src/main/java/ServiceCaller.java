@@ -14,23 +14,24 @@ public class ServiceCaller {
     private static boolean DEBUG = false;
     public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
     public static final int COFFEBRAND = 1, TOANAMMA = 2;
-    String postCode;
-    String userId;
-    int districtId;
-    List<Integer> categoryIds;
-    boolean payByCredit ;
-    int selectedRestaurant;
-    int branchId;
-    int curFoodCategoryId;
-    int currentFoodId;
-    float curPrice;
-    int curIngredientCategoryId;
-    List<Integer> selectedFoodsIds;
-    List<Integer> selectedIngredientsId;
+    private String postCode;
+    private String userId;
+    private int districtId;
+    private List<Integer> categoryIds;
+    private boolean payByCredit ;
+    private int selectedRestaurant;
+    private int branchId;
+    private int curFoodCategoryId;
+    private int currentFoodId;
+    private float curPrice;
+    private int curIngredientCategoryId;
+    private List<Integer> selectedFoodsIds;
+    private List<Integer> selectedIngredientsId;
 
     private Set<Integer> selectedCategoriesIds = new HashSet<>();
     private List<Branch> matchedBranches;
     private List<Restaurant> matchedRestaurants;
+    private BranchMenu selectedRestaurantMenu;
     //private List<Category> selectedCategories;
     private District userDistrict;
 
@@ -81,6 +82,14 @@ public class ServiceCaller {
      */
     void setSelectedRestaurant(int branchId) {
         this.selectedRestaurant = branchId;
+        String jsonString = "";
+        switch ( selectedRestaurant ) {
+            case TOANAMMA :
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+                    break;
+            case COFFEBRAND :
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+        }
     }
     /**
      *
@@ -229,6 +238,13 @@ public class ServiceCaller {
         return 0;
     }
 
+    /**
+     *
+     * @return the BranchMenu of the selected Restaurant.
+     */
+    BranchMenu getSelectedRestaurantMenu() {
+         return selectedRestaurantMenu;
+    }
     public static void main(String args[]) throws FileNotFoundException {
         PrintStream out = new PrintStream(new FileOutputStream("log-output/output.txt"));
         System.setOut(out);

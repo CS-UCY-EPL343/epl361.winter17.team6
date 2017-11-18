@@ -19,7 +19,6 @@ public class TestApp {
         List<String> parsedUserMessage = tp.getKeyWords();
         String responceMessage = (new ResponseGenerator()).getResponce(s, ResponseGenerator.LIST_RESTAURANT, sc);
 
-
         return responceMessage;
     }
 
