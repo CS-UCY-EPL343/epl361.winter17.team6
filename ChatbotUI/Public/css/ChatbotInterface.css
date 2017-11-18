@@ -33,7 +33,7 @@ p.msg {
 #chatborder {
     height: 400px;
     width: 100%;
-    background: 363636;
+    background: #363636;
     padding-left: 5px;
     overflow: auto;
 }
