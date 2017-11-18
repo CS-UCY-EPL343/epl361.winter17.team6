@@ -1,6 +1,7 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,12 @@ public class Food extends FoodyObject {
     Food(JSONObject json ) {
         super(json);
 
+        ingredientCategory = new ArrayList<>();
         this.price = getJson().optDouble("price");
-        this.hasModifiers = getJson().optBoolean("hasmodifier");
-
-        JSONObject modifierJSONObject = getJson().optJSONObject("modifier");
+        this.hasModifiers = getJson().optBoolean("hasmodifiers");
 
         if(hasModifiers) {
+            JSONObject modifierJSONObject = getJson().optJSONObject("modifiers");
             JSONArray modifierCategories = modifierJSONObject.optJSONArray("categories");
             for(int i = 0; i < modifierCategories.length(); i++) {
                 IngredientCategory curIngredientCategory = new IngredientCategory(modifierCategories.optJSONObject(i));
