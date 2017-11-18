@@ -43,7 +43,7 @@ public class ResponseGenerator {
                 break;
 
             case LIST_INGREDIENT:
-                abstract_response_class = new Li();
+                abstract_response_class = new ChoosePaymentMethodResponse();
                 abstract_response_class.setServiceCaller(sc);
 
                 break;
@@ -102,53 +102,57 @@ public class ResponseGenerator {
         String [] WordList_Burgers_l;
         String [] WordList_Sandwich_l;
 
-        List<String> WordList_keyWords = new ArrayList<String>();
-
-
-
-
-
         /*--- Burgers ,Slouvakia, Sawndich Collection---*/
 
         WordList_Souvlakia = FileParser.getFileContentAsString("WordList/Souvlakia_Wordlist.txt");
         WordList_Burgers = FileParser.getFileContentAsString("WordList/Burgers_Wordlist.txt");
         WordList_Sandwich = FileParser.getFileContentAsString("WordList/Sandwich_Wordlist.txt");
-
+      //  System.out.print(WordList_Souvlakia);
         WordList_Souvlakia_l = WordList_Souvlakia.split("\n");
         WordList_Sandwich_l = WordList_Sandwich.split("\n");
         WordList_Burgers_l = WordList_Burgers.split("\n");
+        for (int i = 0; i < WordList_Souvlakia_l.length; i++) {
+            if (i > 0) {
+                System.out.print(", ");
+            }
+            System.out.print( WordList_Souvlakia_l[i]);
+        }
 
+        for(String key : keyWords) {
+            System.out.println(key);
+        }
 
         /*---Setting categories codes according to keywords ----*/
 
 
-        for (int index = 0 ; index > WordList_Burgers_l.length;index++){
+        for (int index = 0 ; index < WordList_Burgers_l.length;index++){
             if (keyWords.contains(WordList_Burgers_l[index])){
                 sc.addCategory(ServiceCaller.BURGERS);
+                System.out.print("TRUE");
+
             }
         }
-        for (int index = 0 ; index > WordList_Sandwich_l.length;index++){
+
+        for (int index = 0 ; index < WordList_Sandwich_l.length;index++){
             if (keyWords.contains(WordList_Sandwich_l[index])){
                 sc.addCategory(ServiceCaller.SANDWICH);
 
             }
         }
 
-        for (int index = 0 ; index > WordList_Souvlakia_l.length;index++){
+        for (int index = 0 ; index < WordList_Souvlakia_l.length;index++){
             if (keyWords.contains(WordList_Souvlakia_l[index])){
                 sc.addCategory(ServiceCaller.SOUVLAKIA);
+                System.out.print("TRUE");
+
             }
         }
 
 
-
-
-
-
-
-
-
         return   mapKeywordsToResponse().getResponse();
+
+
+
 
     }
 
