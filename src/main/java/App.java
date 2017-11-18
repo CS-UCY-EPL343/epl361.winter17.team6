@@ -53,12 +53,11 @@ public class App {
                 });
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-
-//        post("/initiate", (req, res) -> {
 //
+//        post("/initiate", (req, res) -> {
 //            app = new App();
 //
-//           return responseMsg;
+//          return responseMsg;
 //        });
 
         post("/hello", (req, res) -> {

@@ -32,6 +32,7 @@ public class ServiceCaller {
     private List<Branch> matchedBranches;
     private List<Restaurant> matchedRestaurants;
     private BranchMenu selectedRestaurantMenu;
+    private FoodCategory curFoodCategory;
     //private List<Category> selectedCategories;
     private District userDistrict;
 
@@ -127,7 +128,6 @@ public class ServiceCaller {
         this.payByCredit = payByCredit;
     }
 
-    //TODO make it so when no categories are selected show all restaurants.
     /**
      * Returns matching restaurants based on district, postal code and selected categories.
      * @return a list of Restaurants
@@ -201,35 +201,37 @@ public class ServiceCaller {
         return matchedRestaurants;
     }
 
-    //TODO implement logic
-    public  List<Food> getFoodFromFoodCategory(){
-
+    public  List<Food> getFoodFromFoodCategory() throws FoodCategoryIsNotSetException{
+        if(curFoodCategory == null)
+            throw new FoodCategoryIsNotSetException();
         return null;
     }
 
-    //TODO implement logic
+    /**
+     *
+     * @return the food categories of the selectedBranchMenu.
+     */
     public  List<FoodCategory> getBranchFoodCategories(){
-        return null;
+        return selectedRestaurantMenu.getFoodCategories();
+    }
+
+
+    /**
+     *
+     * @return the Branch Menu with the delivery information.
+     */
+    public  BranchMenu getBranchDeliveryInfo(){
+
+        return selectedRestaurantMenu;
     }
 
     //TODO implement logic
-    public  Branch getBranchDeliveryInfo(){
-
-        return null;
+    public List<IngredientCategory> getIngredientCategoriesForFood(Food menuItems){
+        return menuItems.getIngredientCategory();
     }
 
     //TODO implement logic
-    public  List<FoodCategory> getFoodCategoriesForBranch(){
-        return null;
-    }
-
-    //TODO implement logic
-    public List<IngredientCategory> getIngredientCategoriesForFood(){
-        return null;
-    }
-
-    //TODO implement logic
-    public List<Ingredient> getIngredientsForIngredientCategory(){
+    public List<Ingredient> getIngredientsForIngredientCategory(Ingredient i){
         return null;
     }
 
