@@ -130,9 +130,10 @@ $(document).ready(function () {
                         //alert("Data: " + data + "\nStatus: " + status);
                         console.log(data);
 
-                        //TEMP
+                        //SET THE CHATBOT RESPONSE MESSAGE WITH THE CORRECT FORMAT FROM THE API RESPONSE
+                        // FROM JAVA TO HTML
                         if (!botMessage) botMessage = "i'm confused";
-                        botMessage = data;
+                        botMessage = data.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
                         //add the chatbot's name and message to the array messages
                         messages.push("<b>" + botName + ":</b> " + botMessage + "<br>" + d.toUTCString());
@@ -144,8 +145,9 @@ $(document).ready(function () {
                         for (var i = 1; i < 8; i++) {
                             if (messages[messages.length - i]) {
                                 $('#chatborder').append('<div class="bubble1" >' + messages[messages.length - i - 1] + '</div>');
-                                $('#chatborder').append('<div class="bubble2" align="right" >' + messages[messages.length - 1] + '</div>');
+                                $('#chatborder').append('<div class="bubble2" >' + messages[messages.length - 1] + '</div>');
                                 $("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
+                                //$("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
                                 //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
                             }
                         }
@@ -155,6 +157,10 @@ $(document).ready(function () {
         }
     );
 });
+
+
+
+
 
 
 //CHATBOX

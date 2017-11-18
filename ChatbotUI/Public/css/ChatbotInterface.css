@@ -14,9 +14,6 @@
     padding: 20px;
 }
 
-
-
-
 div.chatbox{
     border-style: solid;
     background-color: lightcyan;
@@ -29,14 +26,12 @@ div.chatbox{
 
 p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
 
-
-
-
-
 #chatborder {
-    height:400px;width:100%;background:grey;padding-left:5px;overflow:auto;
-
-
+    height:400px;
+    width:100%;
+    background:363636;
+    padding-left:5px;
+    overflow:auto;
 }
 
 .chatlog {
@@ -118,10 +113,11 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
 
 /*USER SPEECH BUBBLE*/
 .bubble1{
+    float: left;
+    width: 520px;
+    height: auto;
     position: relative;
     margin-left: 25pt;
-    width: 510px;
-    height: 40px;
     padding: 5px;
     background: #FFFFFF;
     -webkit-border-radius: 9px;
@@ -153,10 +149,12 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
 
 /*CHATBOT ANSWER BUBBLE*/
 .bubble2{
-    margin-left: 105pt;
+    float: right;
+    margin-left: 200px;
+    margin-right: 50px;
     position: relative;
     width: 520px;
-    height: 40px;
+    height: auto;
     padding: 5px;
     background: #FFFFFF;
     -webkit-border-radius: 9px;
