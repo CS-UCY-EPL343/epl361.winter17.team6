@@ -123,6 +123,29 @@ public class ServiceCaller {
         List<Restaurant> matchedRestaurants = new ArrayList<>();
 
         String jsonString = "";
+        //If no category is set then return all restaurants.
+        if(selectedCategoriesIds.isEmpty()) {
+            jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+            JSONArray jsonArray = new JSONArray(jsonString);
+            //create Branch for each json object in jsonArray
+            if(DEBUG)
+                System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
+            for(int i = 0; i < jsonArray.length(); i++) {
+                Branch curBranch = new Branch(jsonArray.optJSONObject(i));
+                matchedBranches.add(curBranch);
+                if(DEBUG)
+                    System.out.println("The first Branch object is \n" + curBranch);
+                Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
+
+                int restaurantId = restaurant.getId();
+                boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
+                if(!isRestaurantAlreadyInList) {
+                    matchedRestaurants.add(restaurant);
+                    restaurantIds.add(restaurantId);
+                }
+            }
+        }
+
         //The json Array has json representation of branches
         for(Integer categoryId : selectedCategoriesIds) {
             switch (categoryId) {
@@ -161,6 +184,7 @@ public class ServiceCaller {
         this.matchedRestaurants = matchedRestaurants;
         return matchedRestaurants;
     }
+
 
     //TODO implement logic
     public  List<Food> getFoodFromFoodCategory(){
