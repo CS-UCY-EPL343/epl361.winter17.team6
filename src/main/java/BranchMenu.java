@@ -38,17 +38,13 @@ public class BranchMenu extends FoodyObject {
         StringBuilder sb = new StringBuilder(super.toString());
         int i = 0;
         sb.append( "-- Items Served: \n");
-        for(Food menuItem : menuItems ) {
-            sb.append("Menu item " + i + ": " + menuItem.getName() + "\tPrice: "+menuItem.getPrice()+ "\n");
-            i++;
-        }
+        for(Food menuItem : menuItems )
+            sb.append("Menu item " + i++ + ": " + menuItem.getName() + "\tPrice: " + menuItem.getPrice() + "\n");
         i = 0;
         sb.append("\n");
         sb.append( "-- FoodCategories : \n");
-        for(FoodCategory fc : foodCategories) {
-            sb.append("food category " + i + ": " + fc.getName() + "\n" );
-            i++;
-        }
+        for(FoodCategory fc : foodCategories)
+            sb.append("food category " + i++ + ": " + fc.getName() + "\n" );
         sb.append("\n");
         sb.append("***------***------***\n");
         return sb.toString();
