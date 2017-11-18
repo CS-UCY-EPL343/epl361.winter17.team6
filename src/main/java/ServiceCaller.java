@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class ServiceCaller {
     private static boolean DEBUG = false;
+    private static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
 
     String postCode;
     String userId;
@@ -26,59 +27,51 @@ public class ServiceCaller {
     List<Integer> selectedFoodsIds;
     List<Integer> selectedIngredientsId;
 
-    List<Branch> matchedBranches;
-    List<Restaurant> matchedRestaurants;
-    List<Category> selectedCategories;
-    District userDistrict;
-
-    private String getStringFromFile(String path) {
-        StringBuilder jsonString = new StringBuilder("");
-        // The name of the file to open.
-        String fileName = path;
-        // This will reference one line at a time
-        String line = null;
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while((line = bufferedReader.readLine()) != null) {
-                jsonString.append(line);
-            }
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.err.println("Unable to open file '" + fileName + "'");
-            ex.printStackTrace();
-        }
-        catch(IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return jsonString.toString();
-    }
+    private Set<Integer> selectedCategoriesIds;
+    private List<Branch> matchedBranches;
+    private List<Restaurant> matchedRestaurants;
+    //private List<Category> selectedCategories;
+    private District userDistrict;
 
     public String getPostCode(){
         return postCode;
     }
 
+    /**
+     *
+     * @return a list with the names of the categories that are currently selected.
+     */
     public List<String> getCategoriesAsString(){
         ArrayList<String> categNames = new ArrayList<>();
-        for(Category c : selectedCategories ) {
-            categNames.add(c.getSlug());
+        for(Integer c : selectedCategoriesIds ) {
+            switch( c ) {
+                case SANDWICH :
+                    categNames.add("Sandwich");
+                case SOUVLAKIA :
+                    categNames.add("Souvlakia");
+                case BURGERS :
+                    categNames.add("Burgers");
+            }
         }
         return categNames;
     }
 
-    public List<Integer> getCatorgoriesIds(){
-        ArrayList<Integer> categIds = new ArrayList<>();
-        for(Category c : selectedCategories ) {
-            categIds.add(c.getId());
-        }
-        return categIds;
+    public void addCategory(int categoryId) {
+        selectedCategoriesIds.add(categoryId);
     }
 
-    public  List<Category> getCategories() {
+    public void removeCategory(int categoryId) {
+        selectedCategoriesIds.remove(categoryId);
+    }
 
-        return selectedCategories;
+    /**
+     *
+     * @return a list the the category ids of the currently selected categories.
+     */
+    public List<Integer> getCatorgoriesIds(){
+        ArrayList<Integer> categIds = new ArrayList<>();
+        categIds.addAll(categIds);
+        return categIds;
     }
 
     public  String getDistrictAsString(){
@@ -114,7 +107,7 @@ public class ServiceCaller {
         List<Restaurant> matchedRestaurants = new ArrayList<>();
 
         //The json Array has json represantation of branches
-        String jsonString = getStringFromFile("sample-dataset/restaurants_by_category/burgers.json");
+        String jsonString = FileParser.getFileContentAsString("sample-dataset/restaurants_by_category/burgers.json");
         JSONArray jsonArray = new JSONArray(jsonString);
 
         //create Branch for each json object in jsonArray
