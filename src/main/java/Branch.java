@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -20,8 +21,15 @@ public class Branch extends FoodyObject {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("-- restaurant : " + restaurantJson.optString("name") );
-        sb.append(" ---------------**");
+        sb.append("-- restaurant name: " + restaurantJson.optString("name") + "\n");
+        sb.append("***------***------***\n");
         return sb.toString();
+    }
+
+    public static void main(String args[]) {
+        String jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+        JSONArray jsonArray = new JSONArray(jsonString);
+        Branch branch = new Branch(jsonArray.optJSONObject(0));
+        System.out.println(branch);
     }
 }

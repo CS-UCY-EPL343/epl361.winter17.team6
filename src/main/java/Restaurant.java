@@ -9,9 +9,4 @@ public class Restaurant extends FoodyObject {
     Restaurant(JSONObject json) {
         super(json);
     }
-      String getName() {
-        return getJson().optString("name");
-    }
-
-
 }
