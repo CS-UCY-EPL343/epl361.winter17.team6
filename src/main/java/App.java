@@ -5,13 +5,33 @@
  * http://localhost:4567
  * */
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import static spark.Spark.*;
 public class App {
 
+    private ServiceCaller sc;
+
+    App() {
+        sc = new ServiceCaller();
+    }
+
+    public String getChatbotResponse(String usrMsg) {
+        List<String> s = new ArrayList<String>();
+        s.add("souvlakia");
+
+        TextParser tp = new TextParser(usrMsg);
+        List<String> parsedUserMessage = tp.getKeyWords();
+        String responceMessage = (new ResponseGenerator()).getResponce(s, ResponseGenerator.LIST_RESTAURANT, sc);
+
+        return responceMessage;
+    }
+
     public static void main(String args[]){
+
+        int sessionNum = 0;
         options("/*",
                 (request, response) -> {
 
@@ -34,12 +54,20 @@ public class App {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
+//        post("/initiate", (req, res) -> {
+//
+//            app = new App();
+//
+//           return responseMsg;
+//        });
+
         post("/hello", (req, res) -> {
-            String userMessage = req.body();
+            App app = new App();
+            String usrMsg = req.body();
+            String responseMsg = app.getChatbotResponse(usrMsg);
             res.status(200);
             res.type("text/plain");
-
-            return "Hello World. The message from the user is: " + userMessage;
+            return responseMsg ;
         });
 
     }
