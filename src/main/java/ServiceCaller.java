@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class ServiceCaller {
     private static boolean DEBUG = false;
-    private static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
+    public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
 
     String postCode;
     String userId;
@@ -111,6 +111,7 @@ public class ServiceCaller {
         this.payByCredit = payByCredit;
     }
 
+    //TODO make it so when no categories are selected show all restaurants.
     /**
      * Returns matching restaurants based on district, postal code and selected categories.
      * @return a list of Restaurants
