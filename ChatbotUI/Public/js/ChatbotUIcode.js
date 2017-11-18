@@ -22,13 +22,6 @@ function chatbotResponse(response) {
     //botMessage = nlp.noun(lastUserMessage).pluralize() //will make a noun plural (for single words)
 }
 
-
-//this runs each time enter is pressed.
-//It controls the overall input and output
-function newEntry(response) {
-
-}
-
 //AUTO SCROLL DOWN
 //$("#chatborder").animate({ scrollTop: $("#chatborder").prop('scrollHeight')}, 0);
 //$("#chatborder").scrollTop($("#chatborder").prop('scrollHeight'));
@@ -150,8 +143,8 @@ $(document).ready(function () {
                         //outputs the last few array elements of messages to html
                         for (var i = 1; i < 8; i++) {
                             if (messages[messages.length - i]) {
-                                $('#chatborder').append('<p class="bubble1">' + messages[messages.length - i - 1] + '</p>');
-                                $('#chatborder').append('<p class="bubble2" align="right">' + messages[messages.length - 1] + '</p>');
+                                $('#chatborder').append('<div class="bubble1" >' + messages[messages.length - i - 1] + '</div>');
+                                $('#chatborder').append('<div class="bubble2" align="right" >' + messages[messages.length - 1] + '</div>');
                                 $("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
                                 //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
                             }
