@@ -5,11 +5,14 @@ import org.json.JSONObject;
 import java.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
 public class ServiceCaller {
+    private static boolean DEBUG = false;
+    public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
 
     String postCode;
     String userId;
@@ -25,33 +28,61 @@ public class ServiceCaller {
     List<Integer> selectedFoodsIds;
     List<Integer> selectedIngredientsId;
 
-    List<Restaurant> matchedRestaurants;
-    List<Category> selectedCategories;
-    District userDistrict;
+    private Set<Integer> selectedCategoriesIds = new HashSet<>();
+    private List<Branch> matchedBranches;
+    private List<Restaurant> matchedRestaurants;
+    //private List<Category> selectedCategories;
+    private District userDistrict;
 
     public String getPostCode(){
         return postCode;
     }
 
+    /**
+     *
+     * @return a list with the names of the categories that are currently selected.
+     */
     public List<String> getCategoriesAsString(){
         ArrayList<String> categNames = new ArrayList<>();
-        for(Category c : selectedCategories ) {
-            categNames.add(c.getSlug());
+        for(Integer c : selectedCategoriesIds ) {
+            switch( c ) {
+                case SANDWICH :
+                    categNames.add("Sandwich");
+                case SOUVLAKIA :
+                    categNames.add("Souvlakia");
+                case BURGERS :
+                    categNames.add("Burgers");
+            }
         }
         return categNames;
     }
 
-    public List<Integer> getCatorgoriesIds(){
-        ArrayList<Integer> categIds = new ArrayList<>();
-        for(Category c : selectedCategories ) {
-            categIds.add(c.getId());
-        }
-        return categIds;
+    /**
+     * Used to add category to filter restaurants and branches from.
+     * If no category is chosen then all restaurants and branches are selected (based on other criteria).
+     * @param categoryId the category id.
+     */
+    public void addCategory(int categoryId) {
+        selectedCategoriesIds.add(categoryId);
     }
 
-    public  List<Category> getCategories() {
+    /**
+     * Used to remove category to filter restaurants and branches from.
+     * If no category is chosen then all restaurants and branches are selected (based on other criteria).
+     * @param categoryId the category id.
+     */
+    public void removeCategory(int categoryId) {
+        selectedCategoriesIds.remove(categoryId);
+    }
 
-        return selectedCategories;
+    /**
+     *
+     * @return a list the the category ids of the currently selected categories.
+     */
+    public List<Integer> getCatorgoriesIds(){
+        ArrayList<Integer> categIds = new ArrayList<>();
+        categIds.addAll(categIds);
+        return categIds;
     }
 
     public  String getDistrictAsString(){
@@ -72,65 +103,88 @@ public class ServiceCaller {
 
     }
 
+    /**
+     * Set the pay by credit.
+     * @param payByCredit whether the user will pay by credit or not.
+     */
     public  void setPayByCredit(boolean payByCredit){
         this.payByCredit = payByCredit;
     }
 
+    //TODO make it so when no categories are selected show all restaurants.
     /**
-     *
-     * @return
+     * Returns matching restaurants based on district, postal code and selected categories.
+     * @return a list of Restaurants
      */
-    public  List<Restaurant> getMatchingRestaurants() {
-        StringBuilder jsonString = new StringBuilder("");
-        ArrayList<Branch> matchingBranches = new ArrayList<>();
+     List<Restaurant> getMatchingRestaurants() {
+        ArrayList<Branch> matchedBranches = new ArrayList<>();
+        //RestaurantId  is saved
         List<Integer> restaurantIds = new ArrayList<>();
         List<Restaurant> matchedRestaurants = new ArrayList<>();
 
-        // The name of the file to open.
-        String fileName = "sample-dataset/restaurants_by_category/burgers.json";
-        // This will reference one line at a time
-        String line = null;
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while((line = bufferedReader.readLine()) != null) {
-                jsonString.append(line);
-            }
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.err.println("Unable to open file '" + fileName + "'");
-            ex.printStackTrace();
-        }
-        catch(IOException ex) {
-             ex.printStackTrace();
-        }
+        String jsonString = "";
+        //If no category is set then return all restaurants.
+        if(selectedCategoriesIds.isEmpty()) {
+            jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+            JSONArray jsonArray = new JSONArray(jsonString);
+            //create Branch for each json object in jsonArray
+            if(DEBUG)
+                System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
+            for(int i = 0; i < jsonArray.length(); i++) {
+                Branch curBranch = new Branch(jsonArray.optJSONObject(i));
+                matchedBranches.add(curBranch);
+                if(DEBUG)
+                    System.out.println("The first Branch object is \n" + curBranch);
+                Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
 
-        //The json Array has json represantation of branches
-        JSONArray jsonArray = new JSONArray(jsonString.toString());
-
-       // System.out.println("The json array is \n" + jsonArray.toString(4));
-
-        //create Branch for each json object in jsonArray
-        System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
-        for(int i = 0; i < jsonArray.length(); i++) {
-            Branch curBranch = new Branch(jsonArray.optJSONObject(i));
-            matchingBranches.add(curBranch);
-            System.out.println("The first Branch object is \n" + curBranch);
-            Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
-
-            int restaurantId = restaurant.getId();
-            boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
-            System.out.println(restaurant);
-            if(!isRestaurantAlreadyInList) {
-                matchedRestaurants.add(restaurant);
-                restaurantIds.add(restaurantId);
+                int restaurantId = restaurant.getId();
+                boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
+                if(!isRestaurantAlreadyInList) {
+                    matchedRestaurants.add(restaurant);
+                    restaurantIds.add(restaurantId);
+                }
             }
         }
 
+        //The json Array has json representation of branches
+        for(Integer categoryId : selectedCategoriesIds) {
+            switch (categoryId) {
+                case SANDWICH:
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurants_by_category/sandwich.json");
+                    break;
+                case SOUVLAKIA:
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurants_by_category/souvlakia.json");
+                    break;
+                case BURGERS:
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurants_by_category/burgers.json");
+                    break;
+            }
+
+            JSONArray jsonArray = new JSONArray(jsonString);
+            //create Branch for each json object in jsonArray
+            if(DEBUG)
+                System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
+            for(int i = 0; i < jsonArray.length(); i++) {
+                Branch curBranch = new Branch(jsonArray.optJSONObject(i));
+                matchedBranches.add(curBranch);
+                if(DEBUG)
+                    System.out.println("The first Branch object is \n" + curBranch);
+                Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
+
+                int restaurantId = restaurant.getId();
+                boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
+                if(!isRestaurantAlreadyInList) {
+                    matchedRestaurants.add(restaurant);
+                    restaurantIds.add(restaurantId);
+                }
+            }
+        }
+
+        this.matchedBranches = matchedBranches;
         this.matchedRestaurants = matchedRestaurants;
         return matchedRestaurants;
     }
+
 
     //TODO implement logic
     public  List<Food> getFoodFromFoodCategory(){
@@ -170,13 +224,21 @@ public class ServiceCaller {
     }
 
     public static void main(String args[]) throws FileNotFoundException {
-        PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
+        PrintStream out = new PrintStream(new FileOutputStream("log-output/output.txt"));
         System.setOut(out);
         ServiceCaller sc = new ServiceCaller();
+
+        sc.addCategory(ServiceCaller.BURGERS);
         List<Restaurant> restaurantList = sc.getMatchingRestaurants();
-        System.out.println("Restaurants found:");
+        System.out.println("Burger Restaurants found:");
         for(Restaurant r : restaurantList) {
             System.out.println(r);
         }
+
+        System.out.println("Number of restaurants found after adding burger category " + sc.getMatchingRestaurants().size() );
+        sc.addCategory(ServiceCaller.SANDWICH);
+        System.out.println("Number of restaurants found after adding sandwich category " +   sc.getMatchingRestaurants().size() );
+        sc.removeCategory(ServiceCaller.SANDWICH);
+        System.out.println("Number of restaurants found after removing sandwich category " +  sc.getMatchingRestaurants().size()  );
     }
 }
