@@ -10,6 +10,7 @@ import java.util.Set;
 
 
 public class ServiceCaller {
+    private static boolean DEBUG = false;
 
     String postCode;
     String userId;
@@ -108,7 +109,7 @@ public class ServiceCaller {
      */
     public  List<Restaurant> getMatchingRestaurants() {
         ArrayList<Branch> matchedBranches = new ArrayList<>();
-        //RestaurantId  is saved 
+        //RestaurantId  is saved
         List<Integer> restaurantIds = new ArrayList<>();
         List<Restaurant> matchedRestaurants = new ArrayList<>();
 
@@ -117,11 +118,13 @@ public class ServiceCaller {
         JSONArray jsonArray = new JSONArray(jsonString);
 
         //create Branch for each json object in jsonArray
-        System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
+        if(DEBUG)
+            System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
         for(int i = 0; i < jsonArray.length(); i++) {
             Branch curBranch = new Branch(jsonArray.optJSONObject(i));
             matchedBranches.add(curBranch);
-            System.out.println("The first Branch object is \n" + curBranch);
+            if(DEBUG)
+                System.out.println("The first Branch object is \n" + curBranch);
             Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
 
             int restaurantId = restaurant.getId();
