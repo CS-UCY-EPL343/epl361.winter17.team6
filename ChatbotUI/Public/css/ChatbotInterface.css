@@ -121,6 +121,7 @@ p.msg {
     height: auto;
     position: relative;
     margin-left: 25pt;
+    margin-right: 495pt;
     padding: 5px;
     background: #FFFFFF;
     -webkit-border-radius: 9px;
@@ -158,7 +159,7 @@ p.msg {
 /*CHATBOT ANSWER BUBBLE*/
 .bubble2 {
     float: right;
-    margin-left: 200px;
+    margin-left: 470px;
     margin-right: 50px;
     position: relative;
     width: 520px;
