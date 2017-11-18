@@ -29,9 +29,11 @@ public class BranchMenu extends FoodyObject {
 
     }
 
+    //getters
     List<Food> getMenuItems() {
         return menuItems;
     }
+    List<FoodCategory> getFoodCategories() { return foodCategories; }
 
     @Override
     public String toString() {
@@ -58,7 +60,14 @@ public class BranchMenu extends FoodyObject {
         System.out.println(branchMenu);
         Food secondMenuItem = branchMenu.getMenuItems().get(1);
         System.out.println("The 2nd menu item is :\n" + secondMenuItem );
-        System.out.println("The menu item has these Ingredient categories : " + secondMenuItem.getIngredientCategory());
+        System.out.println("The 2nd menu item has these Ingredient categories :\n" + secondMenuItem.getIngredientCategory()
+                + "\n does the 2nd menu item have Modifiers? : " + secondMenuItem.hasModifiers());
+        Food thirdMenuItem = branchMenu.getMenuItems().get(2);
+        System.out.println("The thirdMenuItem is :\n" + thirdMenuItem );
+        System.out.println("The thirdMenuItem has these Ingredient categories : \n" + thirdMenuItem.getIngredientCategory()
+                + "\n does the thirdMenuItem item have Modifiers? : " + thirdMenuItem.hasModifiers());
+        System.out.println("The 2nd food category is " + branchMenu.getFoodCategories().get(1).getName()
+                + " and has those MenuItems in it :\n" + branchMenu.getFoodCategories().get(1).getMenuItems() );
 
 
     }
