@@ -32,6 +32,7 @@ public class ServiceCaller {
     private List<Branch> matchedBranches;
     private List<Restaurant> matchedRestaurants;
     private BranchMenu selectedRestaurantMenu;
+    private FoodCategory curFoodCategory;
     //private List<Category> selectedCategories;
     private District userDistrict;
 
@@ -127,7 +128,6 @@ public class ServiceCaller {
         this.payByCredit = payByCredit;
     }
 
-    //TODO make it so when no categories are selected show all restaurants.
     /**
      * Returns matching restaurants based on district, postal code and selected categories.
      * @return a list of Restaurants
@@ -201,9 +201,9 @@ public class ServiceCaller {
         return matchedRestaurants;
     }
 
-    //TODO implement logic
-    public  List<Food> getFoodFromFoodCategory(){
-
+    public  List<Food> getFoodFromFoodCategory() throws FoodCategoryIsNotSetException{
+        if(curFoodCategory == null)
+            throw new FoodCategoryIsNotSetException();
         return null;
     }
 
