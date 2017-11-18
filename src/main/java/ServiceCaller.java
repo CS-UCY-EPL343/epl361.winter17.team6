@@ -207,29 +207,31 @@ public class ServiceCaller {
         return null;
     }
 
-    //TODO implement logic
+    /**
+     *
+     * @return the food categories of the selectedBranchMenu.
+     */
     public  List<FoodCategory> getBranchFoodCategories(){
-        return null;
+        return selectedRestaurantMenu.getFoodCategories();
+    }
+
+
+    /**
+     *
+     * @return the Branch Menu with the delivery information.
+     */
+    public  BranchMenu getBranchDeliveryInfo(){
+
+        return selectedRestaurantMenu;
     }
 
     //TODO implement logic
-    public  Branch getBranchDeliveryInfo(){
-
-        return null;
+    public List<IngredientCategory> getIngredientCategoriesForFood(Food menuItems){
+        return menuItems.getIngredientCategory();
     }
 
     //TODO implement logic
-    public  List<FoodCategory> getFoodCategoriesForBranch(){
-        return null;
-    }
-
-    //TODO implement logic
-    public List<IngredientCategory> getIngredientCategoriesForFood(){
-        return null;
-    }
-
-    //TODO implement logic
-    public List<Ingredient> getIngredientsForIngredientCategory(){
+    public List<Ingredient> getIngredientsForIngredientCategory(Ingredient i){
         return null;
     }
 
