@@ -14,7 +14,7 @@
     padding: 20px;
 }
 
-div.chatbox{
+div.chatbox {
     border-style: solid;
     background-color: lightcyan;
     border-width: 3px;
@@ -24,14 +24,18 @@ div.chatbox{
     overflow-y: scroll;
 }
 
-p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
+p.msg {
+    margin: 2px;
+    background-color: #C0C0C0;
+    clear: both;
+}
 
 #chatborder {
-    height:400px;
-    width:100%;
-    background:363636;
-    padding-left:5px;
-    overflow:auto;
+    height: 400px;
+    width: 100%;
+    background: 363636;
+    padding-left: 5px;
+    overflow: auto;
 }
 
 .chatlog {
@@ -53,40 +57,42 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     margin-left: 20px;
 }
 
-.header{
-  background-color: #363636;
-  text-align: center;
-  padding: 14px 16px;
-  color: white;
-  font-size: 30pt;
-  font-family: "Arial Black";
+.header {
+    background-image:url(http://foody.com.cy/img/foody-bg-12.jpg);
+    background-color: #363636;
+    text-align: center;
+    padding: 14px 16px;
+    color: white;
+    font-size: 30pt;
+    font-family: "Arial Black";
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
-#foodylogo{
-  width: 250px;
-  height: 60px;
+#foodylogo {
+    width: 250px;
+    height: 60px;
 }
 
 /* Style the top navigation pane */
 .navpane {
-  overflow: hidden;
-  background-color: #333;
+    overflow: hidden;
+    background-color: #333;
 }
 
 /* Style the navpane links */
 .navpane a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
 /* Change color on hover */
 .navpane a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
 #chatform {
@@ -108,11 +114,8 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     width: 100%;
 }
 
-
-
-
 /*USER SPEECH BUBBLE*/
-.bubble1{
+.bubble1 {
     float: left;
     width: 520px;
     height: auto;
@@ -123,8 +126,10 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #C17FC7 solid 4px;}
-.bubble1:after{
+    border: #C17FC7 solid 4px;
+}
+
+.bubble1:after {
     content: '';
     position: absolute;
     border-style: solid;
@@ -134,8 +139,10 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     width: 0;
     z-index: 1;
     left: -35px;
-    top: 6px;}
-.bubble1:before{
+    top: 6px;
+}
+
+.bubble1:before {
     content: '';
     position: absolute;
     border-style: solid;
@@ -145,10 +152,11 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     width: 0;
     z-index: 0;
     left: -42px;
-    top: 3px;}
+    top: 3px;
+}
 
 /*CHATBOT ANSWER BUBBLE*/
-.bubble2{
+.bubble2 {
     float: right;
     margin-left: 200px;
     margin-right: 50px;
@@ -160,8 +168,10 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #161CCA solid 6px;}
-.bubble2:after{
+    border: #161CCA solid 6px;
+}
+
+.bubble2:after {
     content: '';
     position: absolute;
     border-style: solid;
@@ -171,8 +181,10 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     width: 0;
     z-index: 1;
     right: -35px;
-    top: 6px;}
-.bubble2:before{
+    top: 6px;
+}
+
+.bubble2:before {
     content: '';
     position: absolute;
     border-style: solid;
@@ -182,4 +194,14 @@ p.msg{margin:2px;background-color:#C0C0C0; clear:both;}
     width: 0;
     z-index: 0;
     right: -46px;
-    top: 1px;}
+    top: 1px;
+}
+
+
+#chattimestamp{
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    font-size: 14px;
+
+}
