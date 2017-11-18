@@ -25,9 +25,35 @@ public class ServiceCaller {
     List<Integer> selectedFoodsIds;
     List<Integer> selectedIngredientsId;
 
+    List<Branch> matchedBranches;
     List<Restaurant> matchedRestaurants;
     List<Category> selectedCategories;
     District userDistrict;
+
+    private String getStringFromFile(String path) {
+        StringBuilder jsonString = new StringBuilder("");
+        // The name of the file to open.
+        String fileName = path;
+        // This will reference one line at a time
+        String line = null;
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while((line = bufferedReader.readLine()) != null) {
+                jsonString.append(line);
+            }
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.err.println("Unable to open file '" + fileName + "'");
+            ex.printStackTrace();
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return jsonString.toString();
+    }
 
     public String getPostCode(){
         return postCode;
@@ -81,41 +107,20 @@ public class ServiceCaller {
      * @return
      */
     public  List<Restaurant> getMatchingRestaurants() {
-        StringBuilder jsonString = new StringBuilder("");
-        ArrayList<Branch> matchingBranches = new ArrayList<>();
+        ArrayList<Branch> matchedBranches = new ArrayList<>();
+        //RestaurantId  is saved 
         List<Integer> restaurantIds = new ArrayList<>();
         List<Restaurant> matchedRestaurants = new ArrayList<>();
 
-        // The name of the file to open.
-        String fileName = "sample-dataset/restaurants_by_category/burgers.json";
-        // This will reference one line at a time
-        String line = null;
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            while((line = bufferedReader.readLine()) != null) {
-                jsonString.append(line);
-            }
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.err.println("Unable to open file '" + fileName + "'");
-            ex.printStackTrace();
-        }
-        catch(IOException ex) {
-             ex.printStackTrace();
-        }
-
         //The json Array has json represantation of branches
-        JSONArray jsonArray = new JSONArray(jsonString.toString());
-
-       // System.out.println("The json array is \n" + jsonArray.toString(4));
+        String jsonString = getStringFromFile("sample-dataset/restaurants_by_category/burgers.json");
+        JSONArray jsonArray = new JSONArray(jsonString);
 
         //create Branch for each json object in jsonArray
         System.out.println("The json of the first json object in the array is \n" + jsonArray.optJSONObject(0).toString(4));
         for(int i = 0; i < jsonArray.length(); i++) {
             Branch curBranch = new Branch(jsonArray.optJSONObject(i));
-            matchingBranches.add(curBranch);
+            matchedBranches.add(curBranch);
             System.out.println("The first Branch object is \n" + curBranch);
             Restaurant restaurant = new Restaurant(curBranch.getJson().optJSONObject("restaurant"));
 
@@ -128,6 +133,7 @@ public class ServiceCaller {
             }
         }
 
+        this.matchedBranches = matchedBranches;
         this.matchedRestaurants = matchedRestaurants;
         return matchedRestaurants;
     }
