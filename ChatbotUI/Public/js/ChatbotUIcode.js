@@ -1,20 +1,3 @@
-// // WHEN SEND BTN IS PRESSED
-// $(document).ready(function () {
-//     $("#sendbtn").click(function () {
-//         console.log(lastUserMessage);
-//         $.post("http://localhost:4567/hello",
-//             lastUserMessage,
-//             function (data, status) {
-//                 alert("Data: " + data + "\nStatus: " + status);
-//                 console.log(data);
-//                 botMessage = data;
-//                 newEntry();
-//
-//                 console.log(messages.toString());
-//             });
-//
-//     });
-// });
 
 //links
 //http://eloquentjavascript.net/09_regexp.html
@@ -24,17 +7,11 @@ nlp = window.nlp_compromise;
 var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
-    botName = 'Chatbot', //name of the chatbot
+    botName = 'FoodyBot', //name of the chatbot
+    Username = 'Customer',
     talking = true; //when false the speach function doesn't work
-//
-//
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
+
+
 //edit this function to change what the chatbot says
 function chatbotResponse() {
     talking = true;
@@ -49,16 +26,8 @@ function chatbotResponse() {
         botMessage = 'My name is ' + botName;
     }
 }
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//
-//
-//
+
+
 //this runs each time enter is pressed.
 //It controls the overall input and output
 function newEntry() {
@@ -68,29 +37,63 @@ function newEntry() {
         lastUserMessage = document.getElementById("chatbox").value;
         //sets the chat box to be clear
         document.getElementById("chatbox").value = "";
+
         //adds the value of the chatbox to the array messages
-        messages.push(lastUserMessage);
+        //with current time
+        var d = new Date();
+        messages.push("<b>" + Username + ":</b> " + lastUserMessage + "<br>" + d.toUTCString() );
+
         //Speech(lastUserMessage);  //says what the user typed outloud
         //sets the variable botMessage in response to lastUserMessage
         chatbotResponse();
+
         //add the chatbot's name and message to the array messages
-        messages.push("<b>" + botName + ":</b> " + botMessage);
+        messages.push("<b>" + botName + ":</b> " + botMessage + "<br>" + d.toUTCString());
+
         // says the message using the text to speech function written below
         Speech(botMessage);
+
         //outputs the last few array elements of messages to html
         for (var i = 1; i < 8; i++) {
-            if (messages[messages.length - i])
-                document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+            if (messages[messages.length - i]) {
+                $('#chatborder').append('<p class="bubble1">' + messages[messages.length - i-1] +'</p>');
+                $('#chatborder').append('<p class="bubble2">' + messages[messages.length - i] +'</p>');
+                $("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
+                //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+            }
         }
     }
 }
+
+//AUTO SCROLL DOWN
+//$("#chatborder").animate({ scrollTop: $("#chatborder").prop('scrollHeight')}, 0);
+//$("#chatborder").scrollTop($("#chatborder").prop('scrollHeight'));
+//
+//OR
+// $("#chatborder").scroll(function(){
+//     if ($("#chatborder").scrollTop() == $("#chatborder").prop('minHeight')-$("#chatborder").height()){
+//         alert("We're at the bottom of the page!!");
+//     }
+// });
+//
+// $("#chatborder").scroll(function(){
+//     if ($("#chatborder").scrollTop() == $("#chatborder").prop('minHeight')-$("#chatborder").height()){
+//         $.ajax({
+//             url: "index.html",
+//             success: function (data) { $("#chatborder").append(data); },
+//             dataType: 'html'
+//         });
+//     }
+// });
+
+
 
 //text to Speech
 //https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
 function Speech(say) {
     if ('speechSynthesis' in window && talking) {
         var utterance = new SpeechSynthesisUtterance(say);
-        //msg.voice = voices[10]; // Note: some voices don't support altering params
+        //msg.voice = voices[1]; // Note: some voices don't support altering params
         //msg.voiceURI = 'native';
         //utterance.volume = 1; // 0 to 1
         //utterance.rate = 0.1; // 0.1 to 10
@@ -121,4 +124,41 @@ function keyPress(e) {
 //this function is set to run when the users brings focus to the chatbox, by clicking on it
 function placeHolder() {
     document.getElementById("chatbox").placeholder = "";
+}
+
+
+// PREVENTS REFRESHING WHEN PRESSING ENTER
+$(function() {
+    $("form").submit(function() { return false; });
+});
+
+
+// WHEN SEND BTN IS PRESSED
+$(document).ready(function () {
+    $("#sendbtn").click(function () {
+        console.log(lastUserMessage);
+        $.post("http://localhost:4567/hello",
+            lastUserMessage,
+            function (data, status) {
+                alert("Data: " + data + "\nStatus: " + status);
+                console.log(data);
+                botMessage = data;
+                newEntry();
+
+                console.log(messages.toString());
+            });
+
+    });
+});
+
+
+//CHATBOX
+var count=0;
+function funcx() {
+    if (count < 50) {
+        count++;
+        $('div.chatbox').append('<p class="msg">Test' + count +'</p>');
+        $("div.chatbox").scrollTop($("div.chatbox")[0].scrollHeight);
+        setTimeout(funcx, 200);
+    }
 }
