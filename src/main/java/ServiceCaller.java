@@ -13,13 +13,13 @@ import java.util.Set;
 public class ServiceCaller {
     private static boolean DEBUG = false;
     public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
-
+    public static final int COFFEBRAND = 1, TOANAMMA = 2;
     String postCode;
     String userId;
     int districtId;
     List<Integer> categoryIds;
     boolean payByCredit ;
-    int selectedrestaurant;
+    int selectedRestaurant;
     int branchId;
     int curFoodCategoryId;
     int currentFoodId;
@@ -62,7 +62,7 @@ public class ServiceCaller {
      * If no category is chosen then all restaurants and branches are selected (based on other criteria).
      * @param categoryId the category id.
      */
-    public void addCategory(int categoryId) {
+    void addCategory(int categoryId) {
         selectedCategoriesIds.add(categoryId);
     }
 
@@ -71,10 +71,17 @@ public class ServiceCaller {
      * If no category is chosen then all restaurants and branches are selected (based on other criteria).
      * @param categoryId the category id.
      */
-    public void removeCategory(int categoryId) {
+    void removeCategory(int categoryId) {
         selectedCategoriesIds.remove(categoryId);
     }
 
+    /**
+     *
+     * @param branchId the id of the branch
+     */
+    void setSelectedRestaurant(int branchId) {
+        this.selectedRestaurant = branchId;
+    }
     /**
      *
      * @return a list the the category ids of the currently selected categories.
@@ -184,7 +191,6 @@ public class ServiceCaller {
         this.matchedRestaurants = matchedRestaurants;
         return matchedRestaurants;
     }
-
 
     //TODO implement logic
     public  List<Food> getFoodFromFoodCategory(){
