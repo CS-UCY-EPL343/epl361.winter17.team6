@@ -12,19 +12,15 @@ var messages = [], //array that hold the record of each string in chat
     talking = true; //when false the speach function doesn't work
 
 
-//edit this function to change what the chatbot says
 function chatbotResponse() {
-    talking = true;
-    botMessage = "I'm confused"; //the default message
-
-    if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-        const hi = ['hi','howdy','hello']
-        botMessage = hi[Math.floor(Math.random()*(hi.length))];;
-    }
-
-    if (lastUserMessage === 'name') {
-        botMessage = 'My name is ' + botName;
-    }
+    //
+    if (!botMessage) botMessage = "i'm confused";
+    botMessage = lastUserMessage;
+    //botMessage = nlp.sentence(lastUserMessage).replace('[Noun]', 'cat').text() //replace all nouns with cat
+    //botMessage = nlp.statement(lastUserMessage).negate().text();   //negate sentense
+    //botMessage = nlp.statement(lastUserMessage).to_future().text(); //   to_past    to_present
+    //botMessage = nlp.text(lastUserMessage).root();  //makes the sentence simple
+    //botMessage = nlp.noun(lastUserMessage).pluralize() //will make a noun plural (for single words)
 }
 
 
@@ -137,7 +133,7 @@ $(function() {
 $(document).ready(function () {
     $("#sendbtn").click(function () {
         console.log(lastUserMessage);
-        $.post("http://localhost:8080/hello",
+        $.post("http://localhost:4567/hello",
             lastUserMessage,
             function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
