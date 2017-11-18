@@ -56,8 +56,8 @@ function newEntry() {
         //outputs the last few array elements of messages to html
         for (var i = 1; i < 8; i++) {
             if (messages[messages.length - i]) {
-                $('#chatborder').append('<p class="bubble1">' + messages[messages.length - i-1] +'</p>');
-                $('#chatborder').append('<p class="bubble2">' + messages[messages.length - i] +'</p>');
+                $('#chatborder').append('<p class="bubble1">' + messages[messages.length - i - 1] +'</p>');
+                $('#chatborder').append('<p class="bubble2">' + messages[messages.length - 1] +'</p>');
                 $("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
                 //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
             }
@@ -137,7 +137,7 @@ $(function() {
 $(document).ready(function () {
     $("#sendbtn").click(function () {
         console.log(lastUserMessage);
-        $.post("http://localhost:4567/hello",
+        $.post("http://localhost:8080/hello",
             lastUserMessage,
             function (data, status) {
                 alert("Data: " + data + "\nStatus: " + status);
