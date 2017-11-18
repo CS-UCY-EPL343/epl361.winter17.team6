@@ -129,7 +129,6 @@ public class ServiceCaller {
 
             int restaurantId = restaurant.getId();
             boolean isRestaurantAlreadyInList = restaurantIds.contains(restaurantId);
-            System.out.println(restaurant);
             if(!isRestaurantAlreadyInList) {
                 matchedRestaurants.add(restaurant);
                 restaurantIds.add(restaurantId);
