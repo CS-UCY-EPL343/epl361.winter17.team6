@@ -111,16 +111,7 @@ public class ResponseGenerator {
         WordList_Souvlakia_l = WordList_Souvlakia.split("\n");
         WordList_Sandwich_l = WordList_Sandwich.split("\n");
         WordList_Burgers_l = WordList_Burgers.split("\n");
-        for (int i = 0; i < WordList_Souvlakia_l.length; i++) {
-            if (i > 0) {
-                System.out.print(", ");
-            }
-            System.out.print( WordList_Souvlakia_l[i]);
-        }
 
-        for(String key : keyWords) {
-            System.out.println(key);
-        }
 
         /*---Setting categories codes according to keywords ----*/
 
@@ -128,7 +119,7 @@ public class ResponseGenerator {
         for (int index = 0 ; index < WordList_Burgers_l.length;index++){
             if (keyWords.contains(WordList_Burgers_l[index])){
                 sc.addCategory(ServiceCaller.BURGERS);
-                System.out.print("TRUE");
+
 
             }
         }
@@ -143,7 +134,7 @@ public class ResponseGenerator {
         for (int index = 0 ; index < WordList_Souvlakia_l.length;index++){
             if (keyWords.contains(WordList_Souvlakia_l[index])){
                 sc.addCategory(ServiceCaller.SOUVLAKIA);
-                System.out.print("TRUE");
+
 
             }
         }
