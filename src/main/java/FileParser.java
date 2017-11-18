@@ -6,9 +6,9 @@ import java.io.IOException;
 /**
  * Created by tomis on 18/11/2017.
  */
-public class FileParser {
+class FileParser {
 
-    public static String getFileContentAsString(String path) {
+     static String getFileContentAsString(String path) {
         StringBuilder fileString = new StringBuilder("");
         // The name of the file to open.
         String fileName = path;
@@ -18,7 +18,7 @@ public class FileParser {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while((line = bufferedReader.readLine()) != null) {
-                fileString.append(line);
+                fileString.append(line +"\n");
             }
             bufferedReader.close();
         }
