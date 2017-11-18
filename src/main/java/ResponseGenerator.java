@@ -23,7 +23,38 @@ public class ResponseGenerator {
         AbstractResponse abstract_response_class = null;
 
         switch (msgCode) {
+
             case 1:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
+
+            case 2:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
+
+            case 3:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
+
+            case 4:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
+
+            case 5:
+                abstract_response_class = new ListOfRestaurantNamesResponse();
+                abstract_response_class.setServiceCaller(sc);
+
+                break;
+
+            case 6:
                 abstract_response_class = new ListOfRestaurantNamesResponse();
                 abstract_response_class.setServiceCaller(sc);
 
