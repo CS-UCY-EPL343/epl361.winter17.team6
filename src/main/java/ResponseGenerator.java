@@ -43,7 +43,7 @@ public class ResponseGenerator {
                 break;
 
             case LIST_INGREDIENT:
-                abstract_response_class = new Li();
+                abstract_response_class = new ListOfRestaurantNamesResponse();
                 abstract_response_class.setServiceCaller(sc);
 
                 break;
