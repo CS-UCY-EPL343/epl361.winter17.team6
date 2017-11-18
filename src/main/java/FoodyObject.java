@@ -18,12 +18,12 @@ public class FoodyObject implements JsonObject {
         try {
             this.slug = jo.getString("slug");
         }catch (JSONException e) {
-            this.slug = "There is no slug for this foody object. ("+getClass()+")";
+            this.slug = "There is no slug key for this foody object. ("+getClass()+")";
         }
         try {
             this.name = jo.getString("name");
         }catch (JSONException e) {
-            this.slug = "There is no name for this foody object. ("+getClass()+")";
+            this.name = "There is no name key for this foody object. ("+getClass()+")";
         }
 
 
