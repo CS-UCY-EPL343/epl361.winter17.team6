@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="045d47da-ba32-45ab-be24-fc9a3ab55cff" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/HelpResponse.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Burgers_Wordlist.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Sandwich_Wordlist.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Souvlakia_Wordlist.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/epl361.winter17.team6.iml" afterPath="$PROJECT_DIR$/.idea/epl361.winter17.team6.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ListBranchFoodCategoriesResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ListIngredientResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ListRestaurantScheduleResponse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotUI/Public/js/ChatbotUIcode.js" afterPath="$PROJECT_DIR$/ChatbotUI/Public/js/ChatbotUIcode.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/App.java" afterPath="$PROJECT_DIR$/src/main/java/App.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotUI/Public/about.html" afterPath="$PROJECT_DIR$/ChatbotUI/Public/about.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotUI/Public/css/ChatbotInterface.css" afterPath="$PROJECT_DIR$/ChatbotUI/Public/css/ChatbotInterface.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotUI/Public/index.html" afterPath="$PROJECT_DIR$/ChatbotUI/Public/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ListOfRestaurantNamesResponse.java" afterPath="$PROJECT_DIR$/src/main/java/ListOfRestaurantNamesResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ResponseGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/ResponseGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/TestApp.java" afterPath="$PROJECT_DIR$/src/main/java/TestApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/TextParser.java" afterPath="$PROJECT_DIR$/src/main/java/TextParser.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/ResponseGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2746">
-              <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+              <caret line="168" column="0" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -39,28 +34,38 @@
       <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="-390">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Service_ListOfRestaurant.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/WordList/Service_ListOfRestaurant.txt">
+        <entry file="file://$PROJECT_DIR$/WordLists/Service_ListOfRestaurant.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ListOfRestaurantNamesResponse.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ListOfRestaurantNamesResponse.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ListOfRestaurantNamesResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="21" column="62" lean-forward="true" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+            <state relative-caret-position="256">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="about.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ChatbotUI/Public/about.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -98,16 +103,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KeyMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/KeyMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TestApp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/TestApp.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -118,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/FileParser.java">
+      <file leaf-file-name="ChatbotInterface.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ChatbotUI/Public/css/ChatbotInterface.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="33" column="1" lean-forward="false" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+            <state relative-caret-position="238">
+              <caret line="74" column="16" lean-forward="true" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -141,6 +136,7 @@
     <findStrings>
       <find>put</find>
       <find>File not found or could not be opened</find>
+      <find>selectedRes</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -231,6 +227,24 @@
             <path>
               <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
               <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+              <item name="ChatbotUI" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+              <item name="ChatbotUI" type="462c0819:PsiDirectoryNode" />
+              <item name="Public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+              <item name="ChatbotUI" type="462c0819:PsiDirectoryNode" />
+              <item name="Public" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
               <item name="sample-dataset" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -238,6 +252,12 @@
               <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
               <item name="sample-dataset" type="462c0819:PsiDirectoryNode" />
               <item name="delivery_info_by_postcode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
+              <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
+              <item name="sample-dataset" type="462c0819:PsiDirectoryNode" />
+              <item name="general" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
@@ -260,7 +280,7 @@
             <path>
               <item name="epl361.winter17.team6" type="b2602c69:ProjectViewProjectNode" />
               <item name="epl361.winter17.team6" type="462c0819:PsiDirectoryNode" />
-              <item name="WordList" type="462c0819:PsiDirectoryNode" />
+              <item name="WordLists" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -290,7 +310,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.TestApp">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="App" />
@@ -451,8 +471,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.App" />
-        <item index="1" class="java.lang.String" itemvalue="Application.TestApp" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TestApp" />
+        <item index="1" class="java.lang.String" itemvalue="Application.App" />
         <item index="2" class="java.lang.String" itemvalue="Application.WordHashTable" />
         <item index="3" class="java.lang.String" itemvalue="Application.TextParser" />
         <item index="4" class="java.lang.String" itemvalue="Application.Tokenizer" />
@@ -476,7 +496,7 @@
       <workItem from="1510996161136" duration="7680000" />
       <workItem from="1511086868105" duration="4304000" />
       <workItem from="1511096570032" duration="2125000" />
-      <workItem from="1511098748473" duration="2390000" />
+      <workItem from="1511098748473" duration="3029000" />
     </task>
     <task id="LOCAL-00001" summary="Added constructors and main method for testing in Tokenizer Class and commented the first import of ServiceCaller Class due to error when running Tokenizer Class.">
       <created>1510940428781</created>
@@ -527,11 +547,53 @@
       <option name="project" value="LOCAL" />
       <updated>1511098676327</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101163967</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101163967</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101197189</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101197189</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101201597</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101201597</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101207351</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101207351</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101290242</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101290242</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java">
+      <created>1511101296641</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1511101296641</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27613000" />
+    <option name="totallyTimeSpent" value="28252000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -553,7 +615,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890624" sideWeight="0.5093023" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20373514" sideWeight="0.49301514" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2886248" sideWeight="0.49301514" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29881155" sideWeight="0.49069768" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -614,7 +676,8 @@
     <MESSAGE value="Updated getKeyWords method of Class TextParser." />
     <MESSAGE value="Created WordHashTable and WordLinkedList Classes." />
     <MESSAGE value="Enter enter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enter enter" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/CS-UCY-EPL361/epl361.winter17.team6&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/TextParser.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -630,17 +693,8 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/KeyMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WordList/Sandwich_Wordlist.txt" />
-    <entry file="file://$PROJECT_DIR$/WordList/Burgers_Wordlist.txt" />
-    <entry file="file://$PROJECT_DIR$/WordList/Souvlakia_Wordlist.txt" />
+    <entry file="file://$PROJECT_DIR$/WordLists/Burgers_Wordlist.txt" />
+    <entry file="file://$PROJECT_DIR$/WordLists/Souvlakia_Wordlist.txt" />
     <entry file="file://$PROJECT_DIR$/src/main/java/WordHashTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -856,8 +910,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WordList/Souvlakia_Wordlist.txt" />
-    <entry file="file://$PROJECT_DIR$/WordList/Burgers_Wordlist.txt" />
+    <entry file="file://$PROJECT_DIR$/WordLists/Souvlakia_Wordlist.txt" />
+    <entry file="file://$PROJECT_DIR$/WordLists/Burgers_Wordlist.txt" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ServiceCaller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1802">
@@ -882,7 +936,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WordList/Sandwich_Wordlist.txt" />
+    <entry file="file://$PROJECT_DIR$/WordLists/Sandwich_Wordlist.txt" />
     <entry file="file://$PROJECT_DIR$/WordList/Service_ListOfRestaurant" />
     <entry file="file://$PROJECT_DIR$/Want_Wordlist.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -911,15 +965,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/ResponseGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2746">
-          <caret line="168" column="0" lean-forward="true" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WordList/Service_ListOfRestaurant.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <caret line="168" column="0" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -942,6 +988,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ChatbotUI/Public/css/ChatbotInterface.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="74" column="16" lean-forward="true" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TestApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -952,16 +1006,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="-390">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WordLists/Service_ListOfRestaurant.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ListOfRestaurantNamesResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="21" column="62" lean-forward="true" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+        <state relative-caret-position="256">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatbotUI/Public/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

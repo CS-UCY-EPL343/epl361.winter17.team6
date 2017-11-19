@@ -14,7 +14,7 @@ public class ListOfRestaurantNamesResponse extends AbstractResponse {
         response.append("Τα εστιατορία για τις επιλογες σας είναι :" + "\n");
 
         for (Restaurant r: restaurantList)
-            response.append("<a id=\"clickable-rest\""+ selectedRes +  " on-click=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
+            response.append("<a id=\"clickable-rest\"" +  " on-click=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
 
 
 
