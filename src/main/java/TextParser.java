@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class TextParser {
 
     private String msg;
+    private static List<String> finalKeyWords = new LinkedList<>();
 
     public TextParser(String msg) {
         this.msg = msg;
@@ -19,37 +20,58 @@ public class TextParser {
         Tokenizer tk = new Tokenizer(this.msg);
         List<String> tokens = tk.tokenize();
         List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
-        List<String> finalKeyWords = new LinkedList<>();
 
-        Scanner inputStream = null;
+        Scanner souvlakiaInputStream = null;
+        Scanner wantInputStream = null;
 
+        List<String> souvlakiaWords = new LinkedList<>();
+        List<String> wantWords = new LinkedList<>();
 
+        souvlakiaWords = getWordListFromFile(souvlakiaInputStream, "Souvlakia_Wordlist.txt");
+        wantWords = getWordListFromFile(wantInputStream, "Want_Wordlist.txt");
+
+        addWords(mainKeyWords, souvlakiaWords);
+        addWords(mainKeyWords, wantWords);
+
+        /*for (String word : mainKeyWords) {
+            if (souvlakiaWords.contains(word.toLowerCase())) {
+                finalKeyWords.add(souvlakiaWords.get(0));
+            }
+            if (wantWords.contains(word.toLowerCase())) {
+                finalKeyWords.add(wantWords.get(0));
+            }
+        }*/
+
+        return finalKeyWords;
+    }
+
+    private static List<String> getWordListFromFile(Scanner inputStream, String fileName) {
         try {
-            inputStream = new Scanner(new FileInputStream("C:\\Users\\kyria\\Documents\\GitHub\\epl361.winter17.team6\\WordList\\Souvlakia_Wordlist.txt"));
+            inputStream = new Scanner(new FileInputStream(fileName));
         } catch (FileNotFoundException e) {
             System.out.println("File not found or could not be opened");
             System.exit(0);
         }
 
-        List<String> souvlakiaWords = new LinkedList<>();
-
+        List<String> wordList = new LinkedList<>();
         while (inputStream.hasNextLine()) {
-            souvlakiaWords.add(inputStream.nextLine());
+            wordList.add(inputStream.nextLine());
         }
 
         inputStream.close();
+        return  wordList;
+    }
 
-        for (String word : mainKeyWords) {
-            if (souvlakiaWords.contains(word)) {
-                finalKeyWords.add(souvlakiaWords.get(0));
+    private static void addWords(List<String> mainList, List<String> wordList) {
+        for (String word : mainList) {
+            if (wordList.contains(word.toLowerCase())) {
+                finalKeyWords.add(wordList.get(0));
             }
         }
-
-        return finalKeyWords;
     }
 
     public static void main(String args[]) {
-        TextParser tp = new TextParser("I want to order souvlou8kia");
+        TextParser tp = new TextParser("I need to order Souvlou8kia");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }
