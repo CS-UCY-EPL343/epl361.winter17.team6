@@ -13,7 +13,7 @@ import java.util.Set;
 public class ServiceCaller {
     private static boolean DEBUG = false;
     public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
-    public static final int COFFEBRAND_MENU = 1, TOANAMMA_MENU = 2;
+    public static final int COFFEBRAND_MENU = 1, TOANAMMA_MENU = 87;
     private String postCode;
     private String userId;
     private int districtId;
