@@ -23,6 +23,7 @@ public class TextParser {
 
         Scanner inputStream = null;
 
+
         try {
             inputStream = new Scanner(new FileInputStream("C:\\Users\\kyria\\Documents\\GitHub\\epl361.winter17.team6\\WordList\\Souvlakia_Wordlist.txt"));
         } catch (FileNotFoundException e) {
