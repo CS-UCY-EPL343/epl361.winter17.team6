@@ -2,7 +2,6 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,10 +35,12 @@ public class ServiceCaller {
     //private List<Category> selectedCategories;
     private District userDistrict;
 
+
     public String getPostCode(){
         return postCode;
     }
 
+    private List<MenuItem> userSelectedMenuitems = new ArrayList<>();
     /**
      *
      * @return a list with the names of the categories that are currently selected.
@@ -205,7 +206,7 @@ public class ServiceCaller {
         return matchedRestaurants;
     }
 
-    public  List<Food> getFoodFromFoodCategory() throws FoodCategoryIsNotSetException{
+    public  List<MenuItem> getFoodFromFoodCategory() throws FoodCategoryIsNotSetException{
         if(curFoodCategory == null)
             throw new FoodCategoryIsNotSetException();
         return null;
@@ -230,7 +231,7 @@ public class ServiceCaller {
     }
 
     //TODO implement logic
-    public List<IngredientCategory> getIngredientCategoriesForFood(Food menuItems){
+    public List<IngredientCategory> getIngredientCategoriesForFood(MenuItem menuItems){
         return menuItems.getIngredientCategory();
     }
 
@@ -244,6 +245,10 @@ public class ServiceCaller {
         return 0;
     }
 
+
+    void addMenuItemToOrder(MenuItem mi ) {
+        userSelectedMenuitems.add(mi);
+    }
     /**
      *
      * @return the BranchMenu of the selected Restaurant.
