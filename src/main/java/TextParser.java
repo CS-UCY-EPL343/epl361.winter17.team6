@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,14 +22,8 @@ public class TextParser {
         List<String> tokens = tk.tokenize();
         List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
 
-        Scanner souvlakiaInputStream = null;
-        Scanner wantInputStream = null;
-
-        List<String> souvlakiaWords = new LinkedList<>();
-        List<String> wantWords = new LinkedList<>();
-
-        souvlakiaWords = getWordListFromFile(souvlakiaInputStream, "WordLists/Souvlakia_Wordlist.txt");
-        wantWords = getWordListFromFile(wantInputStream, "WordLists/Want_Wordlist.txt");
+        List<String> souvlakiaWords = getWordListFromFile("WordLists/Souvlakia_Wordlist.txt");
+        List<String> wantWords = getWordListFromFile("WordLists/Want_Wordlist.txt");
 
         addWords(mainKeyWords, souvlakiaWords);
         addWords(mainKeyWords, wantWords);
@@ -45,21 +40,14 @@ public class TextParser {
         return finalKeyWords;
     }
 
-    private static List<String> getWordListFromFile(Scanner inputStream, String fileName) {
-        try {
-            inputStream = new Scanner(new FileInputStream(fileName));
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found or could not be opened");
-            System.exit(0);
+    private static List<String> getWordListFromFile(String filePath) {
+        String words = FileParser.getFileContentAsString(filePath);
+        String[] wordList = words.split("\n");
+        List<String> outList = new LinkedList<>();
+        for (int i=0; i<wordList.length; i++) {
+            outList.add(wordList[i]);
         }
-
-        List<String> wordList = new LinkedList<>();
-        while (inputStream.hasNextLine()) {
-            wordList.add(inputStream.nextLine());
-        }
-
-        inputStream.close();
-        return  wordList;
+        return outList;
     }
 
     private static void addWords(List<String> mainList, List<String> wordList) {
