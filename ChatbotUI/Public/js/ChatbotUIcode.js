@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 // The hello message from the chatbot to the user
 $(document).ready(function () {
-    botMessage = "Hello!I'm FoodyBot! Please enter one of the following:" +
+    botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
         "<br />1. To find a specific restaurant." +
         "<br />2. To get the current chat log." +
         "<br />..." +
@@ -53,6 +53,7 @@ function Speech(say) {
 }
 
 function newEntry() {
+
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
 
@@ -136,12 +137,30 @@ $(document).ready(function () {
 });
 
 
+function sendId(id){
+    //alert(id);
+    $.post("http://localhost:4567/hello",
+        "res_id"+id,
+        function (data, status) {
+            document.getElementById("chatbox").disabled = false;
+            console.log(messages.toString());
+        });
+    document.getElementById("chatbox").disabled = true;
+
+    // THE SELECTED RESTAURANT
+    alert(document.getElementById("clickable-rest-"+id).innerText);
+}
+
+//
+
 
 $(document).ready(function () {
-    $('#clickable-rest').click(function () {
-            console.log($('#clickable-rest').String);
-
-        $('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
+    document.getElementById("chatbox").disabled = false;
+    $('clickable-rest').click(function () {
+        //document.getElementById("chatbox").disabled = true;
+        //alert("hey");
+       // console.log("ghfjfg");
+        //$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
             //document.getElementById("chatbox").value = $('#clickable-rest').onclick;
         }
     );
