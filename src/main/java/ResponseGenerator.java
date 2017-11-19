@@ -35,9 +35,9 @@ public class ResponseGenerator {
 
         /*--- Burgers ,Slouvakia, Sawndich Collection---*/
 
-                WordList_Souvlakia = FileParser.getFileContentAsString("WordList/Souvlakia_Wordlist.txt");
-                WordList_Burgers = FileParser.getFileContentAsString("WordList/Burgers_Wordlist.txt");
-                WordList_Sandwich = FileParser.getFileContentAsString("WordList/Sandwich_Wordlist.txt");
+                WordList_Souvlakia = FileParser.getFileContentAsString("WordLists/Souvlakia_Wordlist.txt");
+                WordList_Burgers = FileParser.getFileContentAsString("WordLists/Burgers_Wordlist.txt");
+                WordList_Sandwich = FileParser.getFileContentAsString("WordLists/Sandwich_Wordlist.txt");
                 //  System.out.print(WordList_Souvlakia);
                 WordList_Souvlakia_l = WordList_Souvlakia.split("\n");
                 WordList_Sandwich_l = WordList_Sandwich.split("\n");
