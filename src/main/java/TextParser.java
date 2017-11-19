@@ -53,7 +53,7 @@ public class TextParser {
     private static void addIds(List<String> idList) {
         String[] part;
         for (String id : idList) {
-            part = id.split("#");
+            part = id.split("=");
             finalKeyWords.add(part[0]);
             finalKeyWords.add(part[1]);
         }
@@ -68,7 +68,7 @@ public class TextParser {
     }
 
     public static void main(String args[]) {
-        TextParser tp = new TextParser("usr_selection res_ID#123456");
+        TextParser tp = new TextParser("usr_selection res_ID=123456");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }
