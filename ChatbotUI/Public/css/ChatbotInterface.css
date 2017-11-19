@@ -75,12 +75,13 @@ p.msg {
 
 /* Style the top navigation pane */
 .navpane {
+    font: 20px arial, sans-serif;
     overflow: hidden;
     background-color: #333;
 }
 
 /* Style the navpane links */
-.navpane a {
+.navpane a{
     float: left;
     display: block;
     color: #f2f2f2;
@@ -205,4 +206,11 @@ p.msg {
     right: 7px;
     font-size: 14px;
 
+}
+
+#curruser{
+    position: absolute;
+    top: 117px;
+    right: 87px;
+    font-size: 30px;
 }

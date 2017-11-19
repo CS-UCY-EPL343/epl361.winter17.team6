@@ -7,20 +7,30 @@ var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
-    Username = 'Customer',
+    Username = 'Marios',
     talking = false; //when false the speach function doesn't work
 
 
-function chatbotResponse(response) {
+// CURRENT USER SIGNED IN
+$(document).ready(function () {
+    $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
+});
+//Helper function for inserting HTML as the first child of an element
+function insert(targetId, message) {
+    id(targetId).insertAdjacentHTML("#afterbegin", message);
+}
+
+
+//function chatbotResponse(response) {
     //
-    if (!botMessage) botMessage = "i'm confused";
-    botMessage = response;
+//    if (!botMessage) botMessage = "i'm confused";
+//    botMessage = response;
     //botMessage = nlp.sentence(lastUserMessage).replace('[Noun]', 'cat').text() //replace all nouns with cat
     //botMessage = nlp.statement(lastUserMessage).negate().text();   //negate sentense
     //botMessage = nlp.statement(lastUserMessage).to_future().text(); //   to_past    to_present
     //botMessage = nlp.text(lastUserMessage).root();  //makes the sentence simple
     //botMessage = nlp.noun(lastUserMessage).pluralize() //will make a noun plural (for single words)
-}
+//}
 
 //AUTO SCROLL DOWN
 //$("#chatborder").animate({ scrollTop: $("#chatborder").prop('scrollHeight')}, 0);
@@ -63,6 +73,7 @@ function Speech(say) {
 function newEntry() {
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
+
         //pulls the value from the chatbox ands sets it to lastUserMessage
         lastUserMessage = document.getElementById("chatbox").value;
         //sets the chat box to be clear
@@ -71,8 +82,9 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         //with current time
         var d = new Date();
+        var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         messages.push("<b>" + Username + ":</b> " +
-                      "<span id='chattimestamp'>" + d.toUTCString() + "</span>" +
+                      "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
                       "<p>" + lastUserMessage + "</p>" );
         //Speech(lastUserMessage);  //says what the user typed outloud
         //sets the variable botMessage in response to lastUserMessage
@@ -91,22 +103,22 @@ function newEntry() {
 
                 //add the chatbot's name and message to the array messages
                 messages.push("<b>" + botName + ":</b> " +
-                    "<span id='chattimestamp'>" + d.toUTCString() + "</span>" +
+                    "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
                     "<p>" + botMessage + "</p>" );
 
                 // says the message using the text to speech function written below
                 Speech(botMessage);
 
                 //outputs the last few array elements of messages to html
-                for (var i = 1; i < 8; i++) {
-                    if (messages[messages.length - i]) {
-                        $('#chatborder').append('<div class="bubble1" >' + messages[messages.length - i - 1] + '</div>');
-                        $('#chatborder').append('<div class="bubble2" >' + messages[messages.length - 1] + '</div>');
-                        $("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
+               // for (var i = 1; i < messages.length; i++) {
+               //     if (messages[messages.length - i]) {
+                        $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1 - 1] + '</ul>');
+                        $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
+                        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
                         //$("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
                         //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-                    }
-                }
+               //     }
+               // }
                 console.log(messages.toString());
             });
     }
@@ -115,7 +127,6 @@ function newEntry() {
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
-
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -157,7 +168,6 @@ $(document).ready(function () {
 
 //CHATBOX
 var count = 0;
-
 function funcx() {
     if (count < 50) {
         count++;
