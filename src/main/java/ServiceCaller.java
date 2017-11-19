@@ -13,13 +13,13 @@ import java.util.Set;
 public class ServiceCaller {
     private static boolean DEBUG = false;
     public static final int BURGERS = 12, SOUVLAKIA = 2, SANDWICH = 17;
-    public static final int COFFEBRAND = 1, TOANAMMA = 2;
+    public static final int COFFEBRAND_MENU = 1, TOANAMMA_MENU = 2;
     private String postCode;
     private String userId;
     private int districtId;
     private List<Integer> categoryIds;
     private boolean payByCredit ;
-    private int selectedRestaurant;
+    private int selectedRestaurantId;
     private int branchId;
     private int curFoodCategoryId;
     private int currentFoodId;
@@ -82,15 +82,19 @@ public class ServiceCaller {
      * @param branchId the id of the branch
      */
     void setSelectedRestaurant(int branchId) {
-        this.selectedRestaurant = branchId;
+        this.selectedRestaurantId = branchId;
         String jsonString = "";
-        switch ( selectedRestaurant ) {
-            case TOANAMMA :
-                    jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+        switch ( selectedRestaurantId ) {
+            case TOANAMMA_MENU :
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurant_menu/to-anamma_menu.json");
                     break;
-            case COFFEBRAND :
-                    jsonString = FileParser.getFileContentAsString("sample-dataset/general/restaurants.json");
+            case COFFEBRAND_MENU :
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurant_menu/coffeebrands_menu.json");
+                    break;
+            default:
+                throw new NoSuchBranchIdException(branchId);
         }
+        this.selectedRestaurantMenu = new BranchMenu(new JSONObject(jsonString));
     }
     /**
      *
