@@ -86,7 +86,7 @@ public class ServiceCaller {
         String jsonString = "";
         switch ( selectedRestaurantId ) {
             case TOANAMMA_MENU :
-                    jsonString = FileParser.getFileContentAsString(|"sample-dataset/restaurant_menu/to-anamma_menu.json");
+                    jsonString = FileParser.getFileContentAsString("sample-dataset/restaurant_menu/to-anamma_menu.json");
                     break;
             case COFFEBRAND_MENU :
                     jsonString = FileParser.getFileContentAsString("sample-dataset/restaurant_menu/coffeebrands_menu.json");
