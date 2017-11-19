@@ -73,6 +73,7 @@ p.msg {
 /* Format of responce restaurants links */
 #clickable-rest {
     color: blue;
+    cursor: pointer;
 }
 #clickable-rest:hover{
     color: lightblue;
