@@ -28,15 +28,6 @@ public class TextParser {
         addWords(mainKeyWords, souvlakiaWords);
         addWords(mainKeyWords, wantWords);
 
-        /*for (String word : mainKeyWords) {
-            if (souvlakiaWords.contains(word.toLowerCase())) {
-                finalKeyWords.add(souvlakiaWords.get(0));
-            }
-            if (wantWords.contains(word.toLowerCase())) {
-                finalKeyWords.add(wantWords.get(0));
-            }
-        }*/
-
         return finalKeyWords;
     }
 
