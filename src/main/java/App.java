@@ -23,8 +23,8 @@ public class App {
         s.add("souvlakia");
 
         TextParser tp = new TextParser(usrMsg);
-        List<String> parsedUserMessage = tp.getKeyWords();
-        String responceMessage = (new ResponseGenerator()).getResponce(s, ResponseGenerator.LIST_RESTAURANT, sc);
+      //  List<String> parsedUserMessage = tp.getKeyWords();
+        String responceMessage = (new ResponseGenerator()).getResponce(s,sc);
 
         return responceMessage;
     }
@@ -65,7 +65,7 @@ public class App {
             String usrMsg = req.body();
             String responseMsg = app.getChatbotResponse(usrMsg);
             res.status(200);
-            res.type("text/plain");
+            res.type("text/html");
             return responseMsg ;
         });
 

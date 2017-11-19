@@ -10,11 +10,13 @@ public class ListOfRestaurantNamesResponse extends AbstractResponse {
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
         int index=0;
         restaurantList =  getServiceCaller().getMatchingRestaurants();
-
+        String selectedRes = "";
         response.append("Τα εστιατορία για τις επιλογες σας είναι :" + "\n");
 
-        for (Restaurant restaurant_name: restaurantList)
-            response.append(++index + "\t" + restaurant_name.getName()+ "\n");
+        for (Restaurant r: restaurantList)
+            response.append("<a id=\"clickable-rest\"" +  " on-click=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
+
+
 
 
         response.append("Παρακαλώ επιλέξετε αριθμό :" + "\n");

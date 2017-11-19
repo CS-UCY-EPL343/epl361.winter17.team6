@@ -35,9 +35,9 @@ public class ResponseGenerator {
 
         /*--- Burgers ,Slouvakia, Sawndich Collection---*/
 
-                WordList_Souvlakia = FileParser.getFileContentAsString("WordList/Souvlakia_Wordlist.txt");
-                WordList_Burgers = FileParser.getFileContentAsString("WordList/Burgers_Wordlist.txt");
-                WordList_Sandwich = FileParser.getFileContentAsString("WordList/Sandwich_Wordlist.txt");
+                WordList_Souvlakia = FileParser.getFileContentAsString("WordLists/Souvlakia_Wordlist.txt");
+                WordList_Burgers = FileParser.getFileContentAsString("WordLists/Burgers_Wordlist.txt");
+                WordList_Sandwich = FileParser.getFileContentAsString("WordLists/Sandwich_Wordlist.txt");
                 //  System.out.print(WordList_Souvlakia);
                 WordList_Souvlakia_l = WordList_Souvlakia.split("\n");
                 WordList_Sandwich_l = WordList_Sandwich.split("\n");
@@ -142,11 +142,20 @@ public class ResponseGenerator {
 
     }
 
-    public String getResponce (List<String> keyWords,int expectedMsgCode,ServiceCaller sc){
+    public int produceMessageCode (List<String> keyWords){
+
+
+        return 0;
+    }
+
+    public String getResponce (List<String> keyWords,ServiceCaller sc){
 
         this.sc = sc;
-        setMsgCode(expectedMsgCode);
+        int expectedMsgCode = 1;
+
         setKeyWords (keyWords);
+      //  expectedMsgCode = produceMessageCode(keyWords);
+        setMsgCode(expectedMsgCode);
 
 
 
