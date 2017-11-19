@@ -8,8 +8,8 @@ var messages = [], //array that hold the record of each string in chat
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
     Username = 'Marios',
-    talking = false; //when false the speach function doesn't work
-d = new Date(),
+    talking = false, //when false the speach function doesn't work
+    d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 // CURRENT USER SIGNED IN
@@ -98,6 +98,7 @@ function newEntry() {
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
+
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -130,6 +131,18 @@ $(document).ready(function () {
     $("#sendbtn").click(function () {
             console.log(lastUserMessage);
             newEntry();
+        }
+    );
+});
+
+
+
+$(document).ready(function () {
+    $('#clickable-rest').click(function () {
+            console.log($('#clickable-rest').String);
+
+        $('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
+            //document.getElementById("chatbox").value = $('#clickable-rest').onclick;
         }
     );
 });
