@@ -13,7 +13,8 @@ public class TestApp {
     }
     public String getChatbotResponse(String usrMsg) {
         List<String> s = new ArrayList<String>();
-        s.add("souvlakia");
+        s.add("res_Id");
+        s.add("");
 
         TextParser tp = new TextParser(usrMsg);
      //   List<String> parsedUserMessage = tp.getKeyWords();

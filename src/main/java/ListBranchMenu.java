@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ListBranchMenu extends AbstractResponse{
 
-private int restaurantId;
+    private int restaurantId;
 
     public void setRestaurantId(int resId){
         this.restaurantId = resId;
