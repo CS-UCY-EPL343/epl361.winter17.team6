@@ -134,11 +134,17 @@ public class ResponseGenerator {
         for(String food : KEY_LIST__FOOD)
           if (keyWords.contains(food))
             setMsgCode(LIST_RESTAURANT);
+
         else
+
             if (keyWords.contains(KEY_BRANCH)) {
                 setMsgCode(LIST_BRANCH_MENU);
-                setselectedRest(Integer.getInteger(keyWords.get(LIST_RESTAURANT)));
+
+                setselectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)));
+
+
         }
+
 
 
     }
