@@ -48,6 +48,8 @@ p.msg {
     width: 100%;
 }
 
+
+/* SEND BUTTON FORMAT */
 #sendbtn{
     background-color: #0006af; /* Green */
     border: 3px solid green;
@@ -68,6 +70,16 @@ p.msg {
     transform: translateY(4px);
 }
 
+/* Format of responce restaurants links */
+#clickable-rest {
+    color: blue;
+}
+#clickable-rest:hover{
+    color: lightblue;
+}
+#clickable-rest:active{
+    color:purple;
+}
 
 .h1 {
     margin: auto;
