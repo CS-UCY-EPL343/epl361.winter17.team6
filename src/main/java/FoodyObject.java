@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,6 +29,7 @@ public class FoodyObject implements JsonObject {
 
 
     }
+
 
     //getters
     public String getSlug() { return slug; }
