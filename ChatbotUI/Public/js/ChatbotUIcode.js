@@ -9,13 +9,16 @@ var messages = [], //array that hold the record of each string in chat
     botName = 'FoodyBot', //name of the chatbot
     Username = 'Marios',
     talking = false; //when false the speach function doesn't work
-    d = new Date(),
-    days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+d = new Date(),
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 // CURRENT USER SIGNED IN
 $(document).ready(function () {
     $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
+});
 
+// The hello message from the chatbot to the user
+$(document).ready(function () {
     botMessage = "Hello!I'm FoodyBot! Please enter one of the following:" +
         "<br />1. To find a specific restaurant." +
         "<br />2. To get the current chat log." +
@@ -23,52 +26,14 @@ $(document).ready(function () {
         "<br />Please enter one of the above numbers.";
     //add the chatbot's name and message to the array messages
     messages.push("<b>" + botName + ":</b> " +
-        "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
-        "<p>" + botMessage + "</p>" );
+        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+        "<p>" + botMessage + "</p>");
 
     // says the message using the text to speech function written below
     Speech(botMessage);
     $('#chatborder').append('<ul class="bubble2" >' + messages[0] + '</ul>');
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
 });
-
-// The hello message from the chatbot to the user
-$(document).ready(function () {
-
-});
-
-
-//function chatbotResponse(response) {
-    //
-//    if (!botMessage) botMessage = "i'm confused";
-//    botMessage = response;
-    //botMessage = nlp.sentence(lastUserMessage).replace('[Noun]', 'cat').text() //replace all nouns with cat
-    //botMessage = nlp.statement(lastUserMessage).negate().text();   //negate sentense
-    //botMessage = nlp.statement(lastUserMessage).to_future().text(); //   to_past    to_present
-    //botMessage = nlp.text(lastUserMessage).root();  //makes the sentence simple
-    //botMessage = nlp.noun(lastUserMessage).pluralize() //will make a noun plural (for single words)
-//}
-
-//AUTO SCROLL DOWN
-//$("#chatborder").animate({ scrollTop: $("#chatborder").prop('scrollHeight')}, 0);
-//$("#chatborder").scrollTop($("#chatborder").prop('scrollHeight'));
-//
-//OR
-// $("#chatborder").scroll(function(){
-//     if ($("#chatborder").scrollTop() == $("#chatborder").prop('minHeight')-$("#chatborder").height()){
-//         alert("We're at the bottom of the page!!");
-//     }
-// });
-//
-// $("#chatborder").scroll(function(){
-//     if ($("#chatborder").scrollTop() == $("#chatborder").prop('minHeight')-$("#chatborder").height()){
-//         $.ajax({
-//             url: "index.html",
-//             success: function (data) { $("#chatborder").append(data); },
-//             dataType: 'html'
-//         });
-//     }
-// });
 
 
 //text to Speech
@@ -99,11 +64,8 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         //with current time
         messages.push("<b>" + Username + ":</b> " +
-                      "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
-                      "<p>" + lastUserMessage + "</p>" );
-        //Speech(lastUserMessage);  //says what the user typed outloud
-        //sets the variable botMessage in response to lastUserMessage
-        //chatbotResponse(data);
+            "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+            "<p>" + lastUserMessage + "</p>");
 
         $.post("http://localhost:4567/hello",
             lastUserMessage,
@@ -118,22 +80,17 @@ function newEntry() {
 
                 //add the chatbot's name and message to the array messages
                 messages.push("<b>" + botName + ":</b> " +
-                    "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
-                    "<p>" + botMessage + "</p>" );
+                    "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+                    "<p>" + botMessage + "</p>");
 
                 // says the message using the text to speech function written below
                 Speech(botMessage);
 
                 //outputs the last few array elements of messages to html
-               // for (var i = 1; i < messages.length; i++) {
-               //     if (messages[messages.length - i]) {
-                        $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1 - 1] + '</ul>');
-                        $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
-                        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
-                        //$("#chatborder").scrollTop($("div.chatbox")[0].scrollHeight);
-                        //document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-               //     }
-               // }
+                $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1 - 1] + '</ul>');
+                $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
+                $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+
                 console.log(messages.toString());
             });
     }
@@ -176,14 +133,3 @@ $(document).ready(function () {
         }
     );
 });
-
-//CHATBOX
-var count = 0;
-function funcx() {
-    if (count < 50) {
-        count++;
-        $('div.chatbox').append('<p class="msg">Test' + count + '</p>');
-        $("div.chatbox").scrollTop($("div.chatbox")[0].scrollHeight);
-        setTimeout(funcx, 200);
-    }
-}
