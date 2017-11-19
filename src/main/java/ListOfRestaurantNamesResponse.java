@@ -13,7 +13,7 @@ public class ListOfRestaurantNamesResponse extends AbstractResponse {
         response.append("Τα εστιατορία για τις επιλογες σας είναι :" + "\n");
 
         for (Restaurant r: restaurantList)
-            response.append("<a class=\"clickable-rest\"" +  " on-click=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
+            response.append("<a class=\"clickable-rest\"" +  " onclick=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
 
 
 
