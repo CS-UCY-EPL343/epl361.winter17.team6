@@ -142,11 +142,20 @@ public class ResponseGenerator {
 
     }
 
-    public String getResponce (List<String> keyWords,int expectedMsgCode,ServiceCaller sc){
+    public int produceMessageCode (List<String> keyWords){
+
+        if
+        return 0;
+    }
+
+    public String getResponce (List<String> keyWords,ServiceCaller sc){
 
         this.sc = sc;
-        setMsgCode(expectedMsgCode);
+        int expectedMsgCode =0;
+
         setKeyWords (keyWords);
+        expectedMsgCode = produceMessageCode(keyWords);
+        setMsgCode(expectedMsgCode);
 
 
 
