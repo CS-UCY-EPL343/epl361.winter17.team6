@@ -16,8 +16,8 @@ public class TestApp {
         s.add("souvlakia");
 
         TextParser tp = new TextParser(usrMsg);
-        List<String> parsedUserMessage = tp.getKeyWords();
-        String responceMessage = (new ResponseGenerator()).getResponce(s, ResponseGenerator.LIST_RESTAURANT, sc);
+     //   List<String> parsedUserMessage = tp.getKeyWords();
+        String responceMessage = (new ResponseGenerator()).getResponce(s, sc);
 
         return responceMessage;
     }
