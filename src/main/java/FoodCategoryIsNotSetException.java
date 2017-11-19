@@ -3,6 +3,6 @@
  */
 public class FoodCategoryIsNotSetException extends Exception {
     FoodCategoryIsNotSetException( ) {
-        super("Food Category is not set yet");
+        super("MenuItem Category is not set yet");
     }
 }
