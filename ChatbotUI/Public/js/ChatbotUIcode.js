@@ -140,7 +140,7 @@ $(document).ready(function () {
 function sendId(id){
     //alert(id);
     $.post("http://localhost:4567/hello",
-        "res_id"+id,
+        "res_id#"+id,
         function (data, status) {
             document.getElementById("chatbox").disabled = false;
             console.log(data);
