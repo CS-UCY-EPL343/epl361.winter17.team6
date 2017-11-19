@@ -9,16 +9,33 @@ var messages = [], //array that hold the record of each string in chat
     botName = 'FoodyBot', //name of the chatbot
     Username = 'Marios',
     talking = false; //when false the speach function doesn't work
-
+    d = new Date(),
+    days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 // CURRENT USER SIGNED IN
 $(document).ready(function () {
     $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
+
+    botMessage = "Hello!I'm FoodyBot! Please enter one of the following:" +
+        "<br />1. To find a specific restaurant." +
+        "<br />2. To get the current chat log." +
+        "<br />..." +
+        "<br />Please enter one of the above numbers.";
+    //add the chatbot's name and message to the array messages
+    messages.push("<b>" + botName + ":</b> " +
+        "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
+        "<p>" + botMessage + "</p>" );
+
+    // says the message using the text to speech function written below
+    Speech(botMessage);
+    $('#chatborder').append('<ul class="bubble2" >' + messages[0] + '</ul>');
+    $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
 });
-//Helper function for inserting HTML as the first child of an element
-function insert(targetId, message) {
-    id(targetId).insertAdjacentHTML("#afterbegin", message);
-}
+
+// The hello message from the chatbot to the user
+$(document).ready(function () {
+
+});
 
 
 //function chatbotResponse(response) {
@@ -81,8 +98,6 @@ function newEntry() {
 
         //adds the value of the chatbox to the array messages
         //with current time
-        var d = new Date();
-        var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
         messages.push("<b>" + Username + ":</b> " +
                       "<span id='chattimestamp'>" + days[d.getDay()]+ " at " + d.getHours() +":"+ d.getMinutes()+":"+ d.getSeconds() +"</span>" +
                       "<p>" + lastUserMessage + "</p>" );
@@ -124,7 +139,6 @@ function newEntry() {
     }
 }
 
-
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
 //if the key pressed is 'enter' runs the function newEntry()
@@ -147,14 +161,12 @@ function placeHolder() {
     document.getElementById("chatbox").placeholder = "";
 }
 
-
 // PREVENTS REFRESHING WHEN PRESSING ENTER
 $(function () {
     $("form").submit(function () {
         return false;
     });
 });
-
 
 // WHEN SEND BTN IS PRESSED
 $(document).ready(function () {
@@ -164,7 +176,6 @@ $(document).ready(function () {
         }
     );
 });
-
 
 //CHATBOX
 var count = 0;
