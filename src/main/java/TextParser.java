@@ -27,8 +27,8 @@ public class TextParser {
         List<String> souvlakiaWords = new LinkedList<>();
         List<String> wantWords = new LinkedList<>();
 
-        souvlakiaWords = getWordListFromFile(souvlakiaInputStream, "Souvlakia_Wordlist.txt");
-        wantWords = getWordListFromFile(wantInputStream, "Want_Wordlist.txt");
+        souvlakiaWords = getWordListFromFile(souvlakiaInputStream, "WordLists/Souvlakia_Wordlist.txt");
+        wantWords = getWordListFromFile(wantInputStream, "WordLists/Want_Wordlist.txt");
 
         addWords(mainKeyWords, souvlakiaWords);
         addWords(mainKeyWords, wantWords);
