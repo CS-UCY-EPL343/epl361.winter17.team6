@@ -4,70 +4,43 @@
  * Server initiated at
  * http://localhost:4567
  * */
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static spark.Spark.*;
 public class App {
-
+    private Map<String, ServiceCaller> tokenServiceCallerMap = new HashMap<String,ServiceCaller>();
+    private Map<String, ResponseGenerator> tokenResponseGeneratorMap = new HashMap<String, ResponseGenerator>();
     private ServiceCaller sc;
 
     App() {
         sc = new ServiceCaller();
     }
 
-    public String getChatbotResponse(String usrMsg) {
+    public String getChatbotResponse(String usrMsg, String userToken) {
         List<String> s = new ArrayList<String>();
-        s.add("souvlakia");
+        ResponseGenerator userResponseGenerator = getUserResponseGenerator(userToken);
+        ServiceCaller userServiceCaller = getUserServiceCaller(userToken);
 
         TextParser tp = new TextParser(usrMsg);
-      //  List<String> parsedUserMessage = tp.getKeyWords();
-        String responceMessage = (new ResponseGenerator()).getResponce(s,sc);
+        List<String> parsedUserMessage = tp.getKeyWords();
 
-        return responceMessage;
+        return userResponseGenerator.getResponce(parsedUserMessage, userServiceCaller);
+    }
+
+    private ServiceCaller getUserServiceCaller(String userToken) {
+        return tokenServiceCallerMap.get(userToken);
+    }
+
+    private ResponseGenerator getUserResponseGenerator(String userToken) {
+        return tokenResponseGeneratorMap.get(userToken);
+    }
+
+    public void addNewToken(String userToken ) {
+        tokenServiceCallerMap.put(userToken, new ServiceCaller());
+        tokenResponseGeneratorMap.put(userToken, new ResponseGenerator());
     }
 
     public static void main(String args[]){
-
-        int sessionNum = 0;
-        options("/*",
-                (request, response) -> {
-
-                    String accessControlRequestHeaders = request
-                            .headers("Access-Control-Request-Headers");
-                    if (accessControlRequestHeaders != null) {
-                        response.header("Access-Control-Allow-Headers",
-                                accessControlRequestHeaders);
-                    }
-
-                    String accessControlRequestMethod = request
-                            .headers("Access-Control-Request-Method");
-                    if (accessControlRequestMethod != null) {
-                        response.header("Access-Control-Allow-Methods",
-                                accessControlRequestMethod);
-                    }
-
-                    return "OK";
-                });
-
-        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
-//
-//        post("/initiate", (req, res) -> {
-//            app = new App();
-//
-//          return responseMsg;
-//        });
-
-        post("/hello", (req, res) -> {
-            App app = new App();
-            String usrMsg = req.body();
-            String responseMsg = app.getChatbotResponse(usrMsg);
-            res.status(200);
-            res.type("text/html");
-            return responseMsg ;
-        });
 
     }
 }
