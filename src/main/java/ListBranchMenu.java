@@ -16,14 +16,14 @@ public class ListBranchMenu extends AbstractResponse{
         getServiceCaller().setSelectedRestaurant(restaurantId);
         BranchMenu branchMenu = getServiceCaller().getSelectedRestaurantMenu();
         List<FoodCategory> branchMenuFoodCategories = branchMenu.getFoodCategories();
-//        for(FoodCategory fc : branchMenuFoodCategories){
-//            response.append("<ul>" + fc.getName() + "</ul>");
-//            List<MenuItem> fcMenuItems = fc.getMenuItems();
-//            for(MenuItem mi : fcMenuItems) {
-//                response.append("<li class=\"\">" + mi.getName() + "</li>");
-//            }
-//
-//        }
+        for(FoodCategory fc : branchMenuFoodCategories){
+            response.append("<ul>" + fc.getName() + "</ul>");
+            List<MenuItem> fcMenuItems = fc.getMenuItems();
+            for(MenuItem mi : fcMenuItems) {
+               response.append("<li class=\"\">" + mi.getName() + "</li>");
+           }
+
+       }
 
 
         return response.toString();

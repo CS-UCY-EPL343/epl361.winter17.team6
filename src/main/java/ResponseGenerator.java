@@ -139,11 +139,10 @@ public class ResponseGenerator {
 
             if (keyWords.contains(KEY_BRANCH)) {
                 setMsgCode(LIST_BRANCH_MENU);
-
-                setselectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)));
-
-
+                setselectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
         }
+       else
+            setMsgCode(HELP);
 
 
 

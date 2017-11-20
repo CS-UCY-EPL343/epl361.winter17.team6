@@ -18,7 +18,6 @@ public class TextParser {
     private static List<String> helpWords = getWordListFromFile("WordLists/Help_Wordlist.txt");
     private static List<String> finalKeyWords = new LinkedList<>();
 
-
     public TextParser(String msg) {
         this.msg = msg;
     }
@@ -55,6 +54,7 @@ public class TextParser {
     }
 
     private static void addIds(List<String> idList) {
+        finalKeyWords.clear();
         String[] part;
         for (String id : idList) {
             part = id.split("=");
@@ -64,6 +64,7 @@ public class TextParser {
     }
 
     private static void addWords(List<String> mainList, List<String> wordList) {
+        finalKeyWords.clear();
         for (String word : mainList) {
             if (wordList.contains(word.toLowerCase()) && !finalKeyWords.contains(wordList.get(0))) {
                 finalKeyWords.add(wordList.get(0));
@@ -72,7 +73,11 @@ public class TextParser {
     }
 
     public static void main(String args[]) {
-        TextParser tp = new TextParser("I want souvlakia help");
+//        TextParser tp = new TextParser("I want souvlakia help");
+//        TextParser tp = new TextParser("I want souvlakia");
+//        TextParser tp = new TextParser("I want burgers");
+//        TextParser tp = new TextParser("I want a sandwich");
+        TextParser tp = new TextParser("usr_selection res_id=123456");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }

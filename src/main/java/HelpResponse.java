@@ -1,8 +1,8 @@
 public class HelpResponse extends AbstractResponse{
 
-    private String HELPMSG="";
+    private String HELPMSG="Wrong Message";
 
-    @Override
+
     public String getResponse() {
         return HELPMSG;
     }
