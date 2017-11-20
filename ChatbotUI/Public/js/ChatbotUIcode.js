@@ -12,8 +12,9 @@ var messages = [], //array that hold the record of each string in chat
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-// CURRENT USER SIGNED IN
+
 $(document).ready(function () {
+    // CURRENT USER SIGNED IN
     $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
 });
 
@@ -36,6 +37,14 @@ $(document).ready(function () {
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
 });
 
+// WHEN SEND BTN IS PRESSED
+$(document).ready(function () {
+    $("#sendbtn").click(function () {
+            console.log(lastUserMessage);
+            newEntry();
+        }
+    );
+});
 
 //text to Speech
 //https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
@@ -43,7 +52,7 @@ function Speech(say) {
     if ('speechSynthesis' in window && talking) {
         var utterance = new SpeechSynthesisUtterance(say);
         //msg.voice = voices[1]; // Note: some voices don't support altering params
-        //msg.voiceURI = 'native';
+        //utterance.voiceURI = 'native';
         //utterance.volume = 1; // 0 to 1
         //utterance.rate = 0.1; // 0.1 to 10
         //utterance.pitch = 1; //0 to 2
@@ -54,10 +63,8 @@ function Speech(say) {
 }
 
 function newEntry() {
-
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
-
         //pulls the value from the chatbox ands sets it to lastUserMessage
         lastUserMessage = document.getElementById("chatbox").value;
         //sets the chat box to be clear
@@ -72,11 +79,10 @@ function newEntry() {
 
         $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1] + '</ul>');
 
-        $.post("http://localhost:4567/hello",
-            lastUserMessage,
+        $.post("http://localhost:4567/hello", lastUserMessage,
             function (data, status) {
-                chatResponse(data);
-            });
+            chatResponse(data);
+        });
     }
 }
 
@@ -103,8 +109,6 @@ function chatResponse(data){
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     console.log(messages.toString());
 }
-
-
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
@@ -136,15 +140,6 @@ $(function () {
     });
 });
 
-// WHEN SEND BTN IS PRESSED
-$(document).ready(function () {
-    $("#sendbtn").click(function () {
-            console.log(lastUserMessage);
-            newEntry();
-        }
-    );
-});
-
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id){
     //alert(id);
@@ -161,6 +156,15 @@ function sendId(id){
     // THE SELECTED RESTAURANT
     alert(document.getElementById("clickable-rest-"+id).innerText);
 }
+
+// WHEN THE FOOD MENU IS PRESENTED
+$(document).ready(function () {
+    $("clickable-mi").click(function () {
+            console.log(lastUserMessage);
+            newEntry();
+        }
+    );
+});
 
 //
 // $(document).ready(function () {
