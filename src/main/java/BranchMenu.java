@@ -8,7 +8,7 @@ import java.util.List;
  * Created by tomis on 18/11/2017.
  */
 public class BranchMenu extends FoodyObject {
-    private List<Food> menuItems;
+    private List<MenuItem> menuItems;
     private List<FoodCategory> foodCategories;
 
     BranchMenu(JSONObject json) {
@@ -18,7 +18,7 @@ public class BranchMenu extends FoodyObject {
         JSONArray menuItemsJsonArray = getJson().optJSONArray("menuitems");
         for(int i = 0; i < menuItemsJsonArray.length(); i++) {
 
-            Food curMenuItem = new Food(menuItemsJsonArray.optJSONObject(i));
+            MenuItem curMenuItem = new MenuItem(menuItemsJsonArray.optJSONObject(i));
             menuItems.add(curMenuItem);
         }
         JSONArray foodCategoriesJsonArray = getJson().optJSONArray("categories");
@@ -30,7 +30,7 @@ public class BranchMenu extends FoodyObject {
     }
 
     //getters
-    List<Food> getMenuItems() {
+    List<MenuItem> getMenuItems() {
         return menuItems;
     }
     List<FoodCategory> getFoodCategories() { return foodCategories; }
@@ -40,7 +40,7 @@ public class BranchMenu extends FoodyObject {
         StringBuilder sb = new StringBuilder(super.toString());
         int i = 0;
         sb.append( "-- Items Served: \n");
-        for(Food menuItem : menuItems )
+        for(MenuItem menuItem : menuItems )
             sb.append("Menu item " + i++ + ": " + menuItem.getName() + "\tPrice: " + menuItem.getPrice() + "\n");
         i = 0;
         sb.append("\n");
@@ -58,11 +58,11 @@ public class BranchMenu extends FoodyObject {
         JSONObject BranchMenuJsonObject = new JSONObject(jsonString);
         BranchMenu branchMenu = new BranchMenu(BranchMenuJsonObject);
         System.out.println(branchMenu);
-        Food secondMenuItem = branchMenu.getMenuItems().get(1);
+        MenuItem secondMenuItem = branchMenu.getMenuItems().get(1);
         System.out.println("The 2nd menu item is :\n" + secondMenuItem );
         System.out.println("The 2nd menu item has these Ingredient categories :\n" + secondMenuItem.getIngredientCategory()
                 + "\n does the 2nd menu item have Modifiers? : " + secondMenuItem.hasModifiers());
-        Food thirdMenuItem = branchMenu.getMenuItems().get(2);
+        MenuItem thirdMenuItem = branchMenu.getMenuItems().get(2);
         System.out.println("The thirdMenuItem is :\n" + thirdMenuItem );
         System.out.println("The thirdMenuItem has these Ingredient categories : \n" + thirdMenuItem.getIngredientCategory()
                 + "\n does the thirdMenuItem item have Modifiers? : " + thirdMenuItem.hasModifiers());

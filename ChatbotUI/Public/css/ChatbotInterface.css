@@ -71,13 +71,14 @@ p.msg {
 }
 
 /* Format of responce restaurants links */
-#clickable-rest {
+.clickable-rest {
     color: blue;
+    cursor: pointer;
 }
-#clickable-rest:hover{
+.clickable-rest:hover{
     color: lightblue;
 }
-#clickable-rest:active{
+.clickable-rest:active{
     color:purple;
 }
 

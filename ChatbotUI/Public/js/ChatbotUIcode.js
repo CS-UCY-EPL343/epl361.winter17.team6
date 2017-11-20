@@ -8,8 +8,8 @@ var messages = [], //array that hold the record of each string in chat
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
     Username = 'Marios',
-    talking = false; //when false the speach function doesn't work
-d = new Date(),
+    talking = false, //when false the speach function doesn't work
+    d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 // CURRENT USER SIGNED IN
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 // The hello message from the chatbot to the user
 $(document).ready(function () {
-    botMessage = "Hello!I'm FoodyBot! Please enter one of the following:" +
+    botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
         "<br />1. To find a specific restaurant." +
         "<br />2. To get the current chat log." +
         "<br />..." +
@@ -53,6 +53,7 @@ function Speech(say) {
 }
 
 function newEntry() {
+
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
 
@@ -98,6 +99,7 @@ function newEntry() {
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
+
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -130,6 +132,34 @@ $(document).ready(function () {
     $("#sendbtn").click(function () {
             console.log(lastUserMessage);
             newEntry();
+        }
+    );
+});
+
+// THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
+function sendId(id){
+    //alert(id);
+    $.post("http://localhost:4567/hello",
+        "usr_selection res_id#"+id,
+        function (data, status) {
+            document.getElementById("chatbox").disabled = false;
+            console.log(data);
+        });
+    document.getElementById("chatbox").disabled = true;
+
+    // THE SELECTED RESTAURANT
+    alert(document.getElementById("clickable-rest-"+id).innerText);
+}
+
+//
+$(document).ready(function () {
+    document.getElementById("chatbox").disabled = false;
+    $('clickable-rest').click(function () {
+        //document.getElementById("chatbox").disabled = true;
+        //alert("hey");
+       // console.log("ghfjfg");
+        //$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
+            //document.getElementById("chatbox").value = $('#clickable-rest').onclick;
         }
     );
 });

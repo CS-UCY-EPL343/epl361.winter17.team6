@@ -8,13 +8,15 @@ import java.util.List;
  *
  * Created by tomis on 15/11/2017.
  */
-public class Food extends FoodyObject {
+public class MenuItem extends FoodyObject {
     private String name;
     private double price;
     private boolean hasModifiers;
     private List<IngredientCategory> ingredientCategory;
 
-    Food(JSONObject json ) {
+    private List<Ingredient> ingredientsSelected = new ArrayList<>();
+
+    MenuItem(JSONObject json ) {
         super(json);
 
         ingredientCategory = new ArrayList<>();
