@@ -18,7 +18,6 @@ public class TextParser {
     private static List<String> helpWords = getWordListFromFile("WordLists/Help_Wordlist.txt");
     private static List<String> finalKeyWords = new LinkedList<>();
 
-
     public TextParser(String msg) {
         this.msg = msg;
     }
@@ -55,6 +54,7 @@ public class TextParser {
     }
 
     private static void addIds(List<String> idList) {
+        finalKeyWords.clear();
         String[] part;
         for (String id : idList) {
             part = id.split("=");
@@ -64,6 +64,7 @@ public class TextParser {
     }
 
     private static void addWords(List<String> mainList, List<String> wordList) {
+        finalKeyWords.clear();
         for (String word : mainList) {
             if (wordList.contains(word.toLowerCase()) && !finalKeyWords.contains(wordList.get(0))) {
                 finalKeyWords.add(wordList.get(0));
