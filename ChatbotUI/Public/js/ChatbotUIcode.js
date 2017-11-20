@@ -80,9 +80,7 @@ function newEntry() {
     }
 }
 
-
 function chatResponse(data){
-
     //alert("Data: " + data + "\nStatus: " + status);
     console.log(data);
 
@@ -101,10 +99,8 @@ function chatResponse(data){
     Speech(botMessage);
 
     //outputs the last few array elements of messages to html
-
     $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
-
     console.log(messages.toString());
 }
 
@@ -117,6 +113,7 @@ function keyPress(e) {
     var x = e || window.event;
     var key = (x.keyCode || x.which);
     if (key == 13 || key == 3) {
+        console.log(lastUserMessage);
         //runs this function when enter is pressed
         newEntry();
     }
@@ -169,14 +166,14 @@ function sendId(id){
 }
 
 //
-$(document).ready(function () {
-    document.getElementById("chatbox").disabled = false;
-    $('clickable-rest').click(function () {
+// $(document).ready(function () {
+//     document.getElementById("chatbox").disabled = false;
+//     $('clickable-rest').click(function () {
         //document.getElementById("chatbox").disabled = true;
         //alert("hey");
        // console.log("ghfjfg");
         //$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
             //document.getElementById("chatbox").value = $('#clickable-rest').onclick;
-        }
-    );
-});
+//         }
+//     );
+// });
