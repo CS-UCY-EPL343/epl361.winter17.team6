@@ -42,7 +42,7 @@ public class Main {
             String token = (UUID.randomUUID()).toString();
             app.addNewToken(token);
             if(DEBUG)
-                System.out.println("New user logged in. Token created is " + token);
+                System.out.println("New user logged in. Token created is\n\t " + token);
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("token", token);
 
