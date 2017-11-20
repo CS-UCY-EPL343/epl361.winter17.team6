@@ -145,9 +145,6 @@ $(document).ready(function () {
     );
 });
 
-
-
-
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id){
     //alert(id);
