@@ -16,7 +16,7 @@ public class ResponseGenerator {
     ServiceCaller sc;
 
     public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_INGREDIENT = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
-    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_Id";
+    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id";
     public static final String[] KEY_LIST__FOOD = {"souvlakia", "burgers" ,"sandwich"};
 
     private AbstractResponse mapKeywordsToResponse(){
