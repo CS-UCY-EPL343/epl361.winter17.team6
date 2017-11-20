@@ -15,6 +15,7 @@ public class TextParser {
     private static List<String> burgerWords = getWordListFromFile("WordLists/Burgers_Wordlist.txt");
     private static List<String> sandwichWords = getWordListFromFile("WordLists/Sandwich_Wordlist.txt");
     private static List<String> souvlakiaWords = getWordListFromFile("WordLists/Souvlakia_Wordlist.txt");
+    private static List<String> helpWords = getWordListFromFile("WordLists/Help_Wordlist.txt");
     private static List<String> finalKeyWords = new LinkedList<>();
 
 
@@ -31,10 +32,13 @@ public class TextParser {
             addIds(tokens);
         } else {
             List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
-            addWords(mainKeyWords, wantWords);
-            addWords(mainKeyWords, burgerWords);
-            addWords(mainKeyWords, sandwichWords);
-            addWords(mainKeyWords, souvlakiaWords);
+            addWords(mainKeyWords, helpWords);
+            if (!mainKeyWords.contains("help")) {
+                addWords(mainKeyWords, wantWords);
+                addWords(mainKeyWords, burgerWords);
+                addWords(mainKeyWords, sandwichWords);
+                addWords(mainKeyWords, souvlakiaWords);
+            }
         }
 
         return finalKeyWords;
@@ -68,7 +72,7 @@ public class TextParser {
     }
 
     public static void main(String args[]) {
-        TextParser tp = new TextParser("usr_selection res_ID=123456");
+        TextParser tp = new TextParser("I want souvlakia help");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }
