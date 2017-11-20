@@ -5,4 +5,4 @@ ChatbotUI/package-lock.json
 target/
 sample-dataset/
 log-output/
-.idea/
+.idea/workspace.xml
