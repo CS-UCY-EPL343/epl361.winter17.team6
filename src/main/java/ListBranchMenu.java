@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListBranchMenu extends AbstractResponse{
-    private final static String MENU_ITEM_CLASS_NAME = "mi-class";
+    private final static String MENU_ITEM_CLASS_NAME = "clickable-mi";
+    private final static String FOOD_CATEGORY_CLASS_NAME = "food-categ";
     private int restaurantId;
 
     public void setRestaurantId(int resId){
@@ -17,11 +18,14 @@ public class ListBranchMenu extends AbstractResponse{
         BranchMenu branchMenu = getServiceCaller().getSelectedRestaurantMenu();
         List<FoodCategory> branchMenuFoodCategories = branchMenu.getFoodCategories();
         for(FoodCategory fc : branchMenuFoodCategories){
-            response.append("<ul>" + fc.getName() + "</ul>");
+            response.append("<ul class=\""+ FOOD_CATEGORY_CLASS_NAME + "\"" +
+                    "id=\"" + FOOD_CATEGORY_CLASS_NAME + "-" + fc.getId() +"\">" + fc.getName());
             List<MenuItem> fcMenuItems = fc.getMenuItems();
             for(MenuItem mi : fcMenuItems) {
-               response.append("<li class=\"\">" + mi.getName() + "</li>");
-           }
+               response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " +
+                       "id=\""+ MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\">" + mi.getName() + "</li>");
+            }
+            response.append("</ul>");
 
        }
 

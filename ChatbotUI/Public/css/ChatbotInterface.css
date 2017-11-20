@@ -70,18 +70,6 @@ p.msg {
     transform: translateY(4px);
 }
 
-/* Format of responce restaurants links */
-.clickable-rest {
-    color: blue;
-    cursor: pointer;
-}
-.clickable-rest:hover{
-    color: lightblue;
-}
-.clickable-rest:active{
-    color:purple;
-}
-
 .h1 {
     margin: auto;
 }
@@ -248,3 +236,27 @@ p.msg {
     right: 87px;
     font-size: 30px;
 }
+
+/*MENU ITEM CLICKABLE*/
+.clickable-mi {
+    color: blue;
+    cursor: pointer;  }
+.clickable-mi:hover{
+    color: lightblue;  }
+.clickable-mi:active{
+    color:purple;  }
+
+/*CATEGORY */
+.food-categ{
+    color: red;
+    font-size: 20px;
+}
+
+/* Format of responce restaurants links */
+.clickable-rest {
+    color: blue;
+    cursor: pointer;  }
+.clickable-rest:hover{
+    color: lightblue;  }
+.clickable-rest:active{
+    color:purple;  }

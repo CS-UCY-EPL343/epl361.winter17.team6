@@ -16,7 +16,7 @@ public class ResponseGenerator {
     ServiceCaller sc;
 
     public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_INGREDIENT = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
-    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_Id";
+    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id";
     public static final String[] KEY_LIST__FOOD = {"souvlakia", "burgers" ,"sandwich"};
 
     private AbstractResponse mapKeywordsToResponse(){
@@ -132,18 +132,19 @@ public class ResponseGenerator {
     public void produceMessageCode (List<String> keyWords){
 
         for(String food : KEY_LIST__FOOD)
-          if (keyWords.contains(food))
-            setMsgCode(LIST_RESTAURANT);
-
-        else
+          if (keyWords.contains(food)) {
+              setMsgCode(LIST_RESTAURANT);
+              return;
+          }
 
             if (keyWords.contains(KEY_BRANCH)) {
                 setMsgCode(LIST_BRANCH_MENU);
                 setselectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
+                return;
         }
        else
             setMsgCode(HELP);
-
+            return;
 
 
     }
@@ -158,8 +159,10 @@ public class ResponseGenerator {
     public String getResponce (List<String> keyWords,ServiceCaller sc){
 
        setServiceCaller(sc);
+       System.out.println(keyWords);
        setKeyWords (keyWords);
        produceMessageCode(keyWords);
+
 
        return   mapKeywordsToResponse().getResponse();
 
