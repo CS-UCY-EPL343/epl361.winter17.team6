@@ -152,9 +152,9 @@ $(document).ready(function () {
 function sendId(id){
     //alert(id);
     $.post("http://localhost:4567/hello",
-        "usr_selection res_id#"+id,
+        "usr_selection res_id="+id,
         function (data, status) {
-            alert("usr_selection res_id#"+id);
+            alert("usr_selection res_id="+id);
             chatResponse(data);
             document.getElementById("chatbox").disabled = false;
             console.log(data);
