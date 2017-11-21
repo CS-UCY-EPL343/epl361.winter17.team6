@@ -2,7 +2,7 @@
 //http://eloquentjavascript.net/09_regexp.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 nlp = window.nlp_compromise;
-
+var DEBUG = true;
 var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
@@ -41,9 +41,11 @@ $(document).ready(function () {
     $.post("http://localhost:4567/init",
         {},
         function (data, status) {
-        data.
             token = data.token;
-            chatResponse(data);
+            if( DEBUG ) {
+               console.log("The token received from server is " + token);
+            }
+            //chatResponse(data);
         });
 });
 
@@ -97,7 +99,11 @@ function newEntry() {
         $.post("http://localhost:4567/getmsg",
             jsonReqBody,
             function (data, status) {
-            chatResponse(data);
+            if( DEBUG ) {
+                console.log("The json object response received from the server is ");
+                console.log ( data);
+            }
+            chatResponse(data.responsemsg);
         });
     }
 }
