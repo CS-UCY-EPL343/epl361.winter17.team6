@@ -22,8 +22,7 @@ public class ListBranchMenu extends AbstractResponse{
                     "id=\"" + FOOD_CATEGORY_CLASS_NAME + "-" + fc.getId() +"\">" + fc.getName());
             List<MenuItem> fcMenuItems = fc.getMenuItems();
             for(MenuItem mi : fcMenuItems) {
-               response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " +
-                       "id=\""+ MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\">" + mi.getName() + "</li>");
+               response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " + "id=\""+ MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\" onclick=\"sendMenuItemId("+ mi.getId() + ")\">" + "\t" + mi.getName() + "</li>");
             }
             response.append("</ul>");
 
