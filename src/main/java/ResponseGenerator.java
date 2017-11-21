@@ -15,9 +15,9 @@ public class ResponseGenerator {
     int msgCode ;
     ServiceCaller sc;
 
-    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_INGREDIENT = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
-    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id";
-    public static final String[] KEY_LIST__FOOD = {"souvlakia", "burgers" ,"sandwich"};
+    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_ITEMS = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
+    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id",KEY_MENU  = "menu_id";
+    public static final String[] KEY_LIST__FOOD = {"souvlakia", "burger" ,"sandwich"};
 
     private AbstractResponse mapKeywordsToResponse(){
 
@@ -38,10 +38,8 @@ public class ResponseGenerator {
 
 
 
-                if (keyWords.contains(KEY_LIST__FOOD[2]))
+                    if (keyWords.contains(KEY_LIST__FOOD[2]))
                         sc.addCategory(ServiceCaller.SANDWICH);
-
-
 
 
                     if (keyWords.contains(KEY_LIST__FOOD[0]))
@@ -52,16 +50,6 @@ public class ResponseGenerator {
 
                         break;
 
-/*
-            for (int index = 0 ; index < WordList_Souvlakia_l.length;index++){
-                if (keyWords.contains(WordList_Souvlakia_l[index])){
-                    sc.addCategory(ServiceCaller.SOUVLAKIA);
-
-
-                }
-            }
-*/
-
             case SHOW_HISTORY:
 
                 abstract_response = new ShowHistoryResponse();
@@ -69,11 +57,12 @@ public class ResponseGenerator {
                 break;
 
             case CHOOSE_PAYMENT:
-                abstract_response = new ChoosePaymentMethodResponse();
-
                 break;
 
-            case LIST_INGREDIENT:
+            case LIST_ITEMS
+
+                abstract_response = new ChoosePaymentMethodResponse();
+                ((ListIngredientResponse)abstract_response).setRestaurantId(selectedMenuIDs);
                 abstract_response = new ChoosePaymentMethodResponse();
 
                 break;
@@ -132,7 +121,7 @@ public class ResponseGenerator {
     public void produceMessageCode (List<String> keyWords){
 
         for(String food : KEY_LIST__FOOD)
-          if (keyWords.contains(food)) {
+          if (keyWords.contains(food) || keyWords.contains(KEY_LIST_RESTAURANT)) {
               setMsgCode(LIST_RESTAURANT);
               return;
           }
