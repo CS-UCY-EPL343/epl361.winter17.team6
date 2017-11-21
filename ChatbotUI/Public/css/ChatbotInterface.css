@@ -240,7 +240,9 @@ p.msg {
 /*MENU ITEM CLICKABLE*/
 .clickable-mi {
     color: blue;
-    cursor: pointer;  }
+    cursor: pointer;
+    font-size: 14px;
+    justify-content: left;}
 .clickable-mi:hover{
     color: lightblue;  }
 .clickable-mi:active{
@@ -249,7 +251,8 @@ p.msg {
 /*CATEGORY */
 .food-categ{
     color: red;
-    font-size: 20px;
+    font-size: 16px;
+    justify-content: center;
 }
 
 /* Format of responce restaurants links */
