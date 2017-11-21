@@ -12,6 +12,7 @@ import static spark.Spark.*;
 public class Main {
     private static final boolean DEBUG = true;
 
+
     public static void main(String args[]) {
         final App app = new App();
 
@@ -36,6 +37,7 @@ public class Main {
                 });
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+
 
         post("/init", (req, res) -> {
             res.type("application/json");
