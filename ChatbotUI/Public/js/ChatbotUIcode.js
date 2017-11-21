@@ -8,19 +8,32 @@ var messages = [], //array that hold the record of each string in chat
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
     //Username = ['Marios','Andri','Kotsios','Kioftes','Mark','Andreas'],
+    user = {
+        username : 0,
+        token : 0
+    },
     Username = 'Marios',
     token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-$(document).ready(function () {
-    // CURRENT USER SIGNED IN
-    $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
-});
 
 // The hello message from the chatbot to the user
 $(document).ready(function () {
+    // GET USER TOKEN
+    $.post("http://localhost:4567/init",
+        {},
+        function (data, status) {
+            token = data.token;
+            // CURRENT USER SIGNED IN
+            $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
+            if( DEBUG ) {
+                console.log("The token received from server is " + token);
+            }
+            //chatResponse(data);
+        });
+
     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
         "<br />1. To find a specific restaurant." +
         "<br />2. To get the current chat log." +
@@ -36,17 +49,6 @@ $(document).ready(function () {
     Speech(botMessage);
     $('#chatborder').append('<ul class="bubble2" >' + messages[0] + '</ul>');
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
-
-    // GET USER TOKEN
-    $.post("http://localhost:4567/init",
-        {},
-        function (data, status) {
-            token = data.token;
-            if( DEBUG ) {
-               console.log("The token received from server is " + token);
-            }
-            //chatResponse(data);
-        });
 });
 
 // WHEN SEND BTN IS PRESSED
@@ -172,10 +174,14 @@ function sendId(id){
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
-            alert("usr_selection res_id="+id);
-            chatResponse(data);
+
+            if (DEBUG) {
+                alert("usr_selection res_id="+id);
+                console.log(data);
+            }
+            chatResponse(data.responsemsg);
             document.getElementById("chatbox").disabled = false;
-            console.log(data);
+
         });
     document.getElementById("chatbox").disabled = true;
 
