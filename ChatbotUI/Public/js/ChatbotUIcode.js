@@ -94,7 +94,7 @@ function newEntry() {
             'token' : token,
             'usrmsg' : lastUserMessage
         };
-        $.post("http://localhost:4567/hello",
+        $.post("http://localhost:4567/getmsg",
             jsonReqBody,
             function (data, status) {
             chatResponse(data);
@@ -163,7 +163,7 @@ function sendId(id){
         'token' : token,
         'usrmsg' : "usr_selection res_id="+id
     };
-    $.post("http://localhost:4567/hello",
+    $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
             alert("usr_selection res_id="+id);
