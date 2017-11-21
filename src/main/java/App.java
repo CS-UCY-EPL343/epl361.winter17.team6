@@ -10,11 +10,7 @@ import static spark.Spark.*;
 public class App {
     private Map<String, ServiceCaller> tokenServiceCallerMap = new HashMap<String,ServiceCaller>();
     private Map<String, ResponseGenerator> tokenResponseGeneratorMap = new HashMap<String, ResponseGenerator>();
-    private ServiceCaller sc;
-
-    App() {
-        sc = new ServiceCaller();
-    }
+    //private ServiceCaller sc;
 
     public String getChatbotResponse(String usrMsg, String userToken) {
         List<String> s = new ArrayList<String>();
