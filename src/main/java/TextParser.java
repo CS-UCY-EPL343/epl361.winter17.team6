@@ -20,6 +20,7 @@ public class TextParser {
 
     public TextParser(String msg) {
         this.msg = msg;
+        finalKeyWords.clear();
     }
 
     public List<String> getKeyWords(){
@@ -54,7 +55,6 @@ public class TextParser {
     }
 
     private static void addIds(List<String> idList) {
-        finalKeyWords.clear();
         String[] part;
         for (String id : idList) {
             part = id.split("=");
@@ -64,7 +64,7 @@ public class TextParser {
     }
 
     private static void addWords(List<String> mainList, List<String> wordList) {
-        finalKeyWords.clear();
+
         for (String word : mainList) {
             if (wordList.contains(word.toLowerCase()) && !finalKeyWords.contains(wordList.get(0))) {
                 finalKeyWords.add(wordList.get(0));
@@ -76,8 +76,8 @@ public class TextParser {
 //        TextParser tp = new TextParser("I want souvlakia help");
 //        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("I want burgers");
-//        TextParser tp = new TextParser("I want a sandwich");
-        TextParser tp = new TextParser("usr_selection res_id=123456");
+        TextParser tp = new TextParser("I want a sandwich");
+//        TextParser tp = new TextParser("usr_selection res_id=123456");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }
