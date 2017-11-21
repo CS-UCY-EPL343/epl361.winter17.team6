@@ -4,10 +4,10 @@ import java.util.List;
 /**
  * Class TextParser is a class that creates TextParser objects that handle the analysis of messages.
  *
- * A TextParser object has a String attribute called msg which is the user message or selection. It
- * also has five static Lists that contain all the variations of possible words that the user might
- * input and another static list which will contain the words that will be sent over the App class
- * and will define the proper response function to be called.
+ * A TextParser object has a String field called msg which is the user message or selection. It also has five
+ * static Lists that contain all the variations of possible words that the user might input and another static list
+ * which will contain the words that will be sent over the App class and will define the proper response function
+ * to be called.
  *
  * @author Kyriacos Aristides	ID: 965191
  * @version 2.0
@@ -18,6 +18,7 @@ public class TextParser {
     private String msg;
     private static List<String> wantWords = getWordListFromFile("WordLists/Want_Wordlist.txt");
     private static List<String> burgerWords = getWordListFromFile("WordLists/Burgers_Wordlist.txt");
+    private static List<String> coffeeWords = getWordListFromFile("WordLists/Coffee_Wordlist.txt");
     private static List<String> sandwichWords = getWordListFromFile("WordLists/Sandwich_Wordlist.txt");
     private static List<String> souvlakiaWords = getWordListFromFile("WordLists/Souvlakia_Wordlist.txt");
     private static List<String> helpWords = getWordListFromFile("WordLists/Help_Wordlist.txt");
@@ -26,9 +27,9 @@ public class TextParser {
     /**
      * This is the default object constructor.
      *
-     * It assigns the user message to the attribute and empties the keywords list.
+     * It assigns the user message to the field msg and empties the keywords list.
      *
-     * @param msg The first operand Constant object.
+     * @param msg The user's message.
      */
     public TextParser(String msg) {
         this.msg = msg;
@@ -53,6 +54,7 @@ public class TextParser {
             if (!mainKeyWords.contains("help")) {
                 addWords(mainKeyWords, wantWords);
                 addWords(mainKeyWords, burgerWords);
+                addWords(mainKeyWords, coffeeWords);
                 addWords(mainKeyWords, sandwichWords);
                 addWords(mainKeyWords, souvlakiaWords);
             }
@@ -93,8 +95,8 @@ public class TextParser {
     }
 
     /**
-     * This method matches the users words with the main word of their family and adds them in the List to be
-     * sent to the App Class.
+     * This method matches the users words with the main word of their family and adds them in the List to be sent to
+     * the App Class.
      *
      * @param mainList List containing the relevant words from the user's message.
      * @param wordList List containing all the word variations for a specific word family.
@@ -110,9 +112,10 @@ public class TextParser {
 
     public static void main(String args[]) {
 //        TextParser tp = new TextParser("I want souvlakia help");
-//        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("I want burgers");
-        TextParser tp = new TextParser("I want a sandwich");
+        TextParser tp = new TextParser("I want frape");
+//        TextParser tp = new TextParser("I want a sandwich");
+//        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("usr_selection res_id=123456");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
