@@ -14,7 +14,6 @@ var messages = [], //array that hold the record of each string in chat
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-
 $(document).ready(function () {
     // CURRENT USER SIGNED IN
     $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
