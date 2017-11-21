@@ -7,7 +7,9 @@ var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
+    //Username = ['Marios','Andri','Kotsios','Kioftes','Mark','Andreas'],
     Username = 'Marios',
+    token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -15,7 +17,7 @@ var messages = [], //array that hold the record of each string in chat
 
 $(document).ready(function () {
     // CURRENT USER SIGNED IN
-    $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
+    $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
 });
 
 // The hello message from the chatbot to the user
@@ -35,6 +37,15 @@ $(document).ready(function () {
     Speech(botMessage);
     $('#chatborder').append('<ul class="bubble2" >' + messages[0] + '</ul>');
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+
+    // GET USER TOKEN
+    $.post("http://localhost:4567/init",
+        {},
+        function (data, status) {
+        data.
+            token = data.token;
+            chatResponse(data);
+        });
 });
 
 // WHEN SEND BTN IS PRESSED
@@ -79,7 +90,13 @@ function newEntry() {
 
         $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1] + '</ul>');
 
-        $.post("http://localhost:4567/hello", lastUserMessage,
+
+        var jsonReqBody = {
+            'token' : token,
+            'usrmsg' : lastUserMessage
+        };
+        $.post("http://localhost:4567/hello",
+            jsonReqBody,
             function (data, status) {
             chatResponse(data);
         });
@@ -143,8 +160,12 @@ $(function () {
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id){
     //alert(id);
+    var jsonReqBody = {
+        'token' : token,
+        'usrmsg' : "usr_selection res_id="+id
+    };
     $.post("http://localhost:4567/hello",
-        "usr_selection res_id="+id,
+        jsonReqBody,
         function (data, status) {
             alert("usr_selection res_id="+id);
             chatResponse(data);
