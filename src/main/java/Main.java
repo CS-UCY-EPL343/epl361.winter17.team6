@@ -55,6 +55,10 @@ public class Main {
 
             String usrMsg = req.queryParams("usrmsg");
             String userToken = req.queryParams("token");
+            if( DEBUG ) {
+                System.out.println("The user message is " + usrMsg);
+                System.out.println("The token is " + userToken);
+            }
 
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("token", userToken);
