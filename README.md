@@ -70,12 +70,13 @@
     $make install
 
  ## 3.Configuration
-    Extract the git repository on your machine.
-   Run the following commands: 
+  
+   > Extract the git repository on your machine.
+   >Run the following commands: 
    
     $  http-server epl361.winter17.team6/ChatbotUI/Public --cors
-          
-   Proceed to the following url on your browser: 
+   > Run main from the Main.java       
+   > Proceed to the following url on your browser: 
    
     http://127.0.0.1:8080
 
