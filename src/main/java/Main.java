@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static spark.Spark.*;
@@ -56,7 +57,10 @@ public class Main {
             System.out.println(init_timestamp);
 
             String token = null;
+            boolean user_already_in_db = sqlDb.isUserInserted(username);
             JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("user_already_in_db", user_already_in_db);
+            String conversationId = null; UUID.randomUUID().toString();
 
             if( username == null || init_timestamp == null ) {
                 res.status(412);
@@ -69,23 +73,30 @@ public class Main {
                         "\n\tusername: " + username +
                         "\n\tconversation timestamp: " + conversationTimestamp +
                         "\n\tdate is: " + conversationTimestamp.toString());
-            if (sqlDb.isUserInserted(username)) {
+            if (user_already_in_db) {
                 token = sqlDb.getToken(username);
+                conversationId = sqlDb.getConversationId(username);
                 if (DEBUG)
                     System.out.println("User" + username + " is already logged in the db." +
                             "\n\tThe token is retrieved from the DB" +
-                            "\n\ttoken: " + token);
+                            "\n\ttoken: " + token +
+                            "\n\tconvid: "+ conversationId );
+                List<JSONObject> messagesRetrieved = sqlDb.getMessages(username,conversationId);
+                jsonResponse.put("messages_retrieved", messagesRetrieved );
             } else {
                 token = (UUID.randomUUID()).toString();
+                conversationId =(UUID.randomUUID()).toString();
                 sqlDb.insertUser(username,token);
                 System.out.println("User " + username + " not yet in db." +
                         "\n\tThe token created is " +
-                        "\n\ttoken: " + token );
+                        "\n\ttoken: " + token +
+                        "\n\tThe convid created is " +
+                        "\n\tconvid: " +conversationId);
+                sqlDb.insertConversation(username, conversationId, Long.parseLong(init_timestamp));
             }
-            String conversationId = UUID.randomUUID().toString();
+
 
             app.addNewToken(token);
-            sqlDb.insertConversation(username, conversationId, Long.parseLong(init_timestamp));
             System.out.println("The conversation id that was created is: " + conversationId);
             jsonResponse.put("token", token);
             jsonResponse.put("convid", conversationId);
@@ -93,7 +104,6 @@ public class Main {
             return jsonResponse.toString();
         });
 
-        //TODO get the convid
         post("/getmsg", (req, res) -> {
             res.type("application/json");
             res.status(200);
