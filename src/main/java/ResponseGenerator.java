@@ -26,7 +26,7 @@ public class ResponseGenerator {
     private List<Integer> selectedMenuId;
 
     /*Declaring Finals*/
-    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_ITEMS = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
+    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_ITEMS = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8, INVALID=9;
     public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id",KEY_ITEMS_VIEW = "men_ids";
     public static final String[] KEY_LIST__FOOD = {"souvlakia", "burger" ,"sandwich"};
 
@@ -82,6 +82,10 @@ public class ResponseGenerator {
 
             case HELP:
                 abstract_response = new HelpResponse();
+                break;
+
+            case INVALID:
+                abstract_response = new HelpResponse("INVALID MESSAGE\n");
                 break;
 
             case RESTAURANT_SCEDULE:
@@ -151,9 +155,15 @@ public class ResponseGenerator {
 
             return;
         }
+
+        if (keyWords.isEmpty()) {
+            setMsgCode(INVALID);
+            return;
+        }
         else
             setMsgCode(HELP);
-            return;
+
+        return;
     }
 
 

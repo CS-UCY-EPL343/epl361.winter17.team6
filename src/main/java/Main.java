@@ -24,6 +24,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        sqlDb.createTablesBasedOnSqlFile();
         options("/*",
                 (request, response) -> {
 
@@ -132,7 +133,8 @@ public class Main {
             sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), true, msgToStore);
             String responseMsg = app.getChatbotResponse(usrMsg, userToken);
             //store the chatbot responce to the database
-            sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), false, msgToStore);
+            String responseMessageId = UUID.randomUUID().toString();
+            sqlDb.insertMessage(username, conversationId,responseMessageId,Long.parseLong(timestamp), false, responseMsg);
 
             jsonResponse.put("token", userToken);
             jsonResponse.put("responsemsg", responseMsg);
