@@ -7,10 +7,10 @@ var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
-    users = ['Marios','Andri','Kotsios','Mary','Mark','Andreas'],
+    users = ['Marios', 'Andri', 'Kotsios', 'Mary', 'Mark', 'Andreas'],
     user = {
-        username : 0,
-        token : 0
+        username: 0,
+        token: 0
     },
     Username = 'Marios',
     token = 0,
@@ -20,7 +20,7 @@ var messages = [], //array that hold the record of each string in chat
 
 // The hello message from the chatbot to the user
 $(document).ready(function () {
-     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
+    botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:" +
         "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
         "<br />\"history\". To get the current chat log." +
         "<br />..." +
@@ -37,8 +37,8 @@ $(document).ready(function () {
     // CONVERSATION INITIALIZATION
     var currentUser = users[Math.floor(Math.random() * 6)];
     var jsonReqBody = {
-        'username' : currentUser,
-        'timestamp' : d.getTime()
+        'username': currentUser,
+        'timestamp': d.getTime()
     };
     // GET USER TOKEN
     $.post("http://localhost:4567/init",
@@ -47,7 +47,7 @@ $(document).ready(function () {
             token = data.token;
             // CURRENT USER SIGNED IN
             $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
-            if( DEBUG ) {
+            if (DEBUG) {
                 console.log("The token received from server is " + token);
             }
             //chatResponse(data);
@@ -96,30 +96,32 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         //with current time
         d = new Date();
-        messages.push("<b>" + Username + ":</b> " +
+        var usrmessage = "<b>" + Username + ":</b> " +
             "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
-            "<p>" + lastUserMessage + "</p>");
+            "<p>" + lastUserMessage + "</p>";
+        messages.push(usrmessage);
 
+        // VIEW THE MESSAGE IN THE USER INTERFACE
         $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1] + '</ul>');
 
-
         var jsonReqBody = {
-            'token' : token,
-            'usrmsg' : lastUserMessage
+            'token': token,
+            'usrmsg': usrmessage,
+            'timestamp': d.getTime()
         };
         $.post("http://localhost:4567/getmsg",
             jsonReqBody,
             function (data, status) {
-            if( DEBUG ) {
-                console.log("The json object response received from the server is ");
-                console.log ( data);
-            }
-            chatResponse(data.responsemsg);
-        });
+                if (DEBUG) {
+                    console.log("The json object response received from the server is ");
+                    console.log(data);
+                }
+                chatResponse(data.responsemsg);
+            });
     }
 }
 
-function chatResponse(data){
+function chatResponse(data) {
     //alert("Data: " + data + "\nStatus: " + status);
     console.log(data);
 
@@ -145,6 +147,7 @@ function chatResponse(data){
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
+
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -165,6 +168,7 @@ function keyPress(e) {
 function placeHolder() {
     document.getElementById("chatbox").placeholder = "";
 }
+
 // PREVENTS REFRESHING WHEN PRESSING ENTER
 $(function () {
     $("form").submit(function () {
@@ -173,18 +177,18 @@ $(function () {
 });
 
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
-function sendId(id){
+function sendId(id) {
     //alert(id);
     var jsonReqBody = {
-        'token' : token,
-        'usrmsg' : "usr_selection res_id="+id
+        'token': token,
+        'usrmsg': "usr_selection res_id=" + id
     };
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
 
             if (DEBUG) {
-                alert("usr_selection res_id="+id);
+                alert("usr_selection res_id=" + id);
                 console.log(data);
             }
             chatResponse(data.responsemsg);
@@ -194,29 +198,29 @@ function sendId(id){
     document.getElementById("chatbox").disabled = true;
 
     // THE SELECTED RESTAURANT
-    alert(document.getElementById("clickable-rest-"+id).innerText);
+    alert(document.getElementById("clickable-rest-" + id).innerText);
 }
 
 
 var selectedItems = [],
-    selItemsIDs =  [];
+    selItemsIDs = [];
 
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
-function sendMenuItemId(id){
+function sendMenuItemId(id) {
     $('#basket').empty();
-    if(DEBUG){
+    if (DEBUG) {
         //alert(id);
     }
 
-    selectedItems.push("usr_selection mi_id="+id);
-    alert("Item: " + document.getElementById("clickable-mi-"+id).innerText + " ADDED TO BASKET!");
+    selectedItems.push("usr_selection mi_id=" + id);
+    alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
 
     selItemsIDs.push(id);
     var items = [], itemNumber = [];
-    [items , itemNumber]=countItems(selItemsIDs);
-    for(var i = 0; i<items.length; i++){
+    [items, itemNumber] = countItems(selItemsIDs);
+    for (var i = 0; i < items.length; i++) {
         $('#basket').append('<ul class="item" >' +
-            itemNumber[i] + " x " + document.getElementById("clickable-mi-"+items[i]).innerText+ '</ul>');
+            itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + '</ul>');
         $('#basket').scrollTop($('#basket')[0].scrollHeight);
     }
 
@@ -266,21 +270,21 @@ function sendMenuItemId(id){
     // THE SELECTED MENU ITEM
     //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
+
 function countItems(arr) {
     var a = [], b = [], prev;
     arr.sort();
-    for ( var i = 0; i < arr.length; i++ ) {
-        if ( arr[i] !== prev ) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] !== prev) {
             a.push(arr[i]);
             b.push(1);
         } else {
-            b[b.length-1]++;
+            b[b.length - 1]++;
         }
         prev = arr[i];
     }
     return [a, b];
 }
-
 
 
 // WHEN THE FOOD MENU IS PRESENTED
@@ -296,11 +300,21 @@ $(document).ready(function () {
 // $(document).ready(function () {
 //     document.getElementById("chatbox").disabled = false;
 //     $('clickable-rest').click(function () {
-        //document.getElementById("chatbox").disabled = true;
-        //alert("hey");
-       // console.log("ghfjfg");
-        //$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
-            //document.getElementById("chatbox").value = $('#clickable-rest').onclick;
+//document.getElementById("chatbox").disabled = true;
+//alert("hey");
+// console.log("ghfjfg");
+//$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
+//document.getElementById("chatbox").value = $('#clickable-rest').onclick;
 //         }
 //     );
 // });
+
+// TOGGLE FOR THE VIEW BASKET
+function toggle() {
+    var x = document.getElementById("product-list");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
