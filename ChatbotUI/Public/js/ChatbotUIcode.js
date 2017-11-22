@@ -55,18 +55,11 @@ $(document).ready(function () {
             if(isRecover){
                 var msgsReceived = data.messages_retrieved;
                 for(var i=0; i<msgsReceived.length; i++){
-                    if(i%2 == 0){
-                        msgsReceived[i]
-                    }
-                    else{
-                        msgsReceived[i]
-                    }
-
+                        alert(msgsReceived[i].is_usr_msg);
                 }
-//TODO
-
             }
 
+            //TODO
             // CURRENT USER SIGNED IN
             $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
             $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
