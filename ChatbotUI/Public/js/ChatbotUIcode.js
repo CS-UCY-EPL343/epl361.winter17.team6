@@ -38,7 +38,7 @@ $(document).ready(function () {
     var currentUser = users[Math.floor(Math.random() * 6)];
     var jsonReqBody = {
         'username' : currentUser,
-        'timestamp' : d.getTime(),
+        'timestamp' : d.getTime()
     };
     // GET USER TOKEN
     $.post("http://localhost:4567/init",
