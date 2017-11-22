@@ -152,12 +152,28 @@ function chatResponse(data) {
 
     //add the chatbot's name and message to the array messages
     d = new Date();
-    messages.push("<b>" + botName + ":</b> " +
-        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
-        "<p>" + botMessage + "</p>");
 
     // says the message using the text to speech function written below
     Speech(botMessage);
+
+    botMessage="<b>" + botName + ":</b> " +
+        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+        "<p>" + botMessage + "</p>" ;
+    messages.push(botMessage);
+
+    var jsonReqBody = {
+        'token': token,
+        'convid': conversationID,
+        'responsemsg': botMessage,
+        'timestamp': d.getTime()
+    };
+    $.post("http://localhost:4567/getmsg",
+        jsonReqBody,
+        function (data, status) {
+            if (DEBUG) {
+                alert("RESPONSE SENT");
+            }
+        });
 
     //outputs the last few array elements of messages to html
     $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
