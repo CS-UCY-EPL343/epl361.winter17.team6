@@ -71,12 +71,12 @@
 
  ## 3.Configuration
   
-   > Extract the git repository on your machine.
-   >Run the following commands: 
+   #1. Extract the git repository on your machine.
+   #2. Run the following commands: 
    
     $  http-server epl361.winter17.team6/ChatbotUI/Public --cors
-   > Run main from the Main.java       
-   > Proceed to the following url on your browser: 
+   #3. Run main from the Main.java       
+   #4. Proceed to the following url on your browser: 
    
     http://127.0.0.1:8080
 
