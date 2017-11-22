@@ -11,7 +11,9 @@
 
 
  ## 1.Introduction
-    This program was created by a UCY student team as a project for the EPL361 Software Engineering Course, in collaboration with Ideas2life. The program is a chatbot for the Foody website, created by the Ideas2life team. The purpose of the chatbot is to provide users with ability to execute their orders and search the website through it. 
+    This program was created by a UCY student team as a project for the EPL361 Software Engineering Course, in collaboration with
+    Ideas2life. The program is a chatbot for the Foody website, created by the Ideas2life team. The purpose of the chatbot is to 
+    provide users with ability to execute their orders and search the website through it. 
 
 
  ## 2.Requirements
