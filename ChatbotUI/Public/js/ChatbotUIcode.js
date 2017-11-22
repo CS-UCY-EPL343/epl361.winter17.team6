@@ -38,7 +38,6 @@ $(document).ready(function () {
     messages.push(botMessage);
 
     // CONVERSATION INITIALIZATION
-
     var jsonReqBody = {
         'username': currentUser,
         'timestamp': d.getTime()
@@ -71,22 +70,6 @@ $(document).ready(function () {
         }
     );
 });
-
-//text to Speech
-//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-function Speech(say) {
-    if ('speechSynthesis' in window && talking) {
-        var utterance = new SpeechSynthesisUtterance(say);
-        //msg.voice = voices[1]; // Note: some voices don't support altering params
-        //utterance.voiceURI = 'native';
-        //utterance.volume = 1; // 0 to 1
-        //utterance.rate = 0.1; // 0.1 to 10
-        //utterance.pitch = 1; //0 to 2
-        //utterance.text = 'Hello World';
-        //utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
-    }
-}
 
 function newEntry() {
 //if the message from the user isn't empty then run
@@ -166,19 +149,6 @@ function keyPress(e) {
     }
 }
 
-//clears the placeholder text ion the chatbox
-//this function is set to run when the users brings focus to the chatbox, by clicking on it
-function placeHolder() {
-    document.getElementById("chatbox").placeholder = "";
-}
-
-// PREVENTS REFRESHING WHEN PRESSING ENTER
-$(function () {
-    $("form").submit(function () {
-        return false;
-    });
-});
-
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id) {
     //alert(id);
@@ -217,7 +187,7 @@ function sendMenuItemId(id) {
     selectedItems.push("usr_selection mi_id=" + id);
     alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
 
-    if(selectedItems.length == 0){
+    if (selectedItems.length == 0) {
         $('#chatborder').append('<button id=\"submitbtn\" onclick=\"newEntry()\">SUBMIT</button>');
     }
 
@@ -277,8 +247,6 @@ function sendMenuItemId(id) {
     //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
 
-
-
 // WHEN SUBMIT BTN IS PRESSED
 // $(document).ready(function () {
 //     $("#submitbtn").click(function () {
@@ -288,7 +256,65 @@ function sendMenuItemId(id) {
 //     );
 // });
 
+//
+// $(document).ready(function () {
+//     document.getElementById("chatbox").disabled = false;
+//     $('clickable-rest').click(function () {
+//document.getElementById("chatbox").disabled = true;
+//alert("hey");
+// console.log("ghfjfg");
+//$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
+//document.getElementById("chatbox").value = $('#clickable-rest').onclick;
+//         }
+//     );
+// });
 
+
+//-------------------------------------------------------
+// USEFUL FUNCTIONS:
+//-------------------------------------------------------
+/**
+ * TOGGLE FOR THE VIEW BASKET
+ */
+function toggle() {
+    var x = document.getElementById("product-list");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+//text to Speech
+//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+function Speech(say) {
+    if ('speechSynthesis' in window && talking) {
+        var utterance = new SpeechSynthesisUtterance(say);
+        //msg.voice = voices[1]; // Note: some voices don't support altering params
+        //utterance.voiceURI = 'native';
+        //utterance.volume = 1; // 0 to 1
+        //utterance.rate = 0.1; // 0.1 to 10
+        //utterance.pitch = 1; //0 to 2
+        //utterance.text = 'Hello World';
+        //utterance.lang = 'en-US';
+        speechSynthesis.speak(utterance);
+    }
+}
+
+// WHEN THE FOOD MENU IS PRESENTED
+$(document).ready(function () {
+    $("clickable-mi").click(function () {
+            console.log(lastUserMessage);
+            newEntry();
+        }
+    );
+});
+
+/**
+ * Used to count the number of items in the basket individually
+ * @param arr
+ * @returns {[null,null]}
+ */
 function countItems(arr) {
     var a = [], b = [], prev;
     arr.sort();
@@ -304,35 +330,15 @@ function countItems(arr) {
     return [a, b];
 }
 
-
-// WHEN THE FOOD MENU IS PRESENTED
-$(document).ready(function () {
-    $("clickable-mi").click(function () {
-            console.log(lastUserMessage);
-            newEntry();
-        }
-    );
-});
-
-//
-// $(document).ready(function () {
-//     document.getElementById("chatbox").disabled = false;
-//     $('clickable-rest').click(function () {
-//document.getElementById("chatbox").disabled = true;
-//alert("hey");
-// console.log("ghfjfg");
-//$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
-//document.getElementById("chatbox").value = $('#clickable-rest').onclick;
-//         }
-//     );
-// });
-
-// TOGGLE FOR THE VIEW BASKET
-function toggle() {
-    var x = document.getElementById("product-list");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
+//clears the placeholder text ion the chatbox
+//this function is set to run when the users brings focus to the chatbox, by clicking on it
+function placeHolder() {
+    document.getElementById("chatbox").placeholder = "";
 }
+
+// PREVENTS REFRESHING WHEN PRESSING ENTER
+$(function () {
+    $("form").submit(function () {
+        return false;
+    });
+});
