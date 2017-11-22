@@ -84,6 +84,24 @@ public class SQLiteJDBCDriverConnection {
         }
     }
 
+    public void insertMessage(String username, String conversationId, String msg_id, long timestamp, boolean is_user_message,String content ) {
+        String insertMessageSql = "INSERT INTO Message (username, conv_id, msg_id,  time_stamp, is_user_msg, content) VALUES(?, ?, ?, ?,?,?)";
+        if( DEBUG )
+            System.out.println("Inserting " + username + " with conv_id " + conversationId +
+                    "message_id :" + msg_id +" with timestamp " + timestamp + " is_user_message");
+        try (PreparedStatement pstmt = getConnection().prepareStatement(insertMessageSql);) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, conversationId);
+            pstmt.setString(3, msg_id);
+            pstmt.setLong(4, timestamp);
+            pstmt.setBoolean(5, is_user_message);
+            pstmt.setString(6, content);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void insertConversation(String username, String conversationId , long init_timestamp) {
         String insertConversationSql = "INSERT INTO Conversation (username, conv_id,init_timestamp,  status) VALUES(?, ?, ?,0)";
         if( DEBUG )
@@ -99,6 +117,7 @@ public class SQLiteJDBCDriverConnection {
             e.printStackTrace();
         }
     }
+
     public boolean isUserInserted(String username) {
         String sql = "SELECT * FROM CUser WHERE CUser.username = (?)";
 

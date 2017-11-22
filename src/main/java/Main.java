@@ -79,14 +79,20 @@ public class Main {
                 sqlDb.insertUser(username,token);
                 System.out.println("User " + username + " not yet in db." +
                         "\n\tThe token created is " +
-                        "\n\ttoken: " + token);
+                        "\n\ttoken: " + token +);
             }
+            String conversationId = UUID.randomUUID().toString();
+
             app.addNewToken(token);
+            sqlDb.insertConversation(username, conversationId, Long.parseLong(init_timestamp));
+
             jsonResponse.put("token", token);
+            jsonResponse.put("convid", conversationId);
 
             return jsonResponse.toString();
         });
 
+        //TODO get the convid
         post("/getmsg", (req, res) -> {
             res.type("application/json");
             res.status(200);
@@ -96,6 +102,7 @@ public class Main {
             String msgToStore = req.queryParams("msgtostore");
             String userToken = req.queryParams("token");
             String timestamp  = req.queryParams("timestamp");
+            String conversationId = req.queryParams("convid");
 
             if (usrMsg == null || userToken == null || timestamp == null) {
                 res.status(412);
@@ -113,11 +120,20 @@ public class Main {
                         "\n\tusrmsg: " + usrMsg  +
                         "\n\tmsgtostore: " + msgToStore);
 
+            if (DEBUG)
+                System.out.println("Check if conversationUser (retrieved from db): " + username + " send a new message." +
+                        "\n\ttoken:  " + userToken +
+                        "\n\ttimestamp " + userMsgTimestamp +
+                        "\n\tusrmsg: " + usrMsg  +
+                        "\n\tmsgtostore: " + msgToStore);
+            String userMessageId = UUID.randomUUID().toString();
+            sqlDb.insertMessage(username, conversationId,messageId,Long.parseLong(timestamp), true, msgToStore);
+            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
 
             jsonResponse.put("token", userToken);
-
-            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
             jsonResponse.put("responsemsg", responseMsg);
+            jsonResponse.put("usermsgid", userMessageId );
+
             return jsonResponse.toString();
         });
     }
