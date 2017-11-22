@@ -10,12 +10,17 @@
 
 <body>
 
+
+    <a id="products" >BASKET (HOVER TO VIEW)</a>
+    <ul id="product-list">
+        <div id='basket' style="border-color: red"></div>
+    </ul>
+
 <!--HEADER-->
 <div class="header">
     <img id="foodylogo" src="http://foody.com.cy/img/foody-logo-new.png" alt="FOODY LOGO">CHATBOT
-    <ul id="userlist"> <!-- Built by JS --> </ul>
 </div>
-
+<div id="userlist"> <!-- Built by JS --> </div>
 
 <!--Navigation pane-->
 <div class="navpane">
@@ -39,6 +44,7 @@
                 <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
                 <button id="sendbtn" onclick="newEntry()"> SEND</button>
             </form>
+
         </div>
     </div>
 

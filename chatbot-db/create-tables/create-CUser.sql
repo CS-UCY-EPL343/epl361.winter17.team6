@@ -1,0 +1,4 @@
+CREATE TABLE CUser (
+    username TEXT PRIMARY KEY NOT NULL 
+);
+

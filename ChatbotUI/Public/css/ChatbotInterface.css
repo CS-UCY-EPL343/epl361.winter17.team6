@@ -1,8 +1,32 @@
+.header {
+    background-image:url(http://foody.com.cy/img/foody-bg-12.jpg);
+    text-align: center;
+    padding: 14px 16px;
+    color: white;
+    font-size: 30pt;
+    font-family: "Arial Black";
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#foodylogo {
+    width: 250px;
+    height: 60px;
+}
+
 .body {
     font: 15px arial, sans-serif;
     background-color: #363636;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+#description{
+    max-width: 100%;
+    max-height: 100%;
+    font: 15px arial, sans-serif;
+    color: white;
+    padding: 20px;
+    background-color: #363636;
 }
 
 #bodybox {
@@ -22,12 +46,6 @@ div.chatbox {
     padding: 5px;
     border-radius: 15px;
     overflow-y: scroll;
-}
-
-p.msg {
-    margin: 2px;
-    background-color: #C0C0C0;
-    clear: both;
 }
 
 #chatborder {
@@ -61,39 +79,12 @@ p.msg {
     cursor: pointer;
     width: 150px;
     display: block;
-    box-shadow: 0 9px #999;
-}
+    box-shadow: 0 9px #999;}
 #sendbtn:hover {background-color: #3e8e41}
 #sendbtn:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
-}
-
-.h1 {
-    margin: auto;
-}
-
-.pre {
-    background-color: #363636;
-    margin-left: 20px;
-}
-
-.header {
-    background-image:url(http://foody.com.cy/img/foody-bg-12.jpg);
-    background-color: #363636;
-    text-align: center;
-    padding: 14px 16px;
-    color: white;
-    font-size: 30pt;
-    font-family: "Arial Black";
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-}
-
-#foodylogo {
-    width: 250px;
-    height: 60px;
-}
+    transform: translateY(4px);}
 
 /* Style the top navigation pane */
 .navpane {
@@ -150,9 +141,7 @@ p.msg {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #C17FC7 solid 4px;
-}
-
+    border: #C17FC7 solid 4px;}
 .bubble1:after {
     content: '';
     position: absolute;
@@ -163,9 +152,7 @@ p.msg {
     width: 0;
     z-index: 1;
     left: -35px;
-    top: 6px;
-}
-
+    top: 6px;}
 .bubble1:before {
     content: '';
     position: absolute;
@@ -176,8 +163,7 @@ p.msg {
     width: 0;
     z-index: 0;
     left: -42px;
-    top: 3px;
-}
+    top: 3px;}
 
 /*CHATBOT ANSWER BUBBLE*/
 .bubble2 {
@@ -192,9 +178,7 @@ p.msg {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #161CCA solid 6px;
-}
-
+    border: #161CCA solid 6px;}
 .bubble2:after {
     content: '';
     position: absolute;
@@ -205,9 +189,7 @@ p.msg {
     width: 0;
     z-index: 1;
     right: -35px;
-    top: 6px;
-}
-
+    top: 6px;}
 .bubble2:before {
     content: '';
     position: absolute;
@@ -218,8 +200,7 @@ p.msg {
     width: 0;
     z-index: 0;
     right: -46px;
-    top: 1px;
-}
+    top: 1px;}
 
 
 #chattimestamp{
@@ -230,17 +211,20 @@ p.msg {
 
 }
 
-#curruser{
+#userlist{
     position: absolute;
-    top: 117px;
+    color: white;
+    top: 100px;
     right: 87px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 /*MENU ITEM CLICKABLE*/
 .clickable-mi {
     color: blue;
-    cursor: pointer;  }
+    cursor: pointer;
+    font-size: 14px;
+    justify-content: left;}
 .clickable-mi:hover{
     color: lightblue;  }
 .clickable-mi:active{
@@ -249,7 +233,8 @@ p.msg {
 /*CATEGORY */
 .food-categ{
     color: red;
-    font-size: 20px;
+    font-size: 16px;
+    justify-content: center;
 }
 
 /* Format of responce restaurants links */
@@ -260,3 +245,42 @@ p.msg {
     color: lightblue;  }
 .clickable-rest:active{
     color:purple;  }
+
+/* SEND BUTTON FORMAT */
+#submitbtn{
+    background-color: #0006af; /* Green */
+    border: 3px solid green;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    width: 150px;
+    display: block;
+    box-shadow: 0 9px #999;}
+#submitbtn:hover {background-color: #3e8e41}
+#submitbtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);}
+
+
+#basket{
+    font-size: 12px;
+    width: 400px;
+    height: 140px;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    overflow-y: scroll;
+}
+#product-list{
+    display:none;
+}
+#products:hover ~ #product-list{
+    display:block;
+}
+#product-list:hover{
+    display:block;
+}

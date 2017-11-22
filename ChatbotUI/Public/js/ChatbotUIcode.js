@@ -2,29 +2,43 @@
 //http://eloquentjavascript.net/09_regexp.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 nlp = window.nlp_compromise;
-
+var DEBUG = true;
 var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
+    Username = ['Marios','Andri','Kotsios','Mary','Mark','Andreas'],
+    user = {
+        username : 0,
+        token : 0
+    },
     Username = 'Marios',
+    token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 
-$(document).ready(function () {
-    // CURRENT USER SIGNED IN
-    $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + Username + "</p>");
-});
-
 // The hello message from the chatbot to the user
 $(document).ready(function () {
+    // GET USER TOKEN
+    $.post("http://localhost:4567/init",
+        {},
+        function (data, status) {
+            token = data.token;
+            // CURRENT USER SIGNED IN
+            $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
+            if( DEBUG ) {
+                console.log("The token received from server is " + token);
+            }
+            //chatResponse(data);
+        });
+
     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
-        "<br />1. To find a specific restaurant." +
-        "<br />2. To get the current chat log." +
+        "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
+        "<br />\"history\". To get the current chat log." +
         "<br />..." +
-        "<br />Please enter one of the above numbers.";
+        "<br />Please enter one of the above choices.";
     //add the chatbot's name and message to the array messages
     d = new Date();
     messages.push("<b>" + botName + ":</b> " +
@@ -79,9 +93,19 @@ function newEntry() {
 
         $('#chatborder').append('<ul class="bubble1" >' + messages[messages.length - 1] + '</ul>');
 
-        $.post("http://localhost:4567/hello", lastUserMessage,
+
+        var jsonReqBody = {
+            'token' : token,
+            'usrmsg' : lastUserMessage
+        };
+        $.post("http://localhost:4567/getmsg",
+            jsonReqBody,
             function (data, status) {
-            chatResponse(data);
+            if( DEBUG ) {
+                console.log("The json object response received from the server is ");
+                console.log ( data);
+            }
+            chatResponse(data.responsemsg);
         });
     }
 }
@@ -132,7 +156,6 @@ function keyPress(e) {
 function placeHolder() {
     document.getElementById("chatbox").placeholder = "";
 }
-
 // PREVENTS REFRESHING WHEN PRESSING ENTER
 $(function () {
     $("form").submit(function () {
@@ -143,19 +166,113 @@ $(function () {
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id){
     //alert(id);
-    $.post("http://localhost:4567/hello",
-        "usr_selection res_id="+id,
+    var jsonReqBody = {
+        'token' : token,
+        'usrmsg' : "usr_selection res_id="+id
+    };
+    $.post("http://localhost:4567/getmsg",
+        jsonReqBody,
         function (data, status) {
-            alert("usr_selection res_id="+id);
-            chatResponse(data);
+
+            if (DEBUG) {
+                alert("usr_selection res_id="+id);
+                console.log(data);
+            }
+            chatResponse(data.responsemsg);
             document.getElementById("chatbox").disabled = false;
-            console.log(data);
+
         });
     document.getElementById("chatbox").disabled = true;
 
     // THE SELECTED RESTAURANT
     alert(document.getElementById("clickable-rest-"+id).innerText);
 }
+
+
+var selectedItems = [],
+    selItemsIDs =  [];
+
+// THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
+function sendMenuItemId(id){
+    $('#basket').empty();
+    if(DEBUG){
+        //alert(id);
+    }
+
+    selectedItems.push("usr_selection mi_id="+id);
+    alert("Item: " + document.getElementById("clickable-mi-"+id).innerText + " ADDED TO BASKET!");
+
+    selItemsIDs.push(id);
+    var items = [], itemNumber = [];
+    [items , itemNumber]=countItems(selItemsIDs);
+    for(var i = 0; i<items.length; i++){
+        $('#basket').append('<ul class="item" >' +
+            itemNumber[i] + " x " + document.getElementById("clickable-mi-"+items[i]).innerText+ '</ul>');
+        $('#basket').scrollTop($('#basket')[0].scrollHeight);
+    }
+
+
+    // var jsonReqBody = {
+    //     'token' : token,
+    //     'usrmsg' : "usr_selection mi_id="+id
+    // };
+    //
+
+    // AVOID DUPLICATES
+    // if(selectedItems.length ==0){
+    //     selectedItems.push("usr_selection mi_id="+id);
+    // }
+    // var tf = true , i;
+    // for(i=0; i<selectedItems.length; i++){
+    //     if(selectedItems[i] == ("usr_selection mi_id="+id)){
+    //         alert("ERROR! You already entered that item!");
+    //         tf = false;
+    //         break;
+    //     }
+    // }
+    // if(tf){
+    //     selectedItems.push("usr_selection mi_id="+id);
+    // }
+    // var s = "";
+    // for(i=0; i<selectedItems.length; i++){
+    //     s.append(selectedItems[i]);
+    // }
+    // alert(s);
+
+
+    // $.post("http://localhost:4567/getmsg",
+    //     jsonReqBody,
+    //     function (data, status) {
+    //
+    //         if (DEBUG) {
+    //             alert("usr_selection res_id="+id);
+    //             console.log(data);
+    //         }
+    //         chatResponse(data.responsemsg);
+    //         document.getElementById("chatbox").disabled = false;
+    //
+    //     });
+    //document.getElementById("chatbox").disabled = true;
+
+    // THE SELECTED MENU ITEM
+    //alert(document.getElementById("clickable-mi-"+id).innerText);
+}
+function countItems(arr) {
+    var a = [], b = [], prev;
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+    return [a, b];
+}
+
+
 
 // WHEN THE FOOD MENU IS PRESENTED
 $(document).ready(function () {
