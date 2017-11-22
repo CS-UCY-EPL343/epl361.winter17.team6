@@ -1,5 +1,5 @@
 
-# Foody Chatbot version 1.0
+# Foody Chatbot - Version 1.0
 ###### epl361.winter17.team6
 
  CONTENTS OF THIS FILE
@@ -8,11 +8,10 @@
   ### 1.Introduction
   ### 2.Requirements
   ### 3.Configuration
-  ### 4.
 
 
  ## 1.Introduction
-    This program was created by a UCY student team as a project that was assigned to them by 361 Cource.
+    This program was created by a UCY student team as a project for the EPL361 Software Engineering Course, in collaboration with Ideas2life. The program is a chatbot for the Foody website, created by the Ideas2life team. The purpose of the chatbot is to provide users with ability to execute their orders and search the website through it. 
 
 
  ## 2.Requirements
