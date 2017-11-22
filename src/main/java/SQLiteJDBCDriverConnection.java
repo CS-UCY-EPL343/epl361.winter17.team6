@@ -86,13 +86,15 @@ public class SQLiteJDBCDriverConnection {
 
     public void insertConversation(String username, String conversationId , long init_timestamp) {
         String insertConversationSql = "INSERT INTO Conversation (username, conv_id,init_timestamp,  status) VALUES(?, ?, ?,0)";
+        if( DEBUG )
+            System.out.println("Inserting " + username + " with conv_id " + conversationId + " with timestamp " + init_timestamp);
 
         try (
                 PreparedStatement pstmt = getConnection().prepareStatement(insertConversationSql);) {
             pstmt.setString(1, username);
             pstmt.setString(2, conversationId);
             pstmt.setLong(3, init_timestamp);
-            pstmt.executeQuery();
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,6 +140,7 @@ public class SQLiteJDBCDriverConnection {
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             retrievedUserName = rs.getString(1);
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -152,6 +155,7 @@ public class SQLiteJDBCDriverConnection {
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             retrievedUserName = rs.getString(1);
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -178,7 +182,7 @@ public class SQLiteJDBCDriverConnection {
             s.insertUser(usrName, usrName + "_token");
             System.out.println(s.isUserInserted(usrName));
             System.out.println(s.getToken(usrName));
-            System.out.println(s.getUsername(s.getToken(usrName)));
+            System.out.println("Retrieved Username " + s.getUsername(s.getToken(usrName)));
         }
 
         String conv_id = UUID.randomUUID().toString();

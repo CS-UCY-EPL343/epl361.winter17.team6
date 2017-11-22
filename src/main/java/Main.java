@@ -52,6 +52,7 @@ public class Main {
 
             String username = req.queryParams("username");
             String init_timestamp = req.queryParams("timestamp");
+            System.out.println(init_timestamp);
 
             String token = null;
             JSONObject jsonResponse = new JSONObject();
@@ -94,9 +95,9 @@ public class Main {
             String usrMsg = req.queryParams("usrmsg");
             String userToken = req.queryParams("token");
             String timestamp  = req.queryParams("timestamp");
-            Date userMsgTimestamp = new Date(Long.parseLong("timestamp"));
+            Date userMsgTimestamp = new Date(Long.parseLong(timestamp));
 
-            String username = sqlDb.getUsername("token");
+            String username = sqlDb.getUsername(userToken);
             if (DEBUG)
                 System.out.println("User : " + username + " send a new message at " +
                         "\n\ttoken:  " + userToken +
