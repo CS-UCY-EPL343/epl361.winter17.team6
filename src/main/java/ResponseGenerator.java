@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.compiler.Keywords;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ResponseGenerator {
 
     /*Declaring Finals*/
     public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_ITEMS = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
-    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id",KEY_MENU  = "menu_id";
+    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id",KEY_ITEMS_VIEW = "men_ids";
     public static final String[] KEY_LIST__FOOD = {"souvlakia", "burger" ,"sandwich"};
 
     private AbstractResponse mapKeywordsToResponse(){
@@ -129,16 +131,29 @@ public class ResponseGenerator {
               return;
           }
 
-            if (keyWords.contains(KEY_BRANCH)) {
-                setMsgCode(LIST_BRANCH_MENU);
-                setSelectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
-                return;
+        if (keyWords.contains(KEY_BRANCH)) {
+            setMsgCode(LIST_BRANCH_MENU);
+            setSelectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
+            return;
         }
-       else
+
+        if (keyWords.contains(KEY_ITEMS_VIEW)) {
+
+            selectedMenuId = new ArrayList<Integer>();
+            setMsgCode(LIST_ITEMS);
+
+            /*Get the Integers from the keywords Sting Array*/
+            keyWords.remove(0);
+
+            /*Return all the ids in the menu*/
+            for (String item : keyWords)
+                selectedMenuId.add(Integer.parseInt(item));
+
+            return;
+        }
+        else
             setMsgCode(HELP);
             return;
-
-
     }
 
 
