@@ -72,7 +72,7 @@ public class Main {
                             "\n\ttoken: " + token);
             } else {
                 token = (UUID.randomUUID()).toString();
-                sqlDb.insert(username,token);
+                sqlDb.insertUser(username,token);
                 System.out.println("User " + username + " not yet in db." +
                         "\n\tThe token created is " +
                         "\n\ttoken: " + token);
@@ -108,6 +108,7 @@ public class Main {
                 jsonResponse.put("error", "required parameters are not set");
                 return jsonResponse.toString();
             }
+
             String responseMsg = app.getChatbotResponse(usrMsg, userToken);
             jsonResponse.put("responsemsg", responseMsg);
             return jsonResponse.toString();
