@@ -15,10 +15,9 @@ public class ListOfRestaurantNamesResponse extends AbstractResponse {
         for (Restaurant r: restaurantList)
             response.append("<a class=\"" + CLASS_NAME + "\"" + " id = "+CLASS_NAME+"-"+r.getId()+ " onclick=\"sendId("+ r.getId() + ")\">" + "\t" + r.getName()+ "</a>" +"\n");
 
+/*Call ListBranch Menu and Set restaurant */
 
-
-
-        response.append("Παρακαλώ επιλέξετε αριθμό :" + "\n");
+        response.append("Παρακαλώ επιλέξετε !" + "\n");
         return response.toString();
     }
 
