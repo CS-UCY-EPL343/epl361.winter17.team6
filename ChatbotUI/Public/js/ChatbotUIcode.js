@@ -167,14 +167,14 @@ function chatResponse(data) {
         'responsemsg': botMessage,
         'timestamp': d.getTime()
     };
-    $.post("http://localhost:4567/getmsg",
+    $.post("http://localhost:4567/sendresp",
         jsonReqBody,
         function (data, status) {
             if (DEBUG) {
                 alert("RESPONSE SENT");
             }
         });
-
+//TODO
     //outputs the last few array elements of messages to html
     $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
     $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
