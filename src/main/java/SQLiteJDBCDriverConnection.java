@@ -243,7 +243,7 @@ public class SQLiteJDBCDriverConnection {
                 jo.put("conv_id", rs.getString("conv_id"));
                 jo.put("msg_id",rs.getString("msg_id") );
                 jo.put("time_stamp", rs.getString("time_stamp"));
-                jo.put("is_user_msg",rs.getString("is_user_msg") );
+                jo.put("is_user_msg",rs.getInt("is_user_msg") );
                 jo.put("content", rs.getString("content"));
 
                 retrievedMessages.add(jo);

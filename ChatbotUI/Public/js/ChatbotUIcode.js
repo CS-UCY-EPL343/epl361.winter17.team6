@@ -50,6 +50,22 @@ $(document).ready(function () {
         function (data, status) {
             token = data.token;
             conversationID = data.convid;
+            var isRecover = data.user_already_in_db;
+
+            if(isRecover){
+                var msgsReceived = data.messages_retrieved;
+                if(DEBUG) {
+                    console.log("The msgReceived: ");
+                    console.log(msgsReceived);
+                    console.log(msgsReceived[0]);
+                    //console.log(msgsReceived[0].is_user_msg)
+                }
+                for(var i=0; i<msgsReceived.length; i++){
+                        alert(msgsReceived[i].is_user_msg);
+                }
+            }
+
+            //TODO
             // CURRENT USER SIGNED IN
             $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
             $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
@@ -208,7 +224,8 @@ function sendMenuItemId(id) {
         $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     }
 
-    selectedItems.push("usr_selection mi_id=" + id);
+    selectedItems.push("usr_menu mi_id=" + id);
+
     if (DEBUG) {
         alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
     }
@@ -291,22 +308,18 @@ function sendMenuSelection() {
     // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     // console.log(messages.toString());
 
-
+    alert(selectedItems.toString());
     d = new Date();
     var jsonReqBody = {
         'token': token,
         'convid': conversationID,
-        'usrmsg': selectedItems.toString(),
+        'usrmsg': selectedItems.join(" ").toString(),
         'msgtostore': botMessage,
         'timestamp': d.getTime()
     };
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
-            if (DEBUG) {
-                alert("usr_selection res_id=" + id);
-                console.log(data);
-            }
             document.getElementById("chatbox").disabled = false;
             chatResponse(data.responsemsg);
         });
