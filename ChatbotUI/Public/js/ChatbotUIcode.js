@@ -13,6 +13,7 @@ var messages = [], //array that hold the record of each string in chat
         token: 0
     },
     currentUser = 'Marios',
+    conversationID = "",
     token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
@@ -47,11 +48,13 @@ $(document).ready(function () {
         jsonReqBody,
         function (data, status) {
             token = data.token;
+            conversationID = data.convid;
             // CURRENT USER SIGNED IN
             $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
             $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
             if (DEBUG) {
                 console.log("The token received from server is " + token);
+                console.log("THE CURRENT CONV ID IS : " + conversationID);
             }
             //chatResponse(data);
         });
@@ -72,6 +75,7 @@ $(document).ready(function () {
 });
 
 function newEntry() {
+    document.getElementById("chatbox").disabled = false;
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
         //pulls the value from the chatbox ands sets it to lastUserMessage
@@ -92,6 +96,7 @@ function newEntry() {
 
         var jsonReqBody = {
             'token': token,
+            'convid': conversationID,
             'usrmsg': lastUserMessage,
             'msgtostore': usrmessage,
             'timestamp': d.getTime()
@@ -158,6 +163,7 @@ function sendId(id) {
         "<p>" + "Order from restaurant with ID: " + id + "</p>";
     var jsonReqBody = {
         'token': token,
+        'convid': conversationID,
         'usrmsg': "usr_selection res_id=" + id,
         'msgtostore': storedMsg,
         'timestamp': d.getTime()
@@ -170,11 +176,12 @@ function sendId(id) {
                 alert("usr_selection res_id=" + id);
                 console.log(data);
             }
+
+            document.getElementById("chatbox").disabled = true;
             chatResponse(data.responsemsg);
-            document.getElementById("chatbox").disabled = false;
 
         });
-    document.getElementById("chatbox").disabled = true;
+    document.getElementById("chatbox").disabled = false;
 
     // THE SELECTED RESTAURANT
     alert(document.getElementById("clickable-rest-" + id).innerText);
@@ -190,12 +197,16 @@ function sendMenuItemId(id) {
     if (DEBUG) {
         //alert(id);
     }
-    selectedItems.push("usr_selection mi_id=" + id);
-    alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
 
     if (selectedItems.length == 0) {
-        $('#chatborder').append('<button id=\"submitbtn\" onclick=\"newEntry()\">SUBMIT</button>');
+        $('#chatborder').append('<ul class="bubble2">' +
+            '<button id=\"submitbtn\" onclick=\"newEntry()\">SUBMIT</button>' +
+            '</ul>');
+        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     }
+
+    selectedItems.push("usr_selection mi_id=" + id);
+    alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
 
     selItemsIDs.push(id);
     var items = [], itemNumber = [];
@@ -205,7 +216,6 @@ function sendMenuItemId(id) {
             itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + '</ul>');
         $('#basket').scrollTop($('#basket')[0].scrollHeight);
     }
-
 
     // var jsonReqBody = {
     //     'token' : token,
@@ -234,7 +244,6 @@ function sendMenuItemId(id) {
     // }
     // alert(s);
 
-
     // $.post("http://localhost:4567/getmsg",
     //     jsonReqBody,
     //     function (data, status) {
@@ -254,13 +263,14 @@ function sendMenuItemId(id) {
 }
 
 // WHEN SUBMIT BTN IS PRESSED
-// $(document).ready(function () {
-//     $("#submitbtn").click(function () {
-//             console.log(lastUserMessage);
-//             newEntry();
-//         }
-//     );
-// });
+$(document).ready(function () {
+    $("#submitbtn").click(function () {
+            console.log(lastUserMessage);
+            newEntry();
+        }
+    );
+});
+
 
 //
 // $(document).ready(function () {
@@ -309,7 +319,32 @@ function Speech(say) {
 
 // WHEN THE FOOD MENU IS PRESENTED
 $(document).ready(function () {
-    $("clickable-mi").click(function () {
+    $("submitbtn").click(function () {
+        //TODO
+
+        var jsonReqBody = {
+            'token': token,
+            'convid': conversationID,
+            'usrmsg': selectedItems,
+            'msgtostore': "",
+            'timestamp': d.getTime()
+        };
+        $.post("http://localhost:4567/getmsg",
+            jsonReqBody,
+            function (data, status) {
+
+                if (DEBUG) {
+                    alert("usr_selection res_id=" + id);
+                    console.log(data);
+                }
+
+                document.getElementById("chatbox").disabled = true;
+                chatResponse(data.responsemsg);
+            });
+
+
+
+
             console.log(lastUserMessage);
             newEntry();
         }
