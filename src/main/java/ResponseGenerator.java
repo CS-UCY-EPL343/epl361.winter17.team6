@@ -9,21 +9,29 @@ import java.util.List;
 
 public class ResponseGenerator {
 
-
+    /*Keywords from text parser*/
     List <String> keyWords;
-    private int selectedRestaurant=0 ;
+
+    /*Message code for producing desired response*/
     int msgCode ;
+
+    /*Service Caller for the User */
     ServiceCaller sc;
 
-    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_INGREDIENT = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
-    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id";
-    public static final String[] KEY_LIST__FOOD = {"souvlakia", "burgers" ,"sandwich"};
+    /*Restaraunts that will be used in List Menu , List Restaurant*/
+
+    private int selectedRestaurantId=0 ;
+    private List<Integer> selectedMenuId;
+
+    /*Declaring Finals*/
+    public static final int LIST_RESTAURANT = 1,SHOW_HISTORY = 2,CHOOSE_PAYMENT = 3, LIST_ITEMS = 4,LIST_BRANCH_MENU = 5,HELP = 6, RESTAURANT_SCEDULE= 7,BRANCH_CATEGORIES = 8;
+    public static final String KEY_LIST_RESTAURANT  = "want", KEY_BRANCH  = "res_id",KEY_MENU  = "menu_id";
+    public static final String[] KEY_LIST__FOOD = {"souvlakia", "burger" ,"sandwich"};
 
     private AbstractResponse mapKeywordsToResponse(){
 
-        ArrayList<String> KeyWords = new ArrayList<>();
-        String response_message= "No response";
 
+        /*Declaring class for response*/
         AbstractResponse abstract_response = null;
 
 
@@ -31,36 +39,21 @@ public class ResponseGenerator {
 
             case LIST_RESTAURANT:
 
-                /*---Setting categories codes according to keywords ----*/
+                /*---Setting categories Restarants according to keywords ----*/
 
-                    if (keyWords.contains(KEY_LIST__FOOD[1]))
-                        sc.addCategory(ServiceCaller.BURGERS);
-
-
-
-                if (keyWords.contains(KEY_LIST__FOOD[2]))
-                        sc.addCategory(ServiceCaller.SANDWICH);
-
-
-
-
-                    if (keyWords.contains(KEY_LIST__FOOD[0]))
-                        sc.addCategory(ServiceCaller.SOUVLAKIA);
-
-                        abstract_response = new ListOfRestaurantNamesResponse();
-
-
-                        break;
-
-/*
-            for (int index = 0 ; index < WordList_Souvlakia_l.length;index++){
-                if (keyWords.contains(WordList_Souvlakia_l[index])){
+                if (keyWords.contains(KEY_LIST__FOOD[0]))
                     sc.addCategory(ServiceCaller.SOUVLAKIA);
 
+                if (keyWords.contains(KEY_LIST__FOOD[1]))
+                    sc.addCategory(ServiceCaller.BURGERS);
 
-                }
-            }
-*/
+                if (keyWords.contains(KEY_LIST__FOOD[2]))
+                    sc.addCategory(ServiceCaller.SANDWICH);
+
+                abstract_response = new ListOfRestaurantNamesResponse();
+
+
+                break;
 
             case SHOW_HISTORY:
 
@@ -69,19 +62,19 @@ public class ResponseGenerator {
                 break;
 
             case CHOOSE_PAYMENT:
-                abstract_response = new ChoosePaymentMethodResponse();
-
+                /*TODO: Create Choose_Payment class and Implement */
                 break;
 
-            case LIST_INGREDIENT:
-                abstract_response = new ChoosePaymentMethodResponse();
-
+            case LIST_ITEMS:
+                /*Create class and send Menu Ids*/
+                abstract_response  = new ListIngredientResponse();
+                ((ListIngredientResponse)abstract_response).set_menuIds_Int(selectedMenuId);
                 break;
 
             case LIST_BRANCH_MENU:
-
+                /*Create class and send Restaurant IDs*/
                 abstract_response  = new ListBranchMenu();
-                ((ListBranchMenu)abstract_response).setRestaurantId(selectedRestaurant);
+                ((ListBranchMenu)abstract_response).setRestaurantId(selectedRestaurantId);
 
                 break;
 
@@ -91,55 +84,54 @@ public class ResponseGenerator {
 
             case RESTAURANT_SCEDULE:
                 abstract_response = new ListRestaurantScheduleResponse();
-
                 break;
+
             case BRANCH_CATEGORIES:
 
                 abstract_response = new ListBranchFoodCategoriesResponse();
-
-
                 break;
 
-
-
         }
-
 
         abstract_response.setServiceCaller(sc);
         return abstract_response;
     }
 
+    /*Setters*/
+
     private void setMsgCode(int MsgCode){
-
-
             this.msgCode = MsgCode;
-
     }
+
     private void setServiceCaller(ServiceCaller sc){
-
-
         this.sc = sc;
-
     }
+
     private void setKeyWords (List<String> keyWords){
 
-
         this.keyWords= keyWords;
+    }
+    public  void  setSelectedRest(int sR){
 
+        this.selectedRestaurantId = sR;
+    }
+    public  void  setSelectedMenuId(List<Integer> MenuId){
+
+        this.selectedMenuId = MenuId;
     }
 
 
     public void produceMessageCode (List<String> keyWords){
 
         for(String food : KEY_LIST__FOOD)
-          if (keyWords.contains(food)) {
+          if (keyWords.contains(food) || keyWords.contains(KEY_LIST_RESTAURANT)) {
               setMsgCode(LIST_RESTAURANT);
               return;
           }
 
             if (keyWords.contains(KEY_BRANCH)) {
                 setMsgCode(LIST_BRANCH_MENU);
-                setselectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
+                setSelectedRest( Integer.parseInt(keyWords.get(LIST_RESTAURANT)) );
                 return;
         }
        else
@@ -148,19 +140,14 @@ public class ResponseGenerator {
 
 
     }
-    public  void  setselectedRest(int sR){
-
-        this.selectedRestaurant = sR;
-
-
-    }
 
 
     public String getResponce (List<String> keyWords,ServiceCaller sc){
 
+        /*Set service Caller for user*/
        setServiceCaller(sc);
-       System.out.println(keyWords);
        setKeyWords (keyWords);
+
        produceMessageCode(keyWords);
 
 

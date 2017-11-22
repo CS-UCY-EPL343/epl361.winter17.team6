@@ -7,7 +7,7 @@ var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
-    Username = ['Marios','Andri','Kotsios','Mary','Mark','Andreas'],
+    users = ['Marios','Andri','Kotsios','Mary','Mark','Andreas'],
     user = {
         username : 0,
         token : 0
@@ -18,12 +18,31 @@ var messages = [], //array that hold the record of each string in chat
     d = new Date(),
     days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-
 // The hello message from the chatbot to the user
 $(document).ready(function () {
+     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
+        "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
+        "<br />\"history\". To get the current chat log." +
+        "<br />..." +
+        "<br />Please enter one of the above choices.";
+    botMessage = "<b>" + botName + ":</b> " +
+        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+        "<p>" + botMessage + "</p>";
+
+    //add the chatbot's name and message to the array messages
+    d = new Date();
+    messages.push(botMessage);
+
+
+    // CONVERSATION INITIALIZATION
+    var currentUser = users[Math.floor(Math.random() * 6)];
+    var jsonReqBody = {
+        'username' : currentUser,
+        'timestamp' : d,
+    };
     // GET USER TOKEN
     $.post("http://localhost:4567/init",
-        {},
+        jsonReqBody,
         function (data, status) {
             token = data.token;
             // CURRENT USER SIGNED IN
@@ -34,16 +53,6 @@ $(document).ready(function () {
             //chatResponse(data);
         });
 
-    botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
-        "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
-        "<br />\"history\". To get the current chat log." +
-        "<br />..." +
-        "<br />Please enter one of the above choices.";
-    //add the chatbot's name and message to the array messages
-    d = new Date();
-    messages.push("<b>" + botName + ":</b> " +
-        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
-        "<p>" + botMessage + "</p>");
 
     // says the message using the text to speech function written below
     Speech(botMessage);
