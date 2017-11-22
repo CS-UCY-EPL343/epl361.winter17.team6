@@ -23,7 +23,8 @@ $(document).ready(function () {
         "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
         "<br />\"burger\". To find a specific restaurant which contains burgers." +
         "<br />\"sandwich\". To find a specific restaurant which contains sandwiches." +
-        "<br />\"history\". To get the current chat log." +
+        "<br />\"to anamma\". To find specific items from the restaurant TO ANAMMA." +
+        "<br />\"help\". For help on what to type in." +
         "<br />..." +
         "<br />Please enter one of the above choices.";
 

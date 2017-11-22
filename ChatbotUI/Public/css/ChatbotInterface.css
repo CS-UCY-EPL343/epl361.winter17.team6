@@ -267,10 +267,12 @@ div.chatbox {
     background-color: white;
     font-size: 12px;
     width: 400px;
-    height: 140px;
+    height: 100px;
     position: absolute;
-    top: 8px;
+    top: 160px;
     right: 5px;
+    left: 300px;
+    bottom: 0px;
     overflow-y: scroll;
 }
 #product-list{
