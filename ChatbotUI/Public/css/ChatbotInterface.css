@@ -61,14 +61,12 @@ p.msg {
     cursor: pointer;
     width: 150px;
     display: block;
-    box-shadow: 0 9px #999;
-}
+    box-shadow: 0 9px #999;}
 #sendbtn:hover {background-color: #3e8e41}
 #sendbtn:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
-}
+    transform: translateY(4px);}
 
 .h1 {
     margin: auto;
@@ -150,9 +148,7 @@ p.msg {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #C17FC7 solid 4px;
-}
-
+    border: #C17FC7 solid 4px;}
 .bubble1:after {
     content: '';
     position: absolute;
@@ -163,9 +159,7 @@ p.msg {
     width: 0;
     z-index: 1;
     left: -35px;
-    top: 6px;
-}
-
+    top: 6px;}
 .bubble1:before {
     content: '';
     position: absolute;
@@ -176,8 +170,7 @@ p.msg {
     width: 0;
     z-index: 0;
     left: -42px;
-    top: 3px;
-}
+    top: 3px;}
 
 /*CHATBOT ANSWER BUBBLE*/
 .bubble2 {
@@ -192,9 +185,7 @@ p.msg {
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    border: #161CCA solid 6px;
-}
-
+    border: #161CCA solid 6px;}
 .bubble2:after {
     content: '';
     position: absolute;
@@ -205,9 +196,7 @@ p.msg {
     width: 0;
     z-index: 1;
     right: -35px;
-    top: 6px;
-}
-
+    top: 6px;}
 .bubble2:before {
     content: '';
     position: absolute;
@@ -218,8 +207,7 @@ p.msg {
     width: 0;
     z-index: 0;
     right: -46px;
-    top: 1px;
-}
+    top: 1px;}
 
 
 #chattimestamp{
@@ -263,3 +251,33 @@ p.msg {
     color: lightblue;  }
 .clickable-rest:active{
     color:purple;  }
+
+/* SEND BUTTON FORMAT */
+#submitbtn{
+    background-color: #0006af; /* Green */
+    border: 3px solid green;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    width: 150px;
+    display: block;
+    box-shadow: 0 9px #999;}
+#submitbtn:hover {background-color: #3e8e41}
+#submitbtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);}
+
+
+#basket{
+    font-size: 12px;
+    width: 400px;
+    height: 140px;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    overflow-y: scroll;
+}
