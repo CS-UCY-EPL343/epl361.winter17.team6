@@ -8,7 +8,7 @@
   ### 1.Introduction
   ### 2.Requirements
   ### 3.Configuration
-
+  ### 4.
 
 
  ## 1.Introduction
@@ -19,7 +19,7 @@
    In order for the Foody Chatbot to run you will need the following modules installed on your machine:
    
       
-  #### http-server
+  ### http-server
    Download & Install the module from the following link:
 
     https://www.npmjs.com/package/http-server
@@ -30,7 +30,7 @@
          
     
     
-  #### SQLite
+  ### SQLite
    Download & Install the module from the following link :
          
     https://sqlite.org/download.html
@@ -44,7 +44,7 @@
   
     Create a folder C:\>sqlite and unzip above two zipped files in this folder, which will give you sqlite3.def, sqlite3.dll and sqlite3.exe files.
   
-    Add C:\>sqlite in your PATH environment variable and finally go to the command prompt and issue sqlite3 command, which should display the following result.
+    Add C:\>sqlite in your PATH environment variable and finally go to the command prompt and issue sqlite3 command.
 
   
   Linux:
@@ -72,11 +72,11 @@
     Extract the git repository on your machine.
    Run the following commands: 
    
-    $  http-server --cors
+    $  http-server epl361.winter17.team6/ChatbotUI/Public --cors
           
-   Proceed to the following url on the localhost: 
+   Proceed to the following url on your browser: 
    
-    http://127.0.0.1:8081/epl361.winter17.team6/ChatbotUI/Public
+    http://127.0.0.1:8080
 
 
 Copyright 2017  © University of Cyprus
