@@ -152,9 +152,15 @@ function keyPress(e) {
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendId(id) {
     //alert(id);
+    d = new Date();
+    var storedMsg = "<b>" + currentUser + ":</b> " +
+        "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+        "<p>" + "Order from restaurant with ID: " + id + "</p>";
     var jsonReqBody = {
         'token': token,
-        'usrmsg': "usr_selection res_id=" + id
+        'usrmsg': "usr_selection res_id=" + id,
+        'msgtostore': storedMsg,
+        'timestamp': d.getTime()
     };
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
