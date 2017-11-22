@@ -230,7 +230,7 @@ public class SQLiteJDBCDriverConnection {
 
 
     public List<JSONObject> getMessages(String username, String conversationId) {
-        String sql = "SELECT * FROM Message WHERE username = (?) AND conv_id = (?)";
+        String sql = "SELECT * FROM Message WHERE username = (?) AND conv_id = (?) ORDER BY time_stamp ASC";
         List<JSONObject> retrievedMessages = new ArrayList<>();
 
         try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
@@ -252,6 +252,7 @@ public class SQLiteJDBCDriverConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return retrievedMessages;
     }
 }
