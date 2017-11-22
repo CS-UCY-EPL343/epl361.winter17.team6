@@ -30,7 +30,7 @@ public class ListIngredientResponse extends AbstractResponse {
 
         menuList = menu.getMenuItems();
 
-        response.append("Αυτα που παραγγειλατε είναι: \n");
+        response.append("<p>Αυτα που παραγγειλατε είναι: </p>");
         double allPrice = 0;
         /*For each Menu Item in menuList print */
         for (MenuItem mi : menuList) {
