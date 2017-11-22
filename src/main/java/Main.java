@@ -93,6 +93,7 @@ public class Main {
             JSONObject jsonResponse = new JSONObject();
 
             String usrMsg = req.queryParams("usrmsg");
+            String msgToStore = req.queryParams("msgtostore");
             String userToken = req.queryParams("token");
             String timestamp  = req.queryParams("timestamp");
             Date userMsgTimestamp = new Date(Long.parseLong(timestamp));
@@ -113,7 +114,8 @@ public class Main {
                 return jsonResponse.toString();
             }
 
-            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
+
+            String responseMsg = app.getChatbotResponse(msgToStore, userToken);
             jsonResponse.put("responsemsg", responseMsg);
             return jsonResponse.toString();
         });
