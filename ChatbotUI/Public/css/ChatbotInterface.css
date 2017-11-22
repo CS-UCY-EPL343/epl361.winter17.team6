@@ -267,6 +267,7 @@ div.chatbox {
 
 
 #basket{
+    background-color: white;
     font-size: 12px;
     width: 400px;
     height: 140px;
@@ -277,10 +278,4 @@ div.chatbox {
 }
 #product-list{
     display:none;
-}
-#products:hover ~ #product-list{
-    display:block;
-}
-#product-list:hover{
-    display:block;
 }
