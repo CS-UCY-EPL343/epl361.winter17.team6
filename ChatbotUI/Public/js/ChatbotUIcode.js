@@ -66,6 +66,12 @@ $(document).ready(function () {
                     else {
                         $('#chatborder').append('<ul class="bubble2" >' + msgsReceived[i]['content'] + '</ul>');
                         $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+
+                        // var msgres = "<b>" + botName + ":</b> " +
+                        //     "<span id='chattimestamp'>" + days[d1.getDay()] + " at " + d1.getHours() + ":" + d1.getMinutes() + ":" + d1.getSeconds() + "</span>" +
+                        //     "<p>" + msgsReceived[i]['content'] + "</p>";
+                        // $('#chatborder').append('<ul class="bubble2" >' + msgres + '</ul>');
+                        // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
                     }
                 }
             }
