@@ -9,6 +9,7 @@ public class SQLiteJDBCDriverConnection {
     private static final boolean DEBUG = true;
     private static final String CHATBOT_DB_URL= "jdbc:sqlite:chatbot-db/chatbot-db.db";
     private Connection conn = null;
+    String connectionUrl = null;
 
     public Connection connect(String url) throws SQLException {
         if(conn != null && !getConnection().isClosed()) {
@@ -17,11 +18,11 @@ public class SQLiteJDBCDriverConnection {
             getConnection().close();
         }
 
+        this.connectionUrl = url;
         //create connection to the database.
         try {
             conn = DriverManager.getConnection(url);
-            if (DEBUG)
-                System.out.println("Connection to SQLite has been established.");
+            System.out.println("Connection to SQLite has been established at " + url);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,6 +31,7 @@ public class SQLiteJDBCDriverConnection {
 
     public void closeConnection() throws SQLException {
         getConnection().close();
+        System.out.println("Database connection closed");
     }
 
 
@@ -102,6 +104,7 @@ public class SQLiteJDBCDriverConnection {
         return false;
     }
 
+
     public  String getToken(String username) {
         String sql = "SELECT Token.token_code FROM Token WHERE Token.username = (?)";
         String retrievedToken = null;
@@ -130,6 +133,21 @@ public class SQLiteJDBCDriverConnection {
         return retrievedUserName;
     }
 
+    public  String stringStoreConversation(String token) {
+        String sql = "SELECT Token.username FROM Token WHERE Token.token_code = (?)";
+        String retrievedUserName = null;
+        try (PreparedStatement pstmt  = getConnection().prepareStatement(sql)){
+            pstmt.setString(1, token);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            retrievedUserName = rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retrievedUserName;
+    }
+
+
     /**
      * @param args the command line arguments
      */
@@ -151,6 +169,6 @@ public class SQLiteJDBCDriverConnection {
             System.out.println(s.getToken(usrName));
             System.out.println(s.getUsername(s.getToken(usrName)));
         }
-            s.closeConnection();
+        s.closeConnection();
     }
 }
