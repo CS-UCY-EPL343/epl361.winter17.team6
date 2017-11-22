@@ -96,17 +96,6 @@ public class Main {
             String msgToStore = req.queryParams("msgtostore");
             String userToken = req.queryParams("token");
             String timestamp  = req.queryParams("timestamp");
-            Date userMsgTimestamp = new Date(Long.parseLong(timestamp));
-
-            String username = sqlDb.getUsername(userToken);
-            if (DEBUG)
-                System.out.println("User : " + username + " send a new message at " +
-                        "\n\ttoken:  " + userToken +
-                        "\n\ttimestamp " + userMsgTimestamp +
-                        "\n\tusrmsg: " + usrMsg );
-
-
-            jsonResponse.put("token", userToken);
 
             if (usrMsg == null || userToken == null || timestamp == null) {
                 res.status(412);
@@ -114,8 +103,20 @@ public class Main {
                 return jsonResponse.toString();
             }
 
+            Date userMsgTimestamp = new Date(Long.parseLong(timestamp));
 
-            String responseMsg = app.getChatbotResponse(msgToStore, userToken);
+            String username = sqlDb.getUsername(userToken);
+            if (DEBUG)
+                System.out.println("User (retrieved from db): " + username + " send a new message." +
+                        "\n\ttoken:  " + userToken +
+                        "\n\ttimestamp " + userMsgTimestamp +
+                        "\n\tusrmsg: " + usrMsg  +
+                        "\n\tmsgtostore: " + msgToStore);
+
+
+            jsonResponse.put("token", userToken);
+
+            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
             jsonResponse.put("responsemsg", responseMsg);
             return jsonResponse.toString();
         });
