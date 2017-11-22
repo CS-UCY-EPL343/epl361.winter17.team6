@@ -142,9 +142,6 @@ public class Main {
             //store the message from the user to the database
             sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), true, msgToStore);
             String responseMsg = app.getChatbotResponse(usrMsg, userToken);
-            //store the chatbot responce to the database
-            String responseMessageId = UUID.randomUUID().toString();
-            sqlDb.insertMessage(username, conversationId,responseMessageId,Long.parseLong(timestamp), false, responseMsg);
 
             jsonResponse.put("token", userToken);
             jsonResponse.put("responsemsg", responseMsg);
@@ -152,5 +149,32 @@ public class Main {
 
             return jsonResponse.toString();
         });
+    post("/sendresponsemsg", (req, res) -> {
+        res.type("application/json");
+        res.status(200);
+        JSONObject jsonResponse = new JSONObject();
+
+        String token = req.queryParams("token");
+        String responseMsg = req.queryParams("responsemsg");
+        String conversationId = req.queryParams("convid");
+        String timestamp = req.queryParams("timestamp");
+        if(token== null || responseMsg == null|| conversationId == null|| timestamp == null) {
+            res.status(412);
+            jsonResponse.put("error", "required parameters are not set");
+            return jsonResponse.toString();
+        }
+        String username = sqlDb.getUsername(token);
+        //store the chatbot responce to the database
+        String responseMessageId = UUID.randomUUID().toString();
+        System.out.println("Inserting sendresponce to message " +
+                "\n\tusername: " + username +
+                "\n\tconvid :" +  conversationId +
+                "\n\tresponsemsgid: " + responseMessageId +
+                "\n\ttimestamp: " + Long.parseLong(timestamp) +
+                "\n\tresponsemsg: " + responseMsg);
+        sqlDb.insertMessage(username, conversationId,responseMessageId,Long.parseLong(timestamp), false, responseMsg);
+        jsonResponse.put("success", "send message inserted to db");
+        return jsonResponse;
+    });
     }
 }
