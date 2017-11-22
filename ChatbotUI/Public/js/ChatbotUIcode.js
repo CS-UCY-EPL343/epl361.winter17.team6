@@ -8,10 +8,6 @@ var messages = [], //array that hold the record of each string in chat
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
     users = ['Marios', 'Andri', 'Kotsios', 'Mary', 'Mark', 'Andreas'],
-    user = {
-        username: 0,
-        token: 0
-    },
     currentUser = 'Marios',
     conversationID = "",
     token = 0,
@@ -52,16 +48,25 @@ $(document).ready(function () {
             conversationID = data.convid;
             var isRecover = data.user_already_in_db;
 
-            if(isRecover){
+            if (isRecover) {
                 var msgsReceived = data.messages_retrieved;
-                if(DEBUG) {
+                if (DEBUG) {
                     console.log("The msgReceived: ");
                     console.log(msgsReceived);
                     console.log(msgsReceived[0]);
                     //console.log(msgsReceived[0].is_user_msg)
                 }
-                for(var i=0; i<msgsReceived.length; i++){
-                        alert(msgsReceived[i].is_user_msg);
+                for (var i = 0; i < msgsReceived.length; i++) {
+                    var d1 = new Date(1000*msgsReceived[i].time_stamp);
+                    if (msgsReceived[i]['is_user_msg'] == 1) {
+                        // VIEW THE MESSAGE IN THE USER INTERFACE
+                        $('#chatborder').append('<ul class="bubble1" >' + msgsReceived[i]['content'] + '</ul>');
+                        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+                    }
+                    else {
+                        $('#chatborder').append('<ul class="bubble2" >' + msgsReceived[i]['content'] + '</ul>');
+                        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+                    }
                 }
             }
 
@@ -202,7 +207,9 @@ function sendId(id) {
     document.getElementById("chatbox").disabled = false;
 
     // THE SELECTED RESTAURANT
-    alert(document.getElementById("clickable-rest-" + id).innerText);
+    if (DEBUG) {
+        alert(document.getElementById("clickable-rest-" + id).innerText);
+    }
 }
 
 
@@ -210,11 +217,12 @@ var selectedItems = [],
     selItemsIDs = [],
     items = [],
     itemNumber = [];
+
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendMenuItemId(id) {
     $('#basket').empty();
     if (DEBUG) {
-        //alert(id);
+        alert(id);
     }
 
     if (selectedItems.length == 0) {
@@ -239,12 +247,6 @@ function sendMenuItemId(id) {
         $('#basket').scrollTop($('#basket')[0].scrollHeight);
     }
 
-    // var jsonReqBody = {
-    //     'token' : token,
-    //     'usrmsg' : "usr_selection mi_id="+id
-    // };
-    //
-
     // AVOID DUPLICATES
     // if(selectedItems.length ==0){
     //     selectedItems.push("usr_selection mi_id="+id);
@@ -265,23 +267,6 @@ function sendMenuItemId(id) {
     //     s.append(selectedItems[i]);
     // }
     // alert(s);
-
-    // $.post("http://localhost:4567/getmsg",
-    //     jsonReqBody,
-    //     function (data, status) {
-    //
-    //         if (DEBUG) {
-    //             alert("usr_selection res_id="+id);
-    //             console.log(data);
-    //         }
-    //         chatResponse(data.responsemsg);
-    //         document.getElementById("chatbox").disabled = false;
-    //
-    //     });
-    //document.getElementById("chatbox").disabled = true;
-
-    // THE SELECTED MENU ITEM
-    //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
 
 function sendMenuSelection() {
@@ -297,61 +282,23 @@ function sendMenuSelection() {
     console.log(strItems);
     chatResponse(strItems);
 
-    // botMessage = "<b>" + botName + ":</b> " +
-    //     "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
-    //     "<p>" + strItems + "</p>";
-
-    //add the chatbot's name and message to the array messages
-    // messages.push(botMessage);
-    //
-    // $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
-    // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
-    // console.log(messages.toString());
-
     alert(selectedItems.toString());
     d = new Date();
     var jsonReqBody = {
         'token': token,
         'convid': conversationID,
-        'usrmsg': selectedItems.toString(),
+        'usrmsg': selectedItems.join(" ").toString(),
         'msgtostore': botMessage,
         'timestamp': d.getTime()
     };
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
-            if (DEBUG) {
-                alert("usr_selection res_id=" + id);
-                console.log(data);
-            }
             document.getElementById("chatbox").disabled = false;
             chatResponse(data.responsemsg);
         });
     console.log(lastUserMessage);
 }
-
-// WHEN SUBMIT BTN IS PRESSED
-//  $(document).ready(function () {
-//      $("#submitbtn").click(function () {
-//          alert("HI");
-//          }
-//      );
-//  });
-
-
-//
-// $(document).ready(function () {
-//     document.getElementById("chatbox").disabled = false;
-//     $('clickable-rest').click(function () {
-//document.getElementById("chatbox").disabled = true;
-//alert("hey");
-// console.log("ghfjfg");
-//$('#chatborder').append('<ul class="bubble2" >' + "WOW" + '</ul>');
-//document.getElementById("chatbox").value = $('#clickable-rest').onclick;
-//         }
-//     );
-// });
-
 
 //-------------------------------------------------------
 // USEFUL FUNCTIONS:
