@@ -48,7 +48,17 @@ public class TextParser {
 
         if (tokens.get(0).equals("usr_selection")) {
             tokens.remove(0);
-            addIds(tokens);
+            addRestId(tokens);
+        } else if (tokens.get(0).equals("usr_menu")) {
+            finalKeyWords.add(tokens.get(0));
+            while(tokens.remove("usr_menu"));
+//            while (tokens.remove("usr_menu"))
+            /*for (String item : tokens) {
+                System.out.println(item);
+                if (item.equals("usr_menu"))
+                    tokens.remove(item);
+            }*/
+            addMenuItemsIds(tokens);
         } else {
             List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
             addWords(mainKeyWords, helpWords);
@@ -58,7 +68,7 @@ public class TextParser {
                     List<String> idList = new LinkedList<>();
                     idList.add(finalKeyWords.get(0));
                     finalKeyWords.clear();
-                    addIds(idList);
+                    addRestId(idList);
                     return finalKeyWords;
                 }
             }
@@ -97,12 +107,25 @@ public class TextParser {
      * @param idList List containing the id name and id of the item.
      * @return void
      */
-    private static void addIds(List<String> idList) {
+    private static void addRestId(List<String> idList) {
+        String[] part;
+        part = idList.get(0).split("=");
+        finalKeyWords.add(part[0]);
+        finalKeyWords.add(part[1]);
+    }
+
+    /**
+     * This method splits the id name from the id itself and adds it in the List to be sent to the App Class.
+     *
+     * @param idList List containing the id name and id of the item.
+     * @return void
+     */
+    private static void addMenuItemsIds(List<String> idList) {
         String[] part;
         for (String id : idList) {
             part = id.split("=");
-            finalKeyWords.add(part[0]);
             finalKeyWords.add(part[1]);
+            part = null;
         }
     }
 
@@ -129,7 +152,8 @@ public class TextParser {
 //        TextParser tp = new TextParser("I want a sandwich");
 //        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("usr_selection res_id=123456");
-        TextParser tp = new TextParser("I want souvlakia pou to anama");
+//        TextParser tp = new TextParser("I want souvlakia from anama");
+        TextParser tp = new TextParser("usr_menu mi_id=1000 usr_menu mi_id=1001 usr_menu mi_id=1002 usr_menu mi_id=1003 usr_menu mi_id=1004");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }
