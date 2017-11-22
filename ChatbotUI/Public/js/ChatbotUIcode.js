@@ -307,17 +307,13 @@ function sendMenuSelection() {
     var jsonReqBody = {
         'token': token,
         'convid': conversationID,
-        'usrmsg': selectedItems.toString(),
+        'usrmsg': selectedItems.join(" ").toString(),
         'msgtostore': botMessage,
         'timestamp': d.getTime()
     };
     $.post("http://localhost:4567/getmsg",
         jsonReqBody,
         function (data, status) {
-            if (DEBUG) {
-                alert("usr_selection res_id=" + id);
-                console.log(data);
-            }
             document.getElementById("chatbox").disabled = false;
             chatResponse(data.responsemsg);
         });
