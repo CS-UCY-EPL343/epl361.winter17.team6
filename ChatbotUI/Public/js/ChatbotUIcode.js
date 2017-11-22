@@ -24,6 +24,8 @@ $(document).ready(function () {
 
     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:" +
         "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
+        "<br />\"burger\". To find a specific restaurant which contains burgers." +
+        "<br />\"sandwich\". To find a specific restaurant which contains sandwiches." +
         "<br />\"history\". To get the current chat log." +
         "<br />..." +
         "<br />Please enter one of the above choices.";
