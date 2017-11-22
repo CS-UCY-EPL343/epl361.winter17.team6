@@ -211,11 +211,12 @@ div.chatbox {
 
 }
 
-#curruser{
+#userlist{
     position: absolute;
-    top: 117px;
+    color: white;
+    top: 100px;
     right: 87px;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 /*MENU ITEM CLICKABLE*/
@@ -273,4 +274,13 @@ div.chatbox {
     top: 8px;
     right: 5px;
     overflow-y: scroll;
+}
+#product-list{
+    display:none;
+}
+#products:hover ~ #product-list{
+    display:block;
+}
+#product-list:hover{
+    display:block;
 }

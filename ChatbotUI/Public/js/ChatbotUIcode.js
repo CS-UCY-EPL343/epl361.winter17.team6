@@ -189,18 +189,28 @@ function sendId(id){
 }
 
 
-var selectedItems = [];
+var selectedItems = [],
+    selItemsIDs =  [];
 
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendMenuItemId(id){
+    $('#basket').empty();
     if(DEBUG){
         //alert(id);
     }
 
     selectedItems.push("usr_selection mi_id="+id);
-    $('#basket').append('<ul class="item" >' + document.getElementById("clickable-mi-"+id).innerText+ '</ul>');
-    $('#basket').scrollTop($('#basket')[0].scrollHeight);
     alert("Item: " + document.getElementById("clickable-mi-"+id).innerText + " ADDED TO BASKET!");
+
+    selItemsIDs.push(id);
+    var items = [], itemNumber = [];
+    [items , itemNumber]=countItems(selItemsIDs);
+    for(var i = 0; i<items.length; i++){
+        $('#basket').append('<ul class="item" >' +
+            itemNumber[i] + " x " + document.getElementById("clickable-mi-"+items[i]).innerText+ '</ul>');
+        $('#basket').scrollTop($('#basket')[0].scrollHeight);
+    }
+
 
     // var jsonReqBody = {
     //     'token' : token,
@@ -247,7 +257,20 @@ function sendMenuItemId(id){
     // THE SELECTED MENU ITEM
     //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
-
+function countItems(arr) {
+    var a = [], b = [], prev;
+    arr.sort();
+    for ( var i = 0; i < arr.length; i++ ) {
+        if ( arr[i] !== prev ) {
+            a.push(arr[i]);
+            b.push(1);
+        } else {
+            b[b.length-1]++;
+        }
+        prev = arr[i];
+    }
+    return [a, b];
+}
 
 
 
