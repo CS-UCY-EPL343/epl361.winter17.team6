@@ -1,15 +1,14 @@
-# epl361.winter17.team6
+
 # Foody Chatbot version 1.0
+###### epl361.winter17.team6
 
-
-## CONTENTS OF THIS FILE
+ CONTENTS OF THIS FILE
 ---------------------
 
   ### 1.Introduction
   ### 2.Requirements
-  ### 3.Installation
-  ### 4.Configuration
-  ### 5.Maintainers
+  ### 3.Configuration
+
 
 
  ## 1.Introduction
@@ -17,23 +16,30 @@
 
 
  ## 2.Requirements
-    In order for the Foody Chatbot to run you will need the following modules installed on your machine:
-   ```
-        
-    1.HTTP-SERVER
-        https://www.npmjs.com/package/http-server
-    ```
+   In order for the Foody Chatbot to run you will need the following modules installed on your machine:
+   
+      
+  ###### HTTP-SERVER
+   Download & Install the module from the following link:
 
-    ```
-    2.SQLite
-        https://sqlite.org/download.html
-    ```
+    https://www.npmjs.com/package/http-server
+         
 
-    You can also use on :
-     ```
-    ../execute/install.bash
+    
+  ###### SQLite
+   Download & Install the module from the following link:
+         
+    https://sqlite.org/download.html
+    
 
-     ```
  ## 3.Configuration
-    Extract the git repository on your machine. Run the HTTP-SERVER and SQLite.
-    Proceed to the following url: epl361.winter17.team6/ChatbotUI/Public
+    Extract the git repository on your machine.
+   Run the following commands: 
+   
+         $  http-server --cors
+   Proceed to the following url: 
+   
+        epl361.winter17.team6/ChatbotUI/Public
+
+
+Copyright 2017  © University of Cyprus
