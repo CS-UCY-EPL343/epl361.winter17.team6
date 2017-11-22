@@ -54,8 +54,14 @@ $(document).ready(function () {
 
             if(isRecover){
                 var msgsReceived = data.messages_retrieved;
+                if(DEBUG) {
+                    console.log("The msgReceived: ");
+                    console.log(msgsReceived);
+                    console.log(msgsReceived[0]);
+                    //console.log(msgsReceived[0].is_user_msg)
+                }
                 for(var i=0; i<msgsReceived.length; i++){
-                        alert(msgsReceived[i].is_usr_msg);
+                        alert(msgsReceived[i].is_user_msg);
                 }
             }
 
