@@ -304,8 +304,8 @@ function sendMenuSelection() {
     strItems += "</ul>";
     console.log(strItems);
     chatResponse(strItems);
-
-    alert(selectedItems.toString());
+    if(DEBUG)
+        alert(selectedItems.toString());
     d = new Date();
     var jsonReqBody = {
         'token': token,
