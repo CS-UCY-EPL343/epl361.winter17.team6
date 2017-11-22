@@ -79,13 +79,13 @@ public class Main {
                 sqlDb.insertUser(username,token);
                 System.out.println("User " + username + " not yet in db." +
                         "\n\tThe token created is " +
-                        "\n\ttoken: " + token +);
+                        "\n\ttoken: " + token );
             }
             String conversationId = UUID.randomUUID().toString();
 
             app.addNewToken(token);
             sqlDb.insertConversation(username, conversationId, Long.parseLong(init_timestamp));
-
+            System.out.println("The conversation id that was created is: " + conversationId);
             jsonResponse.put("token", token);
             jsonResponse.put("convid", conversationId);
 
@@ -125,10 +125,14 @@ public class Main {
                         "\n\ttoken:  " + userToken +
                         "\n\ttimestamp " + userMsgTimestamp +
                         "\n\tusrmsg: " + usrMsg  +
-                        "\n\tmsgtostore: " + msgToStore);
+                        "\n\tmsgtostore: " + msgToStore +
+                        "\n\tconvid: " + conversationId);
             String userMessageId = UUID.randomUUID().toString();
-            sqlDb.insertMessage(username, conversationId,messageId,Long.parseLong(timestamp), true, msgToStore);
+            //store the message from the user to the database
+            sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), true, msgToStore);
             String responseMsg = app.getChatbotResponse(usrMsg, userToken);
+            //store the chatbot responce to the database
+            sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), false, msgToStore);
 
             jsonResponse.put("token", userToken);
             jsonResponse.put("responsemsg", responseMsg);
