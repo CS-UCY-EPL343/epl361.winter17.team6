@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +34,7 @@ public class SQLiteJDBCDriverConnection {
 
 
 
-    public Connection getConnection() {
+    private Connection getConnection() {
         return conn;
     }
 
@@ -100,18 +101,56 @@ public class SQLiteJDBCDriverConnection {
         }
         return false;
     }
+
+    public  String getToken(String username) {
+        String sql = "SELECT Token.token_code FROM Token WHERE Token.username = (?)";
+        String retrievedToken = null;
+        try (PreparedStatement pstmt  = getConnection().prepareStatement(sql)){
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            retrievedToken = rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retrievedToken;
+    }
+
+    public  String getUsername(String token) {
+        String sql = "SELECT Token.username FROM Token WHERE Token.token_code = (?)";
+        String retrievedUserName = null;
+        try (PreparedStatement pstmt  = getConnection().prepareStatement(sql)){
+            pstmt.setString(1, token);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            retrievedUserName = rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retrievedUserName;
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
         SQLiteJDBCDriverConnection s = new SQLiteJDBCDriverConnection();
         s.connect(CHATBOT_DB_URL);
-        s.createTablesBasedOnSqlFile();
+        //s.createTablesBasedOnSqlFile();
 
+        ArrayList<String> usrNames = new ArrayList<>();
+        usrNames.add("Kostis");
+        usrNames.add("John");
+        usrNames.add("O_Stephos");
+        usrNames.add("Mpaglamas");
 
-        System.out.println(s.isUserInserted("Kostis"));
-        s.insert("Kostis", "kostis_token");
-        System.out.println(s.isUserInserted("Kostis"));
-        s.closeConnection();
+        for(String usrName : usrNames) {
+            System.out.println(s.isUserInserted(usrName));
+            s.insert(usrName , usrName+ "_token");
+            System.out.println(s.isUserInserted(usrName));
+            System.out.println(s.getToken(usrName));
+            System.out.println(s.getUsername(s.getToken(usrName)));
+        }
+            s.closeConnection();
     }
 }
