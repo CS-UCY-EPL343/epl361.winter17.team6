@@ -173,6 +173,8 @@ public class ResponseGenerator {
        setServiceCaller(sc);
        setKeyWords (keyWords);
 
+
+       System.out.println("MEEEEESAGE"+keyWords);
        produceMessageCode(keyWords);
 
 
