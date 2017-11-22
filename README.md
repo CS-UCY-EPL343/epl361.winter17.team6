@@ -19,7 +19,7 @@
    In order for the Foody Chatbot to run you will need the following modules installed on your machine:
    
       
-  ###### http-server
+  #### http-server
    Download & Install the module from the following link:
 
     https://www.npmjs.com/package/http-server
@@ -30,13 +30,11 @@
          
     
     
-  ###### SQLite
+  #### SQLite
    Download & Install the module from the following link :
          
     https://sqlite.org/download.html
     
-    
-  After download,execute the following commands:
   
   Windows:
   
