@@ -8,6 +8,7 @@
   ### 1.Introduction
   ### 2.Requirements
   ### 3.Configuration
+  ### 4.Details
 
 
  ## 1.Introduction
@@ -70,14 +71,19 @@
     $make install
 
  ## 3.Configuration
-    Extract the git repository on your machine.
-   Run the following commands: 
+  
+   1. Extract the git repository on your machine.
+   2. Run the following commands: 
    
     $  http-server epl361.winter17.team6/ChatbotUI/Public --cors
-          
-   Proceed to the following url on your browser: 
+   3. Run main from the Main.java       
+   4. Proceed to the following url on your browser: 
    
     http://127.0.0.1:8080
-
+## 4.Details
+Via this chatbot you can order a meal from Foody.
+The chatbot is in a prototype state and no real order is executed.
+The dataset provided from Foody is limited but enough to create the prototype.
+The chatbot can support multiple users and stores the conversations of the each user.
 
 Copyright 2017  © University of Cyprus
