@@ -19,10 +19,6 @@ public class ListIngredientResponse extends AbstractResponse {
         this.MenuIDs = MenuIDs;
     }
 
-    public void set_menuIds_String(List<String> menuItems) {
-        this.menuItems = menuItems;
-    }
-
 
     public String getResponse() {
         /* GET Menu Items from Json File */
@@ -35,25 +31,23 @@ public class ListIngredientResponse extends AbstractResponse {
         menuList = menu.getMenuItems();
 
         response.append("Αυτα που παραγγειλατε είναι: \n");
-        double allPrice=0 ;
+        double allPrice = 0;
         /*For each Menu Item in menuList print */
         for (MenuItem mi : menuList) {
             try {
-
-
-                double price = mi.getPrice();
-                allPrice =+price;
-                JSONObject curMiJson = mi.getJson();
-                response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " + "id=\"" + MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\" onclick=\"sendMenuItemId(" + mi.getId() + ")\">" + "\t" + mi.getName() + "\t" + "Price: " + price + "\t" + "</li>");
-            }catch(Exception e){
+                if (MenuIDs.contains(mi.getId())) {
+                    double price = mi.getPrice();
+                    allPrice += price;
+                    JSONObject curMiJson = mi.getJson();
+                    response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " + "id=\"" + MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\" onclick=\"sendMenuItemId(" + mi.getId() + ")\">" + "\t" + mi.getName() + "\t" + "Price: " + price + "\t" + "</li>");
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
 
-
-
-        response.append("</ul>"+ "<br>"+ "Total-Price is: "+allPrice);
+        response.append("<li>Total-Price is: " + allPrice + "</li></ul>");
 
         return response.toString();
 
