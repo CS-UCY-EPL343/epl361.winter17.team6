@@ -1,5 +1,8 @@
+import org.json.JSONObject;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -181,6 +184,22 @@ public class SQLiteJDBCDriverConnection {
         return retrievedUserName;
     }
 
+    public String getConversationId(String username ) {
+        String sql = "SELECT Conversation.conv_id FROM Conversation WHERE Conversation.username = (?)";
+        String retrievedUserName = null;
+
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            retrievedUserName = rs.getString(1);
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retrievedUserName;
+    }
+
 
     /**
      * @param args the command line arguments
@@ -207,5 +226,32 @@ public class SQLiteJDBCDriverConnection {
         String conv_id = UUID.randomUUID().toString();
         s.insertConversation(usrNames.get(0), conv_id, 448484815);
         s.closeConnection();
+    }
+
+
+    public List<JSONObject> getMessages(String username, String conversationId) {
+        String sql = "SELECT * FROM Message WHERE username = (?) AND conv_id = (?)";
+        List<JSONObject> retrievedMessages = new ArrayList<>();
+
+        try (PreparedStatement pstmt = getConnection().prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, conversationId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                JSONObject jo = new JSONObject();
+                jo.put("username",rs.getString("username") );
+                jo.put("conv_id", rs.getString("conv_id"));
+                jo.put("msg_id",rs.getString("msg_id") );
+                jo.put("time_stamp", rs.getString("time_stamp"));
+                jo.put("is_user_msg",rs.getString("is_user_msg") );
+                jo.put("content", rs.getString("content"));
+
+                retrievedMessages.add(jo);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retrievedMessages;
     }
 }
