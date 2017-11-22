@@ -35,18 +35,25 @@ public class ListIngredientResponse extends AbstractResponse {
         menuList = menu.getMenuItems();
 
         response.append("Αυτα που παραγγειλατε είναι: \n");
-
+        double allPrice=0 ;
         /*For each Menu Item in menuList print */
         for (MenuItem mi : menuList) {
             try {
+
+
                 double price = mi.getPrice();
+                allPrice =+price;
                 JSONObject curMiJson = mi.getJson();
                 response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " + "id=\"" + MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\" onclick=\"sendMenuItemId(" + mi.getId() + ")\">" + "\t" + mi.getName() + "\t" + "Price: " + price + "\t" + "</li>");
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        response.append("</ul>");
+
+
+
+
+        response.append("</ul>"+ "<br>"+ "Total-Price is: "+allPrice);
 
         return response.toString();
 
