@@ -1,4 +1,4 @@
-CREATE TABLE Message (
+CREATE TABLE IF NOT EXISTS Message (
   username   TEXT    NOT NULL,
   conv_id    TEXT    NOT NULL,
   msg_id     TEXT    NOT NULL,

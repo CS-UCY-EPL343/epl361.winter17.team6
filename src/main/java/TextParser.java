@@ -113,7 +113,7 @@ public class TextParser {
     public static void main(String args[]) {
 //        TextParser tp = new TextParser("I want souvlakia help");
 //        TextParser tp = new TextParser("I want burgers");
-        TextParser tp = new TextParser("I want frape");
+        TextParser tp = new TextParser("asd");
 //        TextParser tp = new TextParser("I want a sandwich");
 //        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("usr_selection res_id=123456");
