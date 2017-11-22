@@ -7,7 +7,7 @@ var messages = [], //array that hold the record of each string in chat
     lastUserMessage = "", //keeps track of the most recent input string from the user
     botMessage = "", //var keeps track of what the chatbot is going to say
     botName = 'FoodyBot', //name of the chatbot
-    //Username = ['Marios','Andri','Kotsios','Kioftes','Mark','Andreas'],
+    Username = ['Marios','Andri','Kotsios','Mary','Mark','Andreas'],
     user = {
         username : 0,
         token : 0
@@ -35,10 +35,10 @@ $(document).ready(function () {
         });
 
     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:"+
-        "<br />1. To find a specific restaurant." +
-        "<br />2. To get the current chat log." +
+        "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
+        "<br />\"history\". To get the current chat log." +
         "<br />..." +
-        "<br />Please enter one of the above numbers.";
+        "<br />Please enter one of the above choices.";
     //add the chatbot's name and message to the array messages
     d = new Date();
     messages.push("<b>" + botName + ":</b> " +
@@ -156,7 +156,6 @@ function keyPress(e) {
 function placeHolder() {
     document.getElementById("chatbox").placeholder = "";
 }
-
 // PREVENTS REFRESHING WHEN PRESSING ENTER
 $(function () {
     $("form").submit(function () {
@@ -188,6 +187,69 @@ function sendId(id){
     // THE SELECTED RESTAURANT
     alert(document.getElementById("clickable-rest-"+id).innerText);
 }
+
+
+var selectedItems = [];
+
+// THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
+function sendMenuItemId(id){
+    if(DEBUG){
+        //alert(id);
+    }
+
+    selectedItems.push("usr_selection mi_id="+id);
+    $('#basket').append('<ul class="item" >' + document.getElementById("clickable-mi-"+id).innerText+ '</ul>');
+    $('#basket').scrollTop($('#basket')[0].scrollHeight);
+    alert("Item: " + document.getElementById("clickable-mi-"+id).innerText + " ADDED TO BASKET!");
+
+    // var jsonReqBody = {
+    //     'token' : token,
+    //     'usrmsg' : "usr_selection mi_id="+id
+    // };
+    //
+
+    // AVOID DUPLICATES
+    // if(selectedItems.length ==0){
+    //     selectedItems.push("usr_selection mi_id="+id);
+    // }
+    // var tf = true , i;
+    // for(i=0; i<selectedItems.length; i++){
+    //     if(selectedItems[i] == ("usr_selection mi_id="+id)){
+    //         alert("ERROR! You already entered that item!");
+    //         tf = false;
+    //         break;
+    //     }
+    // }
+    // if(tf){
+    //     selectedItems.push("usr_selection mi_id="+id);
+    // }
+    // var s = "";
+    // for(i=0; i<selectedItems.length; i++){
+    //     s.append(selectedItems[i]);
+    // }
+    // alert(s);
+
+
+    // $.post("http://localhost:4567/getmsg",
+    //     jsonReqBody,
+    //     function (data, status) {
+    //
+    //         if (DEBUG) {
+    //             alert("usr_selection res_id="+id);
+    //             console.log(data);
+    //         }
+    //         chatResponse(data.responsemsg);
+    //         document.getElementById("chatbox").disabled = false;
+    //
+    //     });
+    //document.getElementById("chatbox").disabled = true;
+
+    // THE SELECTED MENU ITEM
+    //alert(document.getElementById("clickable-mi-"+id).innerText);
+}
+
+
+
 
 // WHEN THE FOOD MENU IS PRESENTED
 $(document).ready(function () {
