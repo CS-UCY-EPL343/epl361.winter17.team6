@@ -49,16 +49,19 @@ public class Main {
         post("/init", (req, res) -> {
             res.type("application/json");
             res.status(200);
+
             String username = req.queryParams("username");
-            Date conversationTimestamp = new Date();
+            String init_timestamp = req.queryParams("timestamp");
+
             String token = null;
             JSONObject jsonResponse = new JSONObject();
 
-            if( username == null ) {
+            if( username == null || init_timestamp == null ) {
                 res.status(412);
                 jsonResponse.put("error", "required parameters are not set");
                 return jsonResponse.toString();
             }
+            Date conversationTimestamp = new Date(Long.parseLong(init_timestamp));
             if (DEBUG)
                 System.out.println("New user logged in." +
                         "\n\tusername: " + username +
