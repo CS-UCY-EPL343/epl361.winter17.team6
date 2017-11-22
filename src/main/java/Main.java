@@ -149,7 +149,7 @@ public class Main {
 
             return jsonResponse.toString();
         });
-    post("/sendresponsemsg", (req, res) -> {
+    post("/sendresp", (req, res) -> {
         res.type("application/json");
         res.status(200);
         JSONObject jsonResponse = new JSONObject();
