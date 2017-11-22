@@ -1,7 +1,6 @@
 import org.eclipse.jetty.http.BadMessageException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.html.HTMLElement;
 
 import javax.swing.text.html.HTMLDocument;
 import java.awt.*;

@@ -20,6 +20,8 @@ var messages = [], //array that hold the record of each string in chat
 
 // The hello message from the chatbot to the user
 $(document).ready(function () {
+    document.getElementById("chatbox").disabled = false;
+
     botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:" +
         "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
         "<br />\"history\". To get the current chat log." +
@@ -32,7 +34,6 @@ $(document).ready(function () {
     //add the chatbot's name and message to the array messages
     d = new Date();
     messages.push(botMessage);
-
 
     // CONVERSATION INITIALIZATION
     var currentUser = users[Math.floor(Math.random() * 6)];
@@ -52,7 +53,6 @@ $(document).ready(function () {
             }
             //chatResponse(data);
         });
-
 
     // says the message using the text to speech function written below
     Speech(botMessage);
@@ -106,7 +106,8 @@ function newEntry() {
 
         var jsonReqBody = {
             'token': token,
-            'usrmsg': usrmessage,
+            'usrmsg': lastUserMessage,
+            'msgtostore': usrmessage,
             'timestamp': d.getTime()
         };
         $.post("http://localhost:4567/getmsg",
@@ -147,7 +148,6 @@ function chatResponse(data) {
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
-
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -211,9 +211,12 @@ function sendMenuItemId(id) {
     if (DEBUG) {
         //alert(id);
     }
-
     selectedItems.push("usr_selection mi_id=" + id);
     alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
+
+    if(selectedItems.length == 0){
+        $('#chatborder').append('<button id=\"submitbtn\" onclick=\"newEntry()\">SUBMIT</button>');
+    }
 
     selItemsIDs.push(id);
     var items = [], itemNumber = [];
@@ -270,6 +273,18 @@ function sendMenuItemId(id) {
     // THE SELECTED MENU ITEM
     //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
+
+
+
+// WHEN SUBMIT BTN IS PRESSED
+// $(document).ready(function () {
+//     $("#submitbtn").click(function () {
+//             console.log(lastUserMessage);
+//             newEntry();
+//         }
+//     );
+// });
+
 
 function countItems(arr) {
     var a = [], b = [], prev;
