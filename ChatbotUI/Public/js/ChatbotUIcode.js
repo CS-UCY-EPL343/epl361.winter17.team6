@@ -12,7 +12,7 @@ var messages = [], //array that hold the record of each string in chat
         username: 0,
         token: 0
     },
-    Username = 'Marios',
+    currentUser = 'Marios',
     token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
@@ -21,8 +21,8 @@ var messages = [], //array that hold the record of each string in chat
 // The hello message from the chatbot to the user
 $(document).ready(function () {
     document.getElementById("chatbox").disabled = false;
-
-    botMessage = "Hello " + Username + "! I'm FoodyBot! Please enter one of the following:" +
+    currentUser = users[Math.floor(Math.random() * 6)];
+    botMessage = "Hello " + currentUser + "! I'm FoodyBot! Please enter one of the following:" +
         "<br />\"souvlakia\". To find a specific restaurant which contains souvlakia." +
         "<br />\"burger\". To find a specific restaurant which contains burgers." +
         "<br />\"sandwich\". To find a specific restaurant which contains sandwiches." +
@@ -38,7 +38,7 @@ $(document).ready(function () {
     messages.push(botMessage);
 
     // CONVERSATION INITIALIZATION
-    var currentUser = users[Math.floor(Math.random() * 6)];
+
     var jsonReqBody = {
         'username': currentUser,
         'timestamp': d.getTime()
@@ -49,7 +49,8 @@ $(document).ready(function () {
         function (data, status) {
             token = data.token;
             // CURRENT USER SIGNED IN
-            $('#userlist').append("<p id='curruser'>" + "<b>" + "Current user signed in : " + "</b> " + token + "</p>");
+            $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
+            $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
             if (DEBUG) {
                 console.log("The token received from server is " + token);
             }
@@ -98,7 +99,7 @@ function newEntry() {
         //adds the value of the chatbox to the array messages
         //with current time
         d = new Date();
-        var usrmessage = "<b>" + Username + ":</b> " +
+        var usrmessage = "<b>" + currentUser + ":</b> " +
             "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
             "<p>" + lastUserMessage + "</p>";
         messages.push(usrmessage);
