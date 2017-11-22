@@ -19,7 +19,6 @@ public class ListIngredientResponse extends AbstractResponse {
         this.MenuIDs = MenuIDs;
     }
 
-
     public void set_menuIds_String(List<String> menuItems) {
         this.menuItems = menuItems;
     }
@@ -35,16 +34,16 @@ public class ListIngredientResponse extends AbstractResponse {
 
         menuList = menu.getMenuItems();
 
+        response.append("Αυτα που παραγγειλατε είναι: \n");
+
         /*For each Menu Item in menuList print */
         for (MenuItem mi : menuList) {
             try {
                 double price = mi.getPrice();
                 JSONObject curMiJson = mi.getJson();
-
                 response.append("<li class=\"" + MENU_ITEM_CLASS_NAME + "\" " + "id=\"" + MENU_ITEM_CLASS_NAME + "-" + mi.getId() + "\" onclick=\"sendMenuItemId(" + mi.getId() + ")\">" + "\t" + mi.getName() + "\t" + "Price: " + price + "\t" + "</li>");
             }catch(Exception e){
                 e.printStackTrace();
-                
             }
         }
         response.append("</ul>");
