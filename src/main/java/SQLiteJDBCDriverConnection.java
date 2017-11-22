@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
+ * 
  * Created by tomis on 21/11/2017.
  */
 public class SQLiteJDBCDriverConnection {
@@ -83,13 +84,14 @@ public class SQLiteJDBCDriverConnection {
         }
     }
 
-    public void insertConversation(String username, String conversationId) {
-        String insertConversationSql = "INSERT INTO Conversation (username, conv_id,  status) VALUES(?, ?, 0)";
+    public void insertConversation(String username, String conversationId , long init_timestamp) {
+        String insertConversationSql = "INSERT INTO Conversation (username, conv_id,init_timestamp,  status) VALUES(?, ?, ?,0)";
 
         try (
                 PreparedStatement pstmt = getConnection().prepareStatement(insertConversationSql);) {
             pstmt.setString(1, username);
             pstmt.setString(2, conversationId);
+            pstmt.setLong(3, init_timestamp);
             pstmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -180,7 +182,7 @@ public class SQLiteJDBCDriverConnection {
         }
 
         String conv_id = UUID.randomUUID().toString();
-        s.insertConversation(usrNames.get(0), conv_id);
+        s.insertConversation(usrNames.get(0), conv_id, 448484815);
         s.closeConnection();
     }
 }
