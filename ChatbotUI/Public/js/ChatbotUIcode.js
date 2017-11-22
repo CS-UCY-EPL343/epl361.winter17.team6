@@ -269,14 +269,16 @@ function sendMenuItemId(id) {
 
 function sendMenuSelection() {
     //TODO
-    var strItems = "<ul class=\"item\" >The items you have selected for your order are: <br />";
-    strItems.append('<ul class="item" >' +
-    for (var i = 0; i < items.length; i++) {
+    // alert("OK");
+    // alert(itemNumber.toString());
+    // alert(items.toString());
 
-          strItems.append("<li>" + itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + "</li>");
-        strItems.append();
-    }
-    strItems.append("</ul>");
+    var strItems = "<ul class=\"item\" >The items you have selected for your order are:";
+    for (var i = 0; i < itemNumber.length; i++)
+        strItems = strItems + "<li>" + itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + "</li> \n";
+    strItems += "</ul>";
+    console.log(strItems);
+    chatResponse(strItems);
 
     // botMessage = "<b>" + botName + ":</b> " +
     //     "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
@@ -288,36 +290,36 @@ function sendMenuSelection() {
     // $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
     // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     // console.log(messages.toString());
-    chatResponse(strItems);
+
 
     d = new Date();
     var jsonReqBody = {
         'token': token,
         'convid': conversationID,
-        'usrmsg': selectedItems,
+        'usrmsg': selectedItems.toString(),
         'msgtostore': botMessage,
         'timestamp': d.getTime()
     };
-    // $.post("http://localhost:4567/getmsg",
-    //     jsonReqBody,
-    //     function (data, status) {
-    //         if (DEBUG) {
-    //             alert("usr_selection res_id=" + id);
-    //             console.log(data);
-    //         }
-    //         document.getElementById("chatbox").disabled = false;
-    //         chatResponse(data.responsemsg);
-    //     });
+    $.post("http://localhost:4567/getmsg",
+        jsonReqBody,
+        function (data, status) {
+            if (DEBUG) {
+                alert("usr_selection res_id=" + id);
+                console.log(data);
+            }
+            document.getElementById("chatbox").disabled = false;
+            chatResponse(data.responsemsg);
+        });
     console.log(lastUserMessage);
 }
 
 // WHEN SUBMIT BTN IS PRESSED
- $(document).ready(function () {
-     $("#submitbtn").click(function () {
-         alert("HI");
-         }
-     );
- });
+//  $(document).ready(function () {
+//      $("#submitbtn").click(function () {
+//          alert("HI");
+//          }
+//      );
+//  });
 
 
 //
