@@ -13,6 +13,7 @@ var messages = [], //array that hold the record of each string in chat
         token: 0
     },
     currentUser = 'Marios',
+    conversationID = "",
     token = 0,
     talking = false, //when false the speach function doesn't work
     d = new Date(),
@@ -29,12 +30,13 @@ $(document).ready(function () {
         "<br />\"history\". To get the current chat log." +
         "<br />..." +
         "<br />Please enter one of the above choices.";
+
+    d = new Date();
     botMessage = "<b>" + botName + ":</b> " +
         "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
         "<p>" + botMessage + "</p>";
 
     //add the chatbot's name and message to the array messages
-    d = new Date();
     messages.push(botMessage);
 
     // CONVERSATION INITIALIZATION
@@ -47,11 +49,13 @@ $(document).ready(function () {
         jsonReqBody,
         function (data, status) {
             token = data.token;
+            conversationID = data.convid;
             // CURRENT USER SIGNED IN
             $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
             $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
             if (DEBUG) {
                 console.log("The token received from server is " + token);
+                console.log("THE CURRENT CONV ID IS : " + conversationID);
             }
             //chatResponse(data);
         });
@@ -72,6 +76,7 @@ $(document).ready(function () {
 });
 
 function newEntry() {
+    document.getElementById("chatbox").disabled = false;
 //if the message from the user isn't empty then run
     if (document.getElementById("chatbox").value != "") {
         //pulls the value from the chatbox ands sets it to lastUserMessage
@@ -92,6 +97,7 @@ function newEntry() {
 
         var jsonReqBody = {
             'token': token,
+            'convid': conversationID,
             'usrmsg': lastUserMessage,
             'msgtostore': usrmessage,
             'timestamp': d.getTime()
@@ -134,6 +140,7 @@ function chatResponse(data) {
 
 //runs the keypress() function when a key is pressed
 document.onkeypress = keyPress;
+
 //if the key pressed is 'enter' runs the function newEntry()
 function keyPress(e) {
     var x = e || window.event;
@@ -158,6 +165,7 @@ function sendId(id) {
         "<p>" + "Order from restaurant with ID: " + id + "</p>";
     var jsonReqBody = {
         'token': token,
+        'convid': conversationID,
         'usrmsg': "usr_selection res_id=" + id,
         'msgtostore': storedMsg,
         'timestamp': d.getTime()
@@ -170,11 +178,12 @@ function sendId(id) {
                 alert("usr_selection res_id=" + id);
                 console.log(data);
             }
+
+            document.getElementById("chatbox").disabled = true;
             chatResponse(data.responsemsg);
-            document.getElementById("chatbox").disabled = false;
 
         });
-    document.getElementById("chatbox").disabled = true;
+    document.getElementById("chatbox").disabled = false;
 
     // THE SELECTED RESTAURANT
     alert(document.getElementById("clickable-rest-" + id).innerText);
@@ -182,30 +191,36 @@ function sendId(id) {
 
 
 var selectedItems = [],
-    selItemsIDs = [];
-
+    selItemsIDs = [],
+    items = [],
+    itemNumber = [];
 // THE POST REQUEST AND RESPONSE FOR A SELECTION OF A RESTAURANT
 function sendMenuItemId(id) {
     $('#basket').empty();
     if (DEBUG) {
         //alert(id);
     }
-    selectedItems.push("usr_selection mi_id=" + id);
-    alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
 
     if (selectedItems.length == 0) {
-        $('#chatborder').append('<button id=\"submitbtn\" onclick=\"newEntry()\">SUBMIT</button>');
+        $('#chatborder').append('<ul class="bubble2">' +
+            '<button id=\"submitbtn\" onclick=\"sendMenuSelection()\">SUBMIT</button>' +
+            '</ul>');
+        $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+    }
+
+    selectedItems.push("usr_selection mi_id=" + id);
+    if (DEBUG) {
+        alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
     }
 
     selItemsIDs.push(id);
-    var items = [], itemNumber = [];
+
     [items, itemNumber] = countItems(selItemsIDs);
     for (var i = 0; i < items.length; i++) {
-        $('#basket').append('<ul class="item" >' +
-            itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + '</ul>');
+        $('#basket').append('<li class="item" >' +
+            itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + '</li>');
         $('#basket').scrollTop($('#basket')[0].scrollHeight);
     }
-
 
     // var jsonReqBody = {
     //     'token' : token,
@@ -234,7 +249,6 @@ function sendMenuItemId(id) {
     // }
     // alert(s);
 
-
     // $.post("http://localhost:4567/getmsg",
     //     jsonReqBody,
     //     function (data, status) {
@@ -253,14 +267,60 @@ function sendMenuItemId(id) {
     //alert(document.getElementById("clickable-mi-"+id).innerText);
 }
 
+function sendMenuSelection() {
+    //TODO
+    // alert("OK");
+    // alert(itemNumber.toString());
+    // alert(items.toString());
+
+    var strItems = "<ul class=\"item\" >The items you have selected for your order are:";
+    for (var i = 0; i < itemNumber.length; i++)
+        strItems = strItems + "<li>" + itemNumber[i] + " x " + document.getElementById("clickable-mi-" + items[i]).innerText + "</li> \n";
+    strItems += "</ul>";
+    console.log(strItems);
+    chatResponse(strItems);
+
+    // botMessage = "<b>" + botName + ":</b> " +
+    //     "<span id='chattimestamp'>" + days[d.getDay()] + " at " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "</span>" +
+    //     "<p>" + strItems + "</p>";
+
+    //add the chatbot's name and message to the array messages
+    // messages.push(botMessage);
+    //
+    // $('#chatborder').append('<ul class="bubble2" >' + messages[messages.length - 1] + '</ul>');
+    // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
+    // console.log(messages.toString());
+
+
+    d = new Date();
+    var jsonReqBody = {
+        'token': token,
+        'convid': conversationID,
+        'usrmsg': selectedItems.toString(),
+        'msgtostore': botMessage,
+        'timestamp': d.getTime()
+    };
+    $.post("http://localhost:4567/getmsg",
+        jsonReqBody,
+        function (data, status) {
+            if (DEBUG) {
+                alert("usr_selection res_id=" + id);
+                console.log(data);
+            }
+            document.getElementById("chatbox").disabled = false;
+            chatResponse(data.responsemsg);
+        });
+    console.log(lastUserMessage);
+}
+
 // WHEN SUBMIT BTN IS PRESSED
-// $(document).ready(function () {
-//     $("#submitbtn").click(function () {
-//             console.log(lastUserMessage);
-//             newEntry();
-//         }
-//     );
-// });
+//  $(document).ready(function () {
+//      $("#submitbtn").click(function () {
+//          alert("HI");
+//          }
+//      );
+//  });
+
 
 //
 // $(document).ready(function () {
@@ -306,15 +366,6 @@ function Speech(say) {
         speechSynthesis.speak(utterance);
     }
 }
-
-// WHEN THE FOOD MENU IS PRESENTED
-$(document).ready(function () {
-    $("clickable-mi").click(function () {
-            console.log(lastUserMessage);
-            newEntry();
-        }
-    );
-});
 
 /**
  * Used to count the number of items in the basket individually

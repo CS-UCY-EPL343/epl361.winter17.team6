@@ -16,6 +16,7 @@ import java.util.List;
 public class TextParser {
 
     private String msg;
+    private static List<String> anammaWords = getWordListFromFile("WordLists/Anamma_Wordlist.txt");
     private static List<String> wantWords = getWordListFromFile("WordLists/Want_Wordlist.txt");
     private static List<String> burgerWords = getWordListFromFile("WordLists/Burgers_Wordlist.txt");
     private static List<String> coffeeWords = getWordListFromFile("WordLists/Coffee_Wordlist.txt");
@@ -51,12 +52,23 @@ public class TextParser {
         } else {
             List<String> mainKeyWords = KeyMapper.getMainKeyWords(tokens);
             addWords(mainKeyWords, helpWords);
-            if (!mainKeyWords.contains("help")) {
+            if (finalKeyWords.isEmpty()) {
+                addWords(mainKeyWords, anammaWords);
+                if (!finalKeyWords.isEmpty()) {
+                    List<String> idList = new LinkedList<>();
+                    idList.add(finalKeyWords.get(0));
+                    finalKeyWords.clear();
+                    addIds(idList);
+                    return finalKeyWords;
+                }
+            }
+            if (finalKeyWords.isEmpty()) {
                 addWords(mainKeyWords, wantWords);
                 addWords(mainKeyWords, burgerWords);
                 addWords(mainKeyWords, coffeeWords);
                 addWords(mainKeyWords, sandwichWords);
                 addWords(mainKeyWords, souvlakiaWords);
+                return finalKeyWords;
             }
         }
 
@@ -113,10 +125,11 @@ public class TextParser {
     public static void main(String args[]) {
 //        TextParser tp = new TextParser("I want souvlakia help");
 //        TextParser tp = new TextParser("I want burgers");
-        TextParser tp = new TextParser("I want frape");
+//        TextParser tp = new TextParser("asd");
 //        TextParser tp = new TextParser("I want a sandwich");
 //        TextParser tp = new TextParser("I want souvlakia");
 //        TextParser tp = new TextParser("usr_selection res_id=123456");
+        TextParser tp = new TextParser("I want souvlakia pou to anama");
         List<String> keyWords = tp.getKeyWords();
         System.out.println(keyWords);
     }

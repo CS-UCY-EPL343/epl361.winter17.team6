@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static spark.Spark.*;
@@ -24,6 +25,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        sqlDb.createTablesBasedOnSqlFile();
         options("/*",
                 (request, response) -> {
 
@@ -55,7 +57,10 @@ public class Main {
             System.out.println(init_timestamp);
 
             String token = null;
+            boolean user_already_in_db = sqlDb.isUserInserted(username);
             JSONObject jsonResponse = new JSONObject();
+            jsonResponse.put("user_already_in_db", user_already_in_db);
+            String conversationId = null; UUID.randomUUID().toString();
 
             if( username == null || init_timestamp == null ) {
                 res.status(412);
@@ -68,21 +73,33 @@ public class Main {
                         "\n\tusername: " + username +
                         "\n\tconversation timestamp: " + conversationTimestamp +
                         "\n\tdate is: " + conversationTimestamp.toString());
-            if (sqlDb.isUserInserted(username)) {
+            if (user_already_in_db) {
                 token = sqlDb.getToken(username);
+                conversationId = sqlDb.getConversationId(username);
                 if (DEBUG)
                     System.out.println("User" + username + " is already logged in the db." +
                             "\n\tThe token is retrieved from the DB" +
-                            "\n\ttoken: " + token);
+                            "\n\ttoken: " + token +
+                            "\n\tconvid: "+ conversationId );
+                List<JSONObject> messagesRetrieved = sqlDb.getMessages(username,conversationId);
+                jsonResponse.put("messages_retrieved", messagesRetrieved );
             } else {
                 token = (UUID.randomUUID()).toString();
+                conversationId =(UUID.randomUUID()).toString();
                 sqlDb.insertUser(username,token);
                 System.out.println("User " + username + " not yet in db." +
                         "\n\tThe token created is " +
-                        "\n\ttoken: " + token);
+                        "\n\ttoken: " + token +
+                        "\n\tThe convid created is " +
+                        "\n\tconvid: " +conversationId);
+                sqlDb.insertConversation(username, conversationId, Long.parseLong(init_timestamp));
             }
+
+
             app.addNewToken(token);
+            System.out.println("The conversation id that was created is: " + conversationId);
             jsonResponse.put("token", token);
+            jsonResponse.put("convid", conversationId);
 
             return jsonResponse.toString();
         });
@@ -96,6 +113,7 @@ public class Main {
             String msgToStore = req.queryParams("msgtostore");
             String userToken = req.queryParams("token");
             String timestamp  = req.queryParams("timestamp");
+            String conversationId = req.queryParams("convid");
 
             if (usrMsg == null || userToken == null || timestamp == null) {
                 res.status(412);
@@ -113,11 +131,25 @@ public class Main {
                         "\n\tusrmsg: " + usrMsg  +
                         "\n\tmsgtostore: " + msgToStore);
 
+            if (DEBUG)
+                System.out.println("Check if conversationUser (retrieved from db): " + username + " send a new message." +
+                        "\n\ttoken:  " + userToken +
+                        "\n\ttimestamp " + userMsgTimestamp +
+                        "\n\tusrmsg: " + usrMsg  +
+                        "\n\tmsgtostore: " + msgToStore +
+                        "\n\tconvid: " + conversationId);
+            String userMessageId = UUID.randomUUID().toString();
+            //store the message from the user to the database
+            sqlDb.insertMessage(username, conversationId,userMessageId,Long.parseLong(timestamp), true, msgToStore);
+            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
+            //store the chatbot responce to the database
+            String responseMessageId = UUID.randomUUID().toString();
+            sqlDb.insertMessage(username, conversationId,responseMessageId,Long.parseLong(timestamp), false, responseMsg);
 
             jsonResponse.put("token", userToken);
-
-            String responseMsg = app.getChatbotResponse(usrMsg, userToken);
             jsonResponse.put("responsemsg", responseMsg);
+            jsonResponse.put("usermsgid", userMessageId );
+
             return jsonResponse.toString();
         });
     }

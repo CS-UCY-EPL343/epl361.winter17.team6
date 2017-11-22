@@ -1,4 +1,4 @@
-CREATE TABLE Conversation (
+CREATE TABLE IF NOT EXISTS Conversation (
   username TEXT    NOT NULL,
   conv_id  TEXT    NOT NULL,
   init_timestamp INTEGER NOT NULL,
