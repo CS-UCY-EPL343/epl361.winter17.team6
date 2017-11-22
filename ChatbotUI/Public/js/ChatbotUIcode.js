@@ -50,6 +50,23 @@ $(document).ready(function () {
         function (data, status) {
             token = data.token;
             conversationID = data.convid;
+            var isRecover = data.user_already_in_db;
+
+            if(isRecover){
+                var msgsReceived = data.messages_retrieved;
+                for(var i=0; i<msgsReceived.length; i++){
+                    if(i%2 == 0){
+                        msgsReceived[i]
+                    }
+                    else{
+                        msgsReceived[i]
+                    }
+
+                }
+//TODO
+
+            }
+
             // CURRENT USER SIGNED IN
             $('#userlist').append("<div id='currusertoken'>" + "<b>" + "Current user signed in token: " + "</b> " + token + "</div>");
             $('#userlist').append("<div id='currusername'>" + "<b>" + "Current username: " + "</b> " + currentUser + "</div>");
@@ -208,7 +225,8 @@ function sendMenuItemId(id) {
         $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     }
 
-    selectedItems.push("usr_selection mi_id=" + id);
+    selectedItems.push("usr_menu mi_id=" + id);
+
     if (DEBUG) {
         alert("Item: " + document.getElementById("clickable-mi-" + id).innerText + " ADDED TO BASKET!");
     }
@@ -291,7 +309,7 @@ function sendMenuSelection() {
     // $('#chatborder').scrollTop($('#chatborder')[0].scrollHeight);
     // console.log(messages.toString());
 
-
+    alert(selectedItems.toString());
     d = new Date();
     var jsonReqBody = {
         'token': token,
