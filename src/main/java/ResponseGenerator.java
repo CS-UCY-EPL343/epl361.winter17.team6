@@ -11,7 +11,7 @@ public class ResponseGenerator {
 
 
     List <String> keyWords;
-    private int selectedRestaurant=0 ;
+    private int selectedMenu =0 ;
     int msgCode ;
     ServiceCaller sc;
 
@@ -59,10 +59,9 @@ public class ResponseGenerator {
             case CHOOSE_PAYMENT:
                 break;
 
-            case LIST_ITEMS
-
+            case LIST_ITEMS:
                 abstract_response = new ChoosePaymentMethodResponse();
-                ((ListIngredientResponse)abstract_response).setRestaurantId(selectedMenuIDs);
+           //     ((ListIngredientResponse)abstract_response).set_menuIds(selectedMenuIDs);
                 abstract_response = new ChoosePaymentMethodResponse();
 
                 break;
@@ -70,7 +69,7 @@ public class ResponseGenerator {
             case LIST_BRANCH_MENU:
 
                 abstract_response  = new ListBranchMenu();
-                ((ListBranchMenu)abstract_response).setRestaurantId(selectedRestaurant);
+           //     ((ListBranchMenu)abstract_response).setRestaurantId(selectedRestaurant);
 
                 break;
 
@@ -139,7 +138,7 @@ public class ResponseGenerator {
     }
     public  void  setselectedRest(int sR){
 
-        this.selectedRestaurant = sR;
+      //  this.selectedRestaurant = sR;
 
 
     }
